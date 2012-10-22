@@ -3,6 +3,7 @@ var s_CloseNormal = "res/CloseNormal.png";
 var s_CloseSelected = "res/CloseSelected.png";
 
 var s_TestPlayer = "res/images/test-player.png";
+var s_TestPlayerBlock = "res/images/player-block.png";
 
 var s_TestTilesheet = "res/tilemaps/test-tilemap-tilesheet.png";
 var s_TestTilesheet2 = "res/tilemaps/fixed-ortho-test2.png";
@@ -12,9 +13,10 @@ var g_ressources = [
     {type:"image", src:s_HelloWorld},
     {type:"image", src:s_CloseNormal},
     {type:"image", src:s_CloseSelected},
-     {type:"image", src:s_TestPlayer},
+    {type:"image", src:s_TestPlayer},
+    {type:"image", src:s_TestPlayerBlock},
     {type:"image", src:s_TestTilesheet},
-     {type:"image", src:s_TestTilesheet2},
+    {type:"image", src:s_TestTilesheet2},
 
     //plist
 

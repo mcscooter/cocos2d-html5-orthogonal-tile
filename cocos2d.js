@@ -37,7 +37,11 @@
         //SingleEngineFile:'',
         appFiles:[
             'src/resource.js',
+            'src/SCEvent.js',
+            'src/SCListener.js',
+            'src/SCMediator.js',
             'src/SCEntity.js',
+            'src/SCTileMap.js',
             'src/SCPlayer.js',
             'src/SCTMXTiledScene.js',
             'src/SCSceneManager.js',

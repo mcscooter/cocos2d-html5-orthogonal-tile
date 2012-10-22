@@ -6,7 +6,7 @@
  </tileset>
  <layer name="foreground" width="32" height="32">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3NMQ4AIAgEQVD8/5e1oCDEBo1WO8kWhOJEAAAAAACoUW9359+LvZ/aqns39DAL+6NYNAGhwUWJABAAAA==
+   H4sIAAAAAAAAA6WWwQ7DMAhD2yX//807RUKenyHaIVK3JhiMTfo+z/OW9SlLf39gH+05azV73BnKh7DpfIef8qHYXRzFWma52l2M9Nz1gXq5nt+6ulq7Gm9yWA0O6e4fbId/e+4f7Bqr1r/N+xsv3Obk8DUHqjvpJOWr/y2Jucu68f0U1+nfabDmMfFH55c0C9JZ4qHLYYqd6jn4lYMbbaX9ik8anmqyw9O9E2zNQbU5qdXpd9J3Ou96Qr13tRM2edvlcfxBntIepztv6m/HgTvrvEU8pRlGfNS5dfqg3xSETfhpbiVe3KxKvnZxJnNzoo3KR6df8gXtc/k4jSkXpBGKRxpwHDgvacwNsSfYEy+6b1n1KHntRgMU39WunLn7q9PmxAtptigHen9NvZD0qPcHceI0uQFn2ifnccVPvuq+raiuE5tqr7xQ/IqfvF6fqccu1+57nvqxAUc1lXhV/jsdEef0Lu1/BT+dpZ5/AVcXitgAEAAA
   </data>
  </layer>
 </map>

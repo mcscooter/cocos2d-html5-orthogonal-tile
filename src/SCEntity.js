@@ -6,7 +6,6 @@ var SCEntity = cc.Sprite.extend({
    
    ctor:function (filename) {	
    	this._super(filename);
-   	// this should probably only fire if called directly
    	cc.log("SCEntity.js ctor()");
    	// needed for JS-Bindings compatibility
     cc.associateWithNative( this, cc.Sprite );

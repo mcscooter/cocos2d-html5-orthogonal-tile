@@ -25,18 +25,6 @@ var SCGameMenu = cc.Layer.extend({
     //    testSprite.setPosition(cc.p(0, 0));
       //  this.addChild(testSprite, 3);
        // var actionTo1 = cc.MoveTo.create(2, cc.p(300, 300));
-
-       var thisTexture = cc.TextureCache.getInstance().addImage(s_TestPlayer);
-
-        var testPlayer = new SCPlayer(thisTexture, cc.rect(0, 0, 32, 64));
-                
-    	testPlayer.setPosition(cc.p(500,250));
-    	this.addChild(testPlayer);
-    
-    	
-    	var testSprite = new cc.Sprite(thisTexture, cc.rect(0, 0, 32, 64));
-    	testSprite.setPosition(cc.p(100,100));
-    	this.addChild(testSprite);
     
         return true;
     },
@@ -58,7 +46,7 @@ var SCGameMenu = cc.Layer.extend({
         cc.SpriteFrameCache.purgeSharedSpriteFrameCache();
         cc.TextureCache.purgeSharedTextureCache();
          //director.purgeDirector();
-        director.replaceScene(new SCTMXTiledScene);
+        director.replaceScene(new Level1);
         cc.log("Director.isCleanupToScene = " + director.isSendCleanupToScene());
     },
     onTouchesCancelled:function (touches, event) {

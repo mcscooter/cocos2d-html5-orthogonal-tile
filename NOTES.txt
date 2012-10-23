@@ -1,0 +1,28 @@
+NEXT STEPS:
+
+
+- do next:
+
+
+unregister events and completely unregister entities from listening to events (may need to assign GUID to all entities and add it to listener)
+send event to mediator with arguments (touch position, map touch position, tile GID, ETC) to player
+player registeres move event that causes the listening map to move?
+player has a moveTO function like grave peril?
+
+- Make an event class to replace SCListeners when not a listener
+- Make SCListener an extension of Events? or do Listneers get and event?
+
+- Make the map / payer movement and animation work on events / messages
+
+- Need to be able to pass listeners and callbacks back to the mediator when a message is sent from it
+- test the message system a lot
+
+-- 
+
+- MAKE ALL THIS BASED ON THE MESSAGE SYSTEM
+- Basic player movement (tap to move only)
+- Basic tile map meta data layer read in (movement only)
+- Player movement based on tile map meta data
+- 
+
+

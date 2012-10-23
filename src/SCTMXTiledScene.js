@@ -55,13 +55,22 @@ var SCTileLayer = cc.Layer.extend({
 
         return true;
     },
+    // Handles touch up and mouse up
     onTouchEnded:function (touch, event) {
+    	
+    	// Get touch info and map info
+    	var touchLocation = touch.getLocation();
+    	var tileMap = this.getChildByTag(TAG_TILE_MAP);
+    	var layer = tileMap.layerNamed("foreground");
+    	var mapLocation = tileMap.getPosition();
+    	var mapTouchLocation = cc.pSub(touchLocation, mapLocation);
+    	
     	
     	// send touch event to mediator
     	// test sending an arbitrary object to the mediator to be sent to the callback
     	var args = new Object();
-    	args.point = cc.p(123,456);
-    	args.testNumber = 9182736465;
+    	args.touchLocation = touchLocation;
+    	args.mapTouchLocation = mapTouchLocation;
     	var event = new SCEvent(MSG_LAYER_TOUCHED, this, args);
        	this.mediator.send(event);
        	

@@ -15,7 +15,7 @@ var SCPlayer = SCEntity.extend({
    
    layerTouched:function(args){
 	   cc.log("SCPlayer layerTouched()");  
-	   cc.log("\t args.point.x = " + args.testNumber);  
+	   cc.log("\t args.touchLocation.x = " + args.touchLocation.x);  
 	   
    }
    

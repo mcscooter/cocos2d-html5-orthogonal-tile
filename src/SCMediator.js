@@ -30,8 +30,6 @@ var SCMediator = cc.Class.extend({
 	    		cc.log("\t this.listeners[j].messageID = " + this.listeners[j].event.messageID);
 		    	if(this.recieved[i].messageID == this.listeners[j].event.messageID){
 		    	
-			    	//cc.log("\t this.listeners[j].messageID = " + this.listeners[j].event.messageID);
-			    	//cc.log("\t args.point.x = " + this.recieved[i].args.point.x);
 			    	this.listeners[j].callback.call(undefined, this.recieved[i].args);
 			    	
 		    	}

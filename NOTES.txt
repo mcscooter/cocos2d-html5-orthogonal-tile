@@ -4,7 +4,7 @@ NEXT STEPS:
 - do next:
 
 
-unregister events and completely unregister entities from listening to events (may need to assign GUID to all entities and add it to listener)
+add an unregister self callback to all entities to allow them to be unregistered after having other callbacks performed on themselves properly
 send event to mediator with arguments (touch position, map touch position, tile GID, ETC) to player
 player registeres move event that causes the listening map to move?
 player has a moveTO function like grave peril?

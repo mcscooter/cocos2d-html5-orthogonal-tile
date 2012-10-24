@@ -3,14 +3,15 @@ var TAG_TILE_MAP = 1;
 var TAG_MEDIATOR = 2;
 var TAG_PLAYER = 3;
 
+
 var MSG_LAYER_TOUCHED = 1;
 var MSG_PLAYER_MOVED = 2;
-
+var MSG_MAP_TOUCHED = 3;
 
 
 var SCTileLayer = cc.Layer.extend({
 	
-	
+	_map:null,
 	ctor:function () {
         this.setTouchEnabled(true);
     },
@@ -20,6 +21,8 @@ var SCTileLayer = cc.Layer.extend({
 
     	this._super();
     	var s = cc.Director.getInstance().getWinSize();
+       
+       var tileMap = this.getChildByTag(TAG_TILE_MAP);
        
     	//this.initPlayer();
     	// make a player entity
@@ -40,8 +43,13 @@ var SCTileLayer = cc.Layer.extend({
        	// testArg is necessary so the resulting call doesn't get undefined arguments
        	var callback = function(testArg){testPlayer.layerTouched(testArg);};
        	var layerTouchedEvent = new SCEvent(MSG_LAYER_TOUCHED, this.getChildByTag(TAG_PLAYER));
-       	var testListener = new SCListener(layerTouchedEvent, callback);
+       	var testListener = new SCListener(layerTouchedEvent, callback, this.getChildByTag(TAG_PLAYER));
        	this.mediator.register(testListener);
+       	
+       	var mapCallback = function(testArg){tileMap.testCallback(testArg);};
+       	var mapTouchedEvent = new SCEvent(MSG_MAP_TOUCHED, tileMap);
+       	var testMapListener = new SCListener(mapTouchedEvent, mapCallback, tileMap);
+       	this.mediator.register(testMapListener);
      	
         // update each frame
        	this.scheduleUpdate();
@@ -73,6 +81,14 @@ var SCTileLayer = cc.Layer.extend({
     	args.mapTouchLocation = mapTouchLocation;
     	var event = new SCEvent(MSG_LAYER_TOUCHED, this, args);
        	this.mediator.send(event);
+       	var event2 = new SCEvent(MSG_MAP_TOUCHED, this, args);
+       	this.mediator.send(event2);
+       	
+       	// test the mediator unregister functionality
+       	//
+       	// This creates a condition that the unregister funcitonality beats the event callbacks being sent
+       	// need a remove self callback on all entities? 
+       	this.mediator.unregister(tileMap);
        	
     },
     onTouchCancelled:function (touch, event) {
@@ -118,6 +134,7 @@ var Level1 = SCTileLayer.extend({
         map.initWithTMXFile(levelName);
         map.setPosition(cc.p(0,0));
         this.addChild(map, 0, TAG_TILE_MAP);
+        
 	    
     }
 

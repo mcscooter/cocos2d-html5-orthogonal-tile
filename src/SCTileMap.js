@@ -10,6 +10,10 @@ var SCTileMap = cc.TMXTiledMap.extend({
    	// needed for JS-Bindings compatibility
     cc.associateWithNative( this, cc.TMXTiledMap );
      
+   },
+   
+   testCallback:function(args){
+	   cc.log("SCTileMap testCallback()");
    }
     
 });

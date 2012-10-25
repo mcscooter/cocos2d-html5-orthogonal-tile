@@ -50,6 +50,10 @@ var SCTileLayer = cc.Layer.extend({
        	var mapTouchedEvent = new SCEvent(MSG_MAP_TOUCHED, tileMap);
        	var testMapListener = new SCListener(mapTouchedEvent, mapCallback, tileMap);
        	this.mediator.register(testMapListener);
+       	// add 3 more listeners to test removing things from the queue
+       	this.mediator.register(testListener);
+       	this.mediator.register(testListener);
+       	this.mediator.register(testMapListener);
      	
         // update each frame
        	this.scheduleUpdate();
@@ -86,9 +90,8 @@ var SCTileLayer = cc.Layer.extend({
        	
        	// test the mediator unregister functionality
        	//
-       	// This creates a condition that the unregister funcitonality beats the event callbacks being sent
-       	// need a remove self callback on all entities? 
-       	this.mediator.unregister(tileMap);
+       	// this.mediator.unregisterObject(tileMap); // might use this when getting rid of an object. This must complete before object is erased, so objects to be erased should be added to a clean up queue that happens either at the very end of a frame or at the beginning of the next to be safe.
+       	this.mediator.unregisterListenerForObject(MSG_MAP_TOUCHED, tileMap);
        	
     },
     onTouchCancelled:function (touch, event) {

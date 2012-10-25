@@ -4,13 +4,14 @@ NEXT STEPS:
 - do next:
 
 
-add an unregister self callback to all entities to allow them to be unregistered after having other callbacks performed on themselves properly
-send event to mediator with arguments (touch position, map touch position, tile GID, ETC) to player
+add a cleanup() method to the main game loop and a removal queue for objects to trash so we can safely remove things that may still be needed in the game loop
+
+add a physics component with things like dx, dy, weight (affects gravity)
+add physics logic with a loop that is passed the list of all game entities. No gravity for now, but can add later. 
+
 player registeres move event that causes the listening map to move?
 player has a moveTO function like grave peril?
 
-- Make an event class to replace SCListeners when not a listener
-- Make SCListener an extension of Events? or do Listneers get and event?
 
 - Make the map / payer movement and animation work on events / messages
 
@@ -20,7 +21,7 @@ player has a moveTO function like grave peril?
 -- 
 
 - MAKE ALL THIS BASED ON THE MESSAGE SYSTEM
-- Basic player movement (tap to move only)
+- Basic player movement (tap to move only or hold to move?)
 - Basic tile map meta data layer read in (movement only)
 - Player movement based on tile map meta data
 - 

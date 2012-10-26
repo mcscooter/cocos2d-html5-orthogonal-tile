@@ -41,6 +41,8 @@
             'src/SCListener.js',
             'src/SCMediator.js',
             'src/SCEntity.js',
+            'src/SCPhysicsComponent.js',
+            'src/SCPhysics.js',
             'src/SCTileMap.js',
             'src/SCPlayer.js',
             'src/SCTMXTiledScene.js',

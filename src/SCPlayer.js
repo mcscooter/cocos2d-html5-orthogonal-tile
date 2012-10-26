@@ -7,6 +7,7 @@ var SCPlayer = SCEntity.extend({
    ctor:function (filename) {
    	this._super(filename);
    	cc.log("SCPlayer ctor()");
+   	this.physicsComponent = new SCPhysicsComponent();
    },
    
    move:function(){

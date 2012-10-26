@@ -58,6 +58,8 @@
                 <file name="src/SCListener.js"/>
                 <file name="src/SCMediator.js"/>
                 <file name="src/SCEntity.js"/>
+                <file name="src/SCPhysicsComponent.js"/>
+                <file name="src/SCPhysics.js"/>
                 <file name="src/SCTileMap.js"/>
                 <file name="src/SCPlayer.js"/>
                 <file name="src/SCTMXTiledScene.js"/>

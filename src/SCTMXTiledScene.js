@@ -39,6 +39,9 @@ var SCTileLayer = cc.Layer.extend({
        	// set up the listener and messaging mediator
        	this.mediator = new SCMediator();
        	
+       	// add the physics engine
+       	this.physics = new SCPhysics();
+       	
        	// test the mediator, look at onTouchEnded for next step
        	// testArg is necessary so the resulting call doesn't get undefined arguments
        	var callback = function(testArg){testPlayer.layerTouched(testArg);};

@@ -4,7 +4,7 @@ NEXT STEPS:
 - do next:
 
 
-add a cleanup() method to the main game loop and a removal queue for objects to trash so we can safely remove things that may still be needed in the game loop
+
 
 add a physics component with things like dx, dy, weight (affects gravity)
 add physics logic with a loop that is passed the list of all game entities. No gravity for now, but can add later. 

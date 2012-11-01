@@ -8,13 +8,14 @@ var SCEntity = cc.Sprite.extend({
    		this._super(filename);
    		cc.log("SCEntity.js ctor()");
    		this.physicsComponent = new SCPhysicsComponent();
+   		this.drawHitbox = false;
    		// needed for JS-Bindings compatibility
    		cc.associateWithNative( this, cc.Sprite );
    },
    
    draw:function (){
    		this._super();
-   		if(this.physicsComponent.hitbox){
+   		if(this.physicsComponent.hitbox && this.drawHitbox){
 	   		cc.renderContext.fillStyle = "rgba(255,255,255,255)";
 	   		cc.renderContext.strokeStyle = "rgba(255,255,255,255)";
 	   		cc.renderContext.lineWidth = "1";

@@ -5,6 +5,7 @@ var SCPhysicsComponent = cc.Class.extend({
     	cc.log("SCPhysicsComponent ctor()");
     	this.velocity = new cc.p(0,0);
     	this.hitbox = null;
+    	this.mass = 0;
     	
     },
     

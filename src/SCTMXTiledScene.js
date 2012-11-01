@@ -8,6 +8,11 @@ var MSG_LAYER_TOUCHED = 1;
 var MSG_PLAYER_MOVED = 2;
 var MSG_MAP_TOUCHED = 3;
 
+// 
+var drawHitboxes = true;
+
+// an array of the entities in the game
+var entities = new Array();
 
 var SCTileLayer = cc.Layer.extend({
 	
@@ -31,6 +36,7 @@ var SCTileLayer = cc.Layer.extend({
     	testPlayer.setPosition(cc.p(128,32));
     	testPlayer.physicsComponent.setHitbox(cc.rect(2,2,28,28));
     	cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
+    	entities.push(testPlayer);
     	this.addChild(testPlayer, 99, TAG_PLAYER);
        	
        	
@@ -62,10 +68,13 @@ var SCTileLayer = cc.Layer.extend({
        	this.mediator.register(testListener);
        	this.mediator.register(testMapListener);
      	
+     	// set all hitboxes to draw or not.
+     	this.setEntityDrawHitboxes();
+     	
         // update each frame
        	this.scheduleUpdate();
        	
-       	this.drawHitboxes();
+       
        	
     },
    
@@ -132,7 +141,7 @@ var SCTileLayer = cc.Layer.extend({
 	    
 	    this.mediator.update();
 	    
-	    //this.drawHitboxes();
+	   
 	    
       },
       
@@ -143,6 +152,13 @@ var SCTileLayer = cc.Layer.extend({
         cc.renderContext.lineWidth = "10";
         var vertices = [cc.p(0, 0), cc.p(50, 50), cc.p(100, 50), cc.p(100, 100), cc.p(50, 100) ];
         cc.drawingUtil.drawPoly(vertices, 5, false);
+    },
+    
+    setEntityDrawHitboxes:function(){
+	    for(var i=0; i<entities.length; i++){
+		    entities[i].drawHitbox = drawHitboxes;
+	    }
+	    
     }
 
     

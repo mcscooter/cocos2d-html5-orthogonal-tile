@@ -7,7 +7,13 @@ var SCPlayer = SCEntity.extend({
    ctor:function (filename) {
    	this._super(filename);
    	cc.log("SCPlayer ctor()");
-   	this.physicsComponent = new SCPhysicsComponent();
+   },
+   
+   // put any special canvas drawing you might need in here. Hitbox is drawn on Entity
+   draw:function (){
+   this._super();
+  
+  		 
    },
    
    move:function(){

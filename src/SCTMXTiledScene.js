@@ -29,12 +29,16 @@ var SCTileLayer = cc.Layer.extend({
         var thisTexture = cc.TextureCache.getInstance().addImage(s_TestPlayerBlock);
         var testPlayer = new SCPlayer(thisTexture, cc.rect(0, 0, 32, 64));     
     	testPlayer.setPosition(cc.p(128,32));
+    	testPlayer.physicsComponent.setHitbox(cc.rect(2,2,28,28));
+    	cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
     	this.addChild(testPlayer, 99, TAG_PLAYER);
        	
        	
        	// test scrolling the map
-       	var actionTo = cc.MoveTo.create(5, cc.p(-128, 0));
-       	this.getChildByTag(TAG_TILE_MAP).runAction(actionTo);
+       	//var actionTo = cc.MoveTo.create(5, cc.p(-128, 0));
+       	//this.getChildByTag(TAG_TILE_MAP).runAction(actionTo);
+       	
+       	
        	
        	// set up the listener and messaging mediator
        	this.mediator = new SCMediator();
@@ -60,6 +64,8 @@ var SCTileLayer = cc.Layer.extend({
      	
         // update each frame
        	this.scheduleUpdate();
+       	
+       	this.drawHitboxes();
        	
     },
    
@@ -96,6 +102,13 @@ var SCTileLayer = cc.Layer.extend({
        	// this.mediator.unregisterObject(tileMap); // might use this when getting rid of an object. This must complete before object is erased, so objects to be erased should be added to a clean up queue that happens either at the very end of a frame or at the beginning of the next to be safe.
        	this.mediator.unregisterListenerForObject(MSG_MAP_TOUCHED, tileMap);
        	
+       	
+       	// test moving the player
+       	var actionTo = cc.MoveTo.create(.5, touchLocation);
+       	this.getChildByTag(TAG_PLAYER).runAction(actionTo);
+       	
+       	
+       	
     },
     onTouchCancelled:function (touch, event) {
     },
@@ -119,7 +132,18 @@ var SCTileLayer = cc.Layer.extend({
 	    
 	    this.mediator.update();
 	    
-      }
+	    //this.drawHitboxes();
+	    
+      },
+      
+    drawHitboxes:function(){
+    	cc.log("SCTMXTiledScene drawHitboxes()");
+	    cc.renderContext.strokeStyle = "rgba(255,255,255,1)";
+        //glLineWidth(10);
+        cc.renderContext.lineWidth = "10";
+        var vertices = [cc.p(0, 0), cc.p(50, 50), cc.p(100, 50), cc.p(100, 100), cc.p(50, 100) ];
+        cc.drawingUtil.drawPoly(vertices, 5, false);
+    }
 
     
 });

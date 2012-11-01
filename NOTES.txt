@@ -4,9 +4,11 @@ NEXT STEPS:
 - do next:
 
 
+add configuration files for things like the player, bad guys OR read it in through TMXTiledMap?
 
+add camera that follows the player (scrolls the map and other entities around the player)
+add proper player movement using physics, velocity, etc
 
-add a physics component with things like dx, dy, weight (affects gravity)
 add physics logic with a loop that is passed the list of all game entities. No gravity for now, but can add later. 
 
 player registeres move event that causes the listening map to move?

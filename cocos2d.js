@@ -37,6 +37,7 @@
         //SingleEngineFile:'',
         appFiles:[
             'src/resource.js',
+            'src/SCGameConfig.js',
             'src/SCEvent.js',
             'src/SCListener.js',
             'src/SCMediator.js',

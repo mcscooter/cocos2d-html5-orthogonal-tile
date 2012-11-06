@@ -8,9 +8,6 @@ var MSG_LAYER_TOUCHED = 1;
 var MSG_PLAYER_MOVED = 2;
 var MSG_MAP_TOUCHED = 3;
 
-// 
-var drawHitboxes = true;
-
 // an array of the entities in the game
 var entities = new Array();
 
@@ -25,12 +22,20 @@ var SCTileLayer = cc.Layer.extend({
     onEnter:function () {
 
     	this._super();
+    	// get important info from the game configuration and Cocos2D engine
     	var s = cc.Director.getInstance().getWinSize();
+    	
+    	var gameConfig = new SCGameConfig();
+    	
+    	// Make a map from a Tiled map file. If there are problems here check the compression on the file from within Tiled.
+    	var tileMap = new SCTileMap();
+        tileMap.initWithTMXFile(gameConfig.maps.level1.filename);
+        tileMap.setPosition(cc.p(0,0));
+        this.addChild(tileMap, 0, TAG_TILE_MAP);
+    	
        
-       var tileMap = this.getChildByTag(TAG_TILE_MAP);
-       
-    	//this.initPlayer();
-    	// make a player entity
+    	// Make a player entity
+    	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted
         var thisTexture = cc.TextureCache.getInstance().addImage(s_TestPlayerBlock);
         var testPlayer = new SCPlayer(thisTexture, cc.rect(0, 0, 32, 64));     
     	testPlayer.setPosition(cc.p(128,32));
@@ -69,13 +74,11 @@ var SCTileLayer = cc.Layer.extend({
        	this.mediator.register(testMapListener);
      	
      	// set all hitboxes to draw or not.
-     	this.setEntityDrawHitboxes();
+     	this.setEntityDrawHitboxes(gameConfig.debug.drawHitboxes);
      	
         // update each frame
        	this.scheduleUpdate();
-       	
-       
-       	
+       		
     },
    
     registerWithTouchDispatcher:function () {
@@ -154,7 +157,7 @@ var SCTileLayer = cc.Layer.extend({
         cc.drawingUtil.drawPoly(vertices, 5, false);
     },
     
-    setEntityDrawHitboxes:function(){
+    setEntityDrawHitboxes:function(drawHitboxes){
 	    for(var i=0; i<entities.length; i++){
 		    entities[i].drawHitbox = drawHitboxes;
 	    }
@@ -170,7 +173,7 @@ var Level1 = SCTileLayer.extend({
     	// this calls the constructor of SCTileLayer
     	// put this AFTER anything you need to do before the level is initialized
         this._super();
-        this.initWithLevelName("res/tilemaps/test-tilemap.tmx");
+        //this.initWithLevelName("res/tilemaps/test-tilemap.tmx");
     },
     
     initWithLevelName:function (levelName) {

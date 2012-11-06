@@ -3,8 +3,7 @@ NEXT STEPS:
 
 - do next:
 
-
-add configuration files for things like the player, bad guys OR read it in through TMXTiledMap?
+Move all configuration to SCGameConfig unless it should go in the tile map
 
 add camera that follows the player (scrolls the map and other entities around the player)
 add proper player movement using physics, velocity, etc

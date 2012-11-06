@@ -54,6 +54,7 @@
             </sources>
             <sources dir="${basedir}">
                 <file name="src/resource.js"/>
+                <file name="src/SCGameConfig.js"/>
                 <file name="src/SCEvent.js"/>
                 <file name="src/SCListener.js"/>
                 <file name="src/SCMediator.js"/>

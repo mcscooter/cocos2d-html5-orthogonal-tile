@@ -5,6 +5,8 @@ NEXT STEPS:
 
 Move all configuration to SCGameConfig unless it should go in the tile map
 
+give each entity a Mediator to broadcast events only to itself???
+
 add camera that follows the player (scrolls the map and other entities around the player)
 add proper player movement using physics, velocity, etc
 

@@ -3,9 +3,11 @@ NEXT STEPS:
 
 - do next:
 
-Move all configuration to SCGameConfig unless it should go in the tile map
+Move all configuration to SCGameConfig unless it should go in the tile map. Start in SCTMXTiledScene at player creation
 
 give each entity a Mediator to broadcast events only to itself???
+
+Add tracing messages that are rebroadcast, number of listeners and list of them, ability to turn logging on/off
 
 add camera that follows the player (scrolls the map and other entities around the player)
 add proper player movement using physics, velocity, etc

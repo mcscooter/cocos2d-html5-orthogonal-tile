@@ -32,7 +32,6 @@ var SCTileLayer = cc.Layer.extend({
         tileMap.initWithTMXFile(gameConfig.maps.level1.filename);
         tileMap.setPosition(cc.p(0,0));
         this.addChild(tileMap, 0, TAG_TILE_MAP);
-    	
        
     	// Make a player entity
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted

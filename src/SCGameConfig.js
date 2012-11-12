@@ -7,8 +7,10 @@ var SCGameConfig = cc.Class.extend({
    ctor:function (filename) {
    		
    		this.player = {
-   						"speed":5,
-   						"health":100
+   						"baseTexture":cc.TextureCache.getInstance().addImage(s_TestPlayerBlock),
+   						"baseTextureRect":cc.rect(0, 0, 32, 64),
+   						"startPosition":cc.p(0,0),
+   						"hitbox":cc.rect(2,2,28,28)
    					};
    
    		this.maps = {

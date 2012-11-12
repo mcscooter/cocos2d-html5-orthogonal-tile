@@ -35,10 +35,10 @@ var SCTileLayer = cc.Layer.extend({
        
     	// Make a player entity
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted
-        var thisTexture = cc.TextureCache.getInstance().addImage(s_TestPlayerBlock);
-        var testPlayer = new SCPlayer(thisTexture, cc.rect(0, 0, 32, 64));     
-    	testPlayer.setPosition(cc.p(128,32));
-    	testPlayer.physicsComponent.setHitbox(cc.rect(2,2,28,28));
+        //var thisTexture = cc.TextureCache.getInstance().addImage(s_TestPlayerBlock);
+        var testPlayer = new SCPlayer(gameConfig.player.baseTexture, gameConfig.player.baseTextureRect);     
+    	testPlayer.setPosition(gameConfig.player.startPosition);
+    	testPlayer.physicsComponent.setHitbox(gameConfig.player.hitbox);
     	cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
     	entities.push(testPlayer);
     	this.addChild(testPlayer, 99, TAG_PLAYER);

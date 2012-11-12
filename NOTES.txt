@@ -3,7 +3,9 @@ NEXT STEPS:
 
 - do next:
 
-Move all configuration to SCGameConfig unless it should go in the tile map. Start in SCTMXTiledScene at player creation
+Put anything new in the config file
+
+Eit config file as we go. For instance, player start location might need to be attached to level or in the tileMap
 
 give each entity a Mediator to broadcast events only to itself???
 

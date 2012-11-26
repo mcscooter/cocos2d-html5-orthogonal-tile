@@ -15,7 +15,8 @@ var SCGameConfig = cc.Class.extend({
    
    		this.maps = {
 	   					level1:{ 	
-	   						"filename":"res/tilemaps/test-tilemap.tmx"
+	   						"filename":"res/tilemaps/test-tilemap.tmx",
+	   						"position":cc.p(0,0)
 	   					}
    					};
    					

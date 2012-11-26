@@ -30,7 +30,7 @@ var SCTileLayer = cc.Layer.extend({
     	// Make a map from a Tiled map file. If there are problems here check the compression on the file from within Tiled.
     	var tileMap = new SCTileMap();
         tileMap.initWithTMXFile(gameConfig.maps.level1.filename);
-        tileMap.setPosition(cc.p(0,0));
+        tileMap.setPosition(gameConfig.maps.level1.position);
         this.addChild(tileMap, 0, TAG_TILE_MAP);
        
     	// Make a player entity
@@ -39,7 +39,7 @@ var SCTileLayer = cc.Layer.extend({
         var testPlayer = new SCPlayer(gameConfig.player.baseTexture, gameConfig.player.baseTextureRect);     
     	testPlayer.setPosition(gameConfig.player.startPosition);
     	testPlayer.physicsComponent.setHitbox(gameConfig.player.hitbox);
-    	cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
+    	// cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
     	entities.push(testPlayer);
     	this.addChild(testPlayer, 99, TAG_PLAYER);
        	
@@ -67,8 +67,7 @@ var SCTileLayer = cc.Layer.extend({
        	var mapTouchedEvent = new SCEvent(MSG_MAP_TOUCHED, tileMap);
        	var testMapListener = new SCListener(mapTouchedEvent, mapCallback, tileMap);
        	this.mediator.register(testMapListener);
-       	// add 3 more listeners to test removing things from the queue
-       	this.mediator.register(testListener);
+       	// add more listeners to test removing things from the queue
        	this.mediator.register(testListener);
        	this.mediator.register(testMapListener);
      	
@@ -146,15 +145,6 @@ var SCTileLayer = cc.Layer.extend({
 	   
 	    
       },
-      
-    drawHitboxes:function(){
-    	cc.log("SCTMXTiledScene drawHitboxes()");
-	    cc.renderContext.strokeStyle = "rgba(255,255,255,1)";
-        //glLineWidth(10);
-        cc.renderContext.lineWidth = "10";
-        var vertices = [cc.p(0, 0), cc.p(50, 50), cc.p(100, 50), cc.p(100, 100), cc.p(50, 100) ];
-        cc.drawingUtil.drawPoly(vertices, 5, false);
-    },
     
     setEntityDrawHitboxes:function(drawHitboxes){
 	    for(var i=0; i<entities.length; i++){

@@ -62,6 +62,7 @@
                 <file name="src/SCPhysicsComponent.js"/>
                 <file name="src/SCPhysics.js"/>
                 <file name="src/SCTileMap.js"/>
+                <file name="src/SCCamera.js"/>
                 <file name="src/SCPlayer.js"/>
                 <file name="src/SCTMXTiledScene.js"/>
                 <file name="src/SCGameInit.js"/>

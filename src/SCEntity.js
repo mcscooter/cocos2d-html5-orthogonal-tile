@@ -8,6 +8,7 @@ var SCEntity = cc.Sprite.extend({
    		this._super(filename);
    		cc.log("SCEntity.js ctor()");
    		this.physicsComponent = new SCPhysicsComponent();
+   		this.globalMediator = null;
    		this.drawHitbox = false;
    		// needed for JS-Bindings compatibility
    		cc.associateWithNative( this, cc.Sprite );
@@ -28,6 +29,15 @@ var SCEntity = cc.Sprite.extend({
 	   		cc.drawingUtil.drawPoly(vertices, 5, false);
 	   		//cc.log("\t this.physicsComponent.hitbox.x1,y1,width1,height1 = " + cc.Rect.CCRectGetMinX(this.physicsComponent.hitbox) + ", " + cc.Rect.CCRectGetMinY(this.physicsComponent.hitbox) + ", " + cc.Rect.CCRectGetMaxX(this.physicsComponent.hitbox) + ", " + cc.Rect.CCRectGetMaxY(this.physicsComponent.hitbox));
    		} 
+   },
+   
+   setGlobalMediator:function(mediator){
+	   if(mediator){
+		   this.globalMediator = mediator;
+	   }else{
+		   cc.log("SCEntity setGlobalMediator(), mediator is null");
+	   }
+	   
    },
    
     update:function () {

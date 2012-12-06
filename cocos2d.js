@@ -45,6 +45,7 @@
             'src/SCPhysicsComponent.js',
             'src/SCPhysics.js',
             'src/SCTileMap.js',
+            'src/SCCamera.js',
             'src/SCPlayer.js',
             'src/SCTMXTiledScene.js',
             'src/SCSceneManager.js',

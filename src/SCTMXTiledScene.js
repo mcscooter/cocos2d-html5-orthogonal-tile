@@ -2,6 +2,8 @@
 var TAG_TILE_MAP = 1;
 var TAG_MEDIATOR = 2;
 var TAG_PLAYER = 3;
+var TAG_CAMERA = 4;
+
 
 
 var MSG_LAYER_TOUCHED = 1;
@@ -33,6 +35,17 @@ var SCTileLayer = cc.Layer.extend({
         tileMap.setPosition(gameConfig.maps.level1.position);
         this.addChild(tileMap, 0, TAG_TILE_MAP);
        
+        // set up the listener and messaging mediator
+       	this.mediator = new SCMediator();
+       	
+       	// add the physics engine
+       	this.physics = new SCPhysics();
+       	
+       	// determines what we see
+       	camera = new SCCamera();
+       	camera.setView(this);
+       	this.addChild(camera, -1000, TAG_CAMERA);
+       
     	// Make a player entity
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted
         //var thisTexture = cc.TextureCache.getInstance().addImage(s_TestPlayerBlock);
@@ -44,25 +57,27 @@ var SCTileLayer = cc.Layer.extend({
     	this.addChild(testPlayer, 99, TAG_PLAYER);
        	
        	
+       	
+       	
        	// test scrolling the map
        	//var actionTo = cc.MoveTo.create(5, cc.p(-128, 0));
        	//this.getChildByTag(TAG_TILE_MAP).runAction(actionTo);
        	
        	
        	
-       	// set up the listener and messaging mediator
-       	this.mediator = new SCMediator();
+       	////////////////////////////////////////////
+       	//
+       	// Set Up Listeners
        	
-       	// add the physics engine
-       	this.physics = new SCPhysics();
        	
+       	/*// TEST CASES
        	// test the mediator, look at onTouchEnded for next step
        	// testArg is necessary so the resulting call doesn't get undefined arguments
        	var callback = function(testArg){testPlayer.layerTouched(testArg);};
        	var layerTouchedEvent = new SCEvent(MSG_LAYER_TOUCHED, this.getChildByTag(TAG_PLAYER));
        	var testListener = new SCListener(layerTouchedEvent, callback, this.getChildByTag(TAG_PLAYER));
        	this.mediator.register(testListener);
-       	
+      
        	var mapCallback = function(testArg){tileMap.testCallback(testArg);};
        	var mapTouchedEvent = new SCEvent(MSG_MAP_TOUCHED, tileMap);
        	var testMapListener = new SCListener(mapTouchedEvent, mapCallback, tileMap);
@@ -70,13 +85,41 @@ var SCTileLayer = cc.Layer.extend({
        	// add more listeners to test removing things from the queue
        	this.mediator.register(testListener);
        	this.mediator.register(testMapListener);
+     	*/
+     	
+     	// When the player moves, broadcast a message with the player position
+     	/*
+       	var playerMovedCameraCallback = function(args){this.camera.playerMoved(args);};
+       	var playerMovedCameraEvent = new SCEvent(MSG_PLAYER_MOVED, this.camera);
+       	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.camera);
+       	this.mediator.register(playerMovedCameraListener);
+     	*/
+     	
+     	var playerMovedCameraCallback = function(testArg){camera.playerMoved(testArg);};
+       	var playerMovedCameraEvent = new SCEvent(MSG_PLAYER_MOVED, this.getChildByTag(TAG_CAMERA));
+       	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.getChildByTag(TAG_CAMERA));
+       	this.mediator.register(playerMovedCameraListener);
      	
      	// set all hitboxes to draw or not.
      	this.setEntityDrawHitboxes(gameConfig.debug.drawHitboxes);
      	
+     	// set the global event message mediator object on entities
+     	this.setEntityGlobalMediator(this.mediator);
+     	
         // update each frame
        	this.scheduleUpdate();
        		
+    },
+    
+    setEntityGlobalMediator:function(mediator){
+	    if(mediator){
+		    for( var i = 0; i < entities.length; i++ ){
+			    entities[i].setGlobalMediator(mediator);
+		    }
+	    }else{
+		    cc.log("SCTMXTiledScene setEntityGlobalMediator mediator is null");
+	    }
+	    
     },
    
     registerWithTouchDispatcher:function () {
@@ -113,9 +156,13 @@ var SCTileLayer = cc.Layer.extend({
        	this.mediator.unregisterListenerForObject(MSG_MAP_TOUCHED, tileMap);
        	
        	
+       	/*
        	// test moving the player
-       	var actionTo = cc.MoveTo.create(.5, touchLocation);
+       	var actionTo = cc.MoveTo.create(.5, mapTouchLocation);
        	this.getChildByTag(TAG_PLAYER).runAction(actionTo);
+       	*/
+       	
+       	this.getChildByTag(TAG_PLAYER).move(mapTouchLocation);
        	
        	
        	
@@ -141,7 +188,10 @@ var SCTileLayer = cc.Layer.extend({
     update:function (dt) {
 	    
 	    this.mediator.update();
-	    
+	    //this.setPosition(cc.p((this.getPosition()).x+.05, this.getPosition().y);
+	    //this.setPosition(cc.pAdd(this.getPosition(),cc.p(1,1)));
+	    //this.camera.setPosition(cc.pAdd(this.getPosition(),cc.p(.1,.1)));
+	    this.getChildByTag(TAG_CAMERA).update();
 	   
 	    
       },

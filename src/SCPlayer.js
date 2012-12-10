@@ -18,8 +18,8 @@ var SCPlayer = SCEntity.extend({
    
    move:function(location){
 	  cc.log("SCPlayer move()"); 
-	  
-	  this.setPosition(location);
+	  cc.log("SCPlayer move() this.centerOffset = " + this.centerOffset.x + " " + this.centerOffset.y);
+	  this.setPosition(cc.pSub(location, this.centerOffset));
 	  // broadcast player moved message globally
 	  var args = new Object();
 	  args.position = this.getPosition();

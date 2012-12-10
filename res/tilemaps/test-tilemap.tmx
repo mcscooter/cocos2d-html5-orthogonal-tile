@@ -3,10 +3,15 @@
  <tileset firstgid="1" name="foreground" tilewidth="32" tileheight="32" spacing="2" margin="2">
   <tileoffset x="2" y="2"/>
   <image source="test-tilemap-tilesheet.png" width="640" height="400"/>
+  <tile id="18">
+   <properties>
+    <property name="name" value="orb"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="foreground" width="32" height="32">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA6VXSRLDMAhzYv7/5p48Q1UtpDn40Ay2QEjYvdZaV1t3W/j7FnEq5qwdYties28Psdn+Cb7LZ8NSHOE5iIXn4FnujFQvq03F93xYzYzHlMcUv5+xA47SHcvjDf7TfW/r77o6dZboK1uqFqazJ/iYg+J8qm3lW8Z/z6FMrZN+4dxAj2HOyG/Pw/lj6jEWW4v774IY/KZmCOu7mgu4T9WIHDCdo+5Yjgy/1ndPWG+ZJnttUyzEYd9UPzEHxEh3kfOE83XiGLEn81Jh/+PtN/PAzbKJv9WcQmzHU7rrWG1dc0cXzA9p5intux4qrvqscr6+IV5hs3pdn4+umFedL6Zxqk/VcPf65aIEjprhSgNq4QzBM0ucPcFOWj3nO946L0+xVSz2PHmY3V9OmykX1Bv6EDln9xfiuf6rfNW7gs1F1GQZHPct/Qfp+K536W3FeFLvJOQyzXanW3beHbAx1/SeV/3os9O9XyeeULOG7Vc8TvTANDv5P6d6/gHLTzcGABAAAA==
+   H4sIAAAAAAAAA6VXUa6DMAwrNDfgi/tfdJq0SsHYThgf1dNDaZw4dmDbGGNLZ08H/99FnIpZZxYx7M66N5vY7H4H39Uz4SiOMA9iYR7M5XJU/bLeVHyuh/XMeKzq6OLnHLPAUbpjdbzBf3rvbf9ZV6vPEHNlR/XCdPYEH2tQnHe1rXzL+M81hOm1My/cG+gxrBn5zXU4f3Q9xmJjcP9tEIPP1A5hc1d7Ae+pHpEDpnPUHauR4ce4zoTNlmky99bFQhz2TM0Ta0CM6l3kPOF8XXGM2J19qbD/8fabfeB2Wcffak8htuOpetex3rLmli6YH6qdp7TvZqi4yrvK+XqHeIXN+nVzXrpiXnW+6MapOUXCnePORQgctcOVBtTBHYI5Q+TuYDP8g+R3vGVenmKrWJx55WH2/nLarGpBvX3/nuOqBeQA31+I5+av6lXfFWwvoibD4Lhn1W+QjO9mV31bMZ7Ud9JJeFlaVR5XumVa2H+5GDartfqeV/PIu/MYd66r/cX4ZxzjfeX3jh6YZju/59TMP2vYgCoAEAAA
   </data>
  </layer>
 </map>

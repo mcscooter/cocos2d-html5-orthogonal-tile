@@ -3,17 +3,19 @@ NEXT STEPS:
 
 - do next:
 
+read in tile map properties (probably based on where the player is and touch) CHECK HOPPY
+
+Physics Working (CHECK HOPPY)
 
 give each entity a Mediator to broadcast events only to itself???
 
 Add tracing messages that are rebroadcast, number of listeners and list of them, ability to turn logging on/off
 
-add camera that follows the player (scrolls the map and other entities around the player)
 add proper player movement using physics, velocity, etc
 
 add physics logic with a loop that is passed the list of all game entities. No gravity for now, but can add later. 
 
-player registeres move event that causes the listening map to move?
+
 player has a moveTO function like grave peril?
 
 

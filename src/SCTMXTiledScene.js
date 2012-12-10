@@ -48,13 +48,14 @@ var SCTileLayer = cc.Layer.extend({
        
     	// Make a player entity
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted
-        //var thisTexture = cc.TextureCache.getInstance().addImage(s_TestPlayerBlock);
-        var testPlayer = new SCPlayer(gameConfig.player.baseTexture, gameConfig.player.baseTextureRect);     
-    	testPlayer.setPosition(gameConfig.player.startPosition);
-    	testPlayer.physicsComponent.setHitbox(gameConfig.player.hitbox);
+        //var thisTexture = cc.TextureCache.getInstance().addImage(s_playerBlock);
+        var player = new SCPlayer(gameConfig.player.baseTexture, gameConfig.player.baseTextureRect);     
+    	player.setPosition(gameConfig.player.startPosition);
+    	player.physicsComponent.setHitbox(gameConfig.player.hitbox);
     	// cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
-    	entities.push(testPlayer);
-    	this.addChild(testPlayer, 99, TAG_PLAYER);
+    	player.centerOffset = gameConfig.player.centerOffset;
+    	entities.push(player);
+    	this.addChild(player, 99, TAG_PLAYER);
        	
        	
        	
@@ -73,7 +74,7 @@ var SCTileLayer = cc.Layer.extend({
        	/*// TEST CASES
        	// test the mediator, look at onTouchEnded for next step
        	// testArg is necessary so the resulting call doesn't get undefined arguments
-       	var callback = function(testArg){testPlayer.layerTouched(testArg);};
+       	var callback = function(testArg){player.layerTouched(testArg);};
        	var layerTouchedEvent = new SCEvent(MSG_LAYER_TOUCHED, this.getChildByTag(TAG_PLAYER));
        	var testListener = new SCListener(layerTouchedEvent, callback, this.getChildByTag(TAG_PLAYER));
        	this.mediator.register(testListener);
@@ -136,8 +137,23 @@ var SCTileLayer = cc.Layer.extend({
     	var touchLocation = touch.getLocation();
     	var tileMap = this.getChildByTag(TAG_TILE_MAP);
     	var layer = tileMap.layerNamed("foreground");
+    	var tileSize = tileMap.getTileSize();
+    	var mapSize = tileMap.getMapSize();
     	var mapLocation = tileMap.getPosition();
-    	var mapTouchLocation = cc.pSub(touchLocation, mapLocation);
+    	var mapTouchLocation = tileMap.convertTouchToNodeSpace(touch);
+    	cc.log("SCTMXTiledScene onTouchEnded() mapTouchLocation x/y = " + mapTouchLocation.x + " " + mapTouchLocation.y);
+    	var tileTouchedX = Math.floor(mapTouchLocation.x / tileSize.width);
+    	var tileTouchedY = Math.floor(mapSize.height - mapTouchLocation.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
+    	var tileCoord = cc.p(tileTouchedX, tileTouchedY);
+    	cc.log("SCTMXTiledScene onTouchEnded() tileTouchedX tileTouchedY = " + tileTouchedX + " " + tileTouchedY);
+    	var tileTouchedGID = layer.tileGIDAt(tileCoord);
+    	cc.log("SCTMXTiledScene onTouchEnded() tileTouchedGID = " + tileTouchedGID);
+    	var tileTouchedProperties = tileMap.propertiesForGID(tileTouchedGID);
+    	
+    	if(tileTouchedProperties){
+	    	cc.log("SCTMXTiledScene onTouchEnded() tileTouchProperties.name = " + tileTouchedProperties.name);
+    	}
+    	
     	
     	
     	// send touch event to mediator
@@ -180,7 +196,7 @@ var SCTileLayer = cc.Layer.extend({
     	
     	// test animaiton on player
     	var actionTo = cc.MoveTo.create(5, cc.p(1024, 32));
-        this.testPlayer.runAction(actionTo);
+        this.player.runAction(actionTo);
     },
     
 

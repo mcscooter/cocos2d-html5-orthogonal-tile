@@ -10,6 +10,7 @@ var SCEntity = cc.Sprite.extend({
    		this.physicsComponent = new SCPhysicsComponent();
    		this.globalMediator = null;
    		this.drawHitbox = false;
+   		this.centerOffset = null;
    		// needed for JS-Bindings compatibility
    		cc.associateWithNative( this, cc.Sprite );
    },

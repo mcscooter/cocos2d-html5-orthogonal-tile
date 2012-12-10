@@ -34,16 +34,36 @@ var SCCamera = cc.Sprite.extend({
 	   
 	   this.targetPosition = arguments.position;
 	   //this.targetPosition = arguments.position;
+	   
+	       this.position = this.targetPosition;
+	    
+	    cc.log("SCCamera playerMoved() new position = " + this.position.x + " " + this.position.y);
+	  //  cc.log("SCCamera update() cc.Director.getInstance().getWinSize() = " + stageSize.width + " " + stageSize.height);
+	    //this.view.setPosition(cc.pSub(cc.p(stageSize.x/2, stageSize.y/2), this.position));
+	   // var viewPos = this.view.getPosition();
+	    //cc.log(viewPos.x + " " + viewPos.y);
+	    //this.view.setPosition(cc.pSub( this.position, cc.p(stageSize.x/2, stageSize.y/2)));
+	    //this.view.setPosition(cc.p(50,50));
+	    this.view.setPosition(cc.pSub(cc.p(stageSize.width/2, stageSize.height/2), this.position));
+	    cc.log("SCCamera playerMoved() this.view.position = " + this.view.getPosition().x + " " + this.view.getPosition().y);
     },
     
     update:function(){
-    	cc.log("SCCamera update() new position = " + this.targetPosition.x + " " + this.targetPosition.y);
-	    stageSize = cc.Director.getInstance().getWinSize();
+    	
+	    var stageSize = cc.Director.getInstance().getWinSize();
 	    
-	    
+	   
 	    this.position = this.targetPosition;
 	    
-	    this.view.setPosition(cc.pSub(cc.p(0,0), this.position));
+	  //  cc.log("SCCamera update() new position = " + this.position.x + " " + this.position.y);
+	  //  cc.log("SCCamera update() cc.Director.getInstance().getWinSize() = " + stageSize.width + " " + stageSize.height);
+	    //this.view.setPosition(cc.pSub(cc.p(stageSize.x/2, stageSize.y/2), this.position));
+	   // var viewPos = this.view.getPosition();
+	    //cc.log(viewPos.x + " " + viewPos.y);
+	    //this.view.setPosition(cc.pSub( this.position, cc.p(stageSize.x/2, stageSize.y/2)));
+	    //this.view.setPosition(cc.p(50,50));
+	    //this.view.setPosition(cc.pSub(cc.p(0, 0), this.position));
+	    //cc.log("SCCamera update() this.view.position = " + this.view.getPosition().x + " " + this.view.getPosition().y);
     }
 
 });

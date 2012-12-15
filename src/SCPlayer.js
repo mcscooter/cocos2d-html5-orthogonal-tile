@@ -7,6 +7,7 @@ var SCPlayer = SCEntity.extend({
    ctor:function (filename) {
    	this._super(filename);
    	cc.log("SCPlayer ctor()");
+   	this.logicComponent = new SCPlayerLogicComponent();
    },
    
    // put any special canvas drawing you might need in here. Hitbox is drawn on Entity
@@ -28,9 +29,10 @@ var SCPlayer = SCEntity.extend({
    
    },
    
-   layerTouched:function(args){
-	   cc.log("SCPlayer layerTouched()");  
-	   cc.log("\t args.touchLocation.x = " + args.touchLocation.x);  
+   mapTouched:function(touchArgs){
+	   cc.log("SCPlayer mapTouched()");  
+	   cc.log("\t touchArgs.touch.x = " + touchArgs.mapTouchLocation.x);  
+	   this.move(touchArgs.mapTouchLocation);
 	   
    }
    

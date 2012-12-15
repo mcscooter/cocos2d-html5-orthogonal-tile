@@ -6,6 +6,7 @@ var TAG_CAMERA = 4;
 
 
 
+
 var MSG_LAYER_TOUCHED = 1;
 var MSG_PLAYER_MOVED = 2;
 var MSG_MAP_TOUCHED = 3;
@@ -13,11 +14,15 @@ var MSG_MAP_TOUCHED = 3;
 // an array of the entities in the game
 var entities = new Array();
 
+var inputHandler = new SCInputHandler();
+
+
 var SCTileLayer = cc.Layer.extend({
 	
 	_map:null,
 	ctor:function () {
         this.setTouchEnabled(true);
+        this.setKeyboardEnabled(true);
     },
 
     // run when SCTileLayer is created
@@ -96,6 +101,12 @@ var SCTileLayer = cc.Layer.extend({
        	this.mediator.register(playerMovedCameraListener);
      	*/
      	
+     	var mapTouchEventCallback = function(testArg){player.mapTouched(testArg);};
+       	var mapTouchEvent = new SCEvent(MSG_MAP_TOUCHED, this.getChildByTag(TAG_TILE_MAP));
+       	var mapTouchListener = new SCListener(mapTouchEvent, mapTouchEventCallback, this.getChildByTag(TAG_PLAYER));
+       	this.mediator.register(mapTouchListener);
+     	
+     	
      	var playerMovedCameraCallback = function(testArg){camera.playerMoved(testArg);};
        	var playerMovedCameraEvent = new SCEvent(MSG_PLAYER_MOVED, this.getChildByTag(TAG_CAMERA));
        	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.getChildByTag(TAG_CAMERA));
@@ -130,6 +141,7 @@ var SCTileLayer = cc.Layer.extend({
 
         return true;
     },
+    
     // Handles touch up and mouse up
     onTouchEnded:function (touch, event) {
     	
@@ -154,6 +166,15 @@ var SCTileLayer = cc.Layer.extend({
 	    	cc.log("SCTMXTiledScene onTouchEnded() tileTouchProperties.name = " + tileTouchedProperties.name);
     	}
     	
+    	// send touch event
+    	var touchArgs = new Object();
+    	//touchArgs.touch = new Object(); 
+    	touchArgs.mapTouchLocation = mapTouchLocation;
+    	//cc.log("touchArgs.touch.x = " + touchArgs.mapTouchLocation.x);
+    	//touchArgs.event = event;
+    	var touchEvent = new SCEvent(MSG_MAP_TOUCHED, this, touchArgs);
+       	this.mediator.send(touchEvent);
+    	
     	
     	
     	// send touch event to mediator
@@ -161,7 +182,7 @@ var SCTileLayer = cc.Layer.extend({
     	var args = new Object();
     	args.touchLocation = touchLocation;
     	args.mapTouchLocation = mapTouchLocation;
-    	var event = new SCEvent(MSG_LAYER_TOUCHED, this, args);
+    	var event = new SCEvent(MSG_MAP_TOUCHED, this, args);
        	this.mediator.send(event);
        	var event2 = new SCEvent(MSG_MAP_TOUCHED, this, args);
        	this.mediator.send(event2);
@@ -169,7 +190,7 @@ var SCTileLayer = cc.Layer.extend({
        	// test the mediator unregister functionality
        	//
        	// this.mediator.unregisterObject(tileMap); // might use this when getting rid of an object. This must complete before object is erased, so objects to be erased should be added to a clean up queue that happens either at the very end of a frame or at the beginning of the next to be safe.
-       	this.mediator.unregisterListenerForObject(MSG_MAP_TOUCHED, tileMap);
+       	//this.mediator.unregisterListenerForObject(MSG_MAP_TOUCHED, tileMap);
        	
        	
        	/*
@@ -178,7 +199,7 @@ var SCTileLayer = cc.Layer.extend({
        	this.getChildByTag(TAG_PLAYER).runAction(actionTo);
        	*/
        	
-       	this.getChildByTag(TAG_PLAYER).move(mapTouchLocation);
+       	//this.getChildByTag(TAG_PLAYER).move(mapTouchLocation);
        	
        	
        	
@@ -190,6 +211,18 @@ var SCTileLayer = cc.Layer.extend({
   
     },
     
+    // Keyboard handling
+    onKeyUp:function(e){
+	    cc.log("SCTMXTiledScene onKeyUp()");
+	    	
+	    inputHandler.keyUp(e);
+    },
+    onKeyDown:function(e){
+    	cc.log("SCTMXTiledScene onKeyDown()");
+   
+    	inputHandler.keyDown(e);   
+    },
+    
     // make a player, initialize, add to layer
     initPlayer:function (){
 
@@ -199,9 +232,22 @@ var SCTileLayer = cc.Layer.extend({
         this.player.runAction(actionTo);
     },
     
+    updateInputState:function (){
+	    
+		//cc.log("SCTMXTiledScene updateInputState()");
+		
+		
+	    	
+		    
+		
+	    
+    },
+    
 
     // update every frame of the game
     update:function (dt) {
+	    
+	    this.updateInputState();
 	    
 	    this.mediator.update();
 	    //this.setPosition(cc.p((this.getPosition()).x+.05, this.getPosition().y);

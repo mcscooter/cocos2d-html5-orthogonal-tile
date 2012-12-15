@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="foreground" tilewidth="32" tileheight="32" spacing="2" margin="2">
-  <tileoffset x="2" y="2"/>
   <image source="test-tilemap-tilesheet.png" width="640" height="400"/>
   <tile id="18">
    <properties>
@@ -11,7 +10,7 @@
  </tileset>
  <layer name="foreground" width="32" height="32">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA6VXUa6DMAwrNDfgi/tfdJq0SsHYThgf1dNDaZw4dmDbGGNLZ08H/99FnIpZZxYx7M66N5vY7H4H39Uz4SiOMA9iYR7M5XJU/bLeVHyuh/XMeKzq6OLnHLPAUbpjdbzBf3rvbf9ZV6vPEHNlR/XCdPYEH2tQnHe1rXzL+M81hOm1My/cG+gxrBn5zXU4f3Q9xmJjcP9tEIPP1A5hc1d7Ae+pHpEDpnPUHauR4ce4zoTNlmky99bFQhz2TM0Ta0CM6l3kPOF8XXGM2J19qbD/8fabfeB2Wcffak8htuOpetex3rLmli6YH6qdp7TvZqi4yrvK+XqHeIXN+nVzXrpiXnW+6MapOUXCnePORQgctcOVBtTBHYI5Q+TuYDP8g+R3vGVenmKrWJx55WH2/nLarGpBvX3/nuOqBeQA31+I5+av6lXfFWwvoibD4Lhn1W+QjO9mV31bMZ7Ud9JJeFlaVR5XumVa2H+5GDartfqeV/PIu/MYd66r/cX4ZxzjfeX3jh6YZju/59TMP2vYgCoAEAAA
+   H4sIAAAAAAAAA2NkYGBgHMWjeBSP4lE8aDAzFI/aP2r/qP2j9g+U/aTg4Wj/QIc/iC2MRo+k9DcQ/qdVmiI33Onl/4GM81G7BwYDALANuqkAEAAA
   </data>
  </layer>
 </map>

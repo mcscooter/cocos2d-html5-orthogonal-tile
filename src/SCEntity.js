@@ -33,11 +33,16 @@ var SCEntity = cc.Sprite.extend({
    },
    
    setGlobalMediator:function(mediator){
+   		cc.log("SCEntity setGlobalMediator");
 	   if(mediator){
 		   this.globalMediator = mediator;
 	   }else{
 		   cc.log("SCEntity setGlobalMediator(), mediator is null");
 	   }
+	   
+   },
+   
+   updateLogic:function(){
 	   
    },
    

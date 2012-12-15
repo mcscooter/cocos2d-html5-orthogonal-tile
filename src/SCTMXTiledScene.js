@@ -258,13 +258,19 @@ var SCTileLayer = cc.Layer.extend({
 	    
     },
     
+    updateLogic:function(){
+	    for( var i = 0; i < entities.length; i++ ){
+			entities[i].updateLogic();
+		}
+    },
+    
 
     // update every frame of the game
     update:function (dt) {
 	    
 	    this.updateInputState();
-	    
 	    this.mediator.update();
+	    this.updateLogic();
 	    //this.setPosition(cc.p((this.getPosition()).x+.05, this.getPosition().y);
 	    //this.setPosition(cc.pAdd(this.getPosition(),cc.p(1,1)));
 	    //this.camera.setPosition(cc.pAdd(this.getPosition(),cc.p(.1,.1)));

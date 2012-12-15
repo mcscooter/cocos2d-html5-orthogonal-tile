@@ -7,16 +7,22 @@ var SCInputHandler = cc.Class.extend({
     	this.gameConfig = new SCGameConfig();
     	this.keysDown = new Array();
     	this.currentState = null;
+    	this.lastState = null;
     	this.globalMediator = null;    	
     },
     
     sendInputChangedEvent:function(){
-	    // broadcast input changed message globally
-	  var args = new Object();
-	  args.currentState = this.currentState;
-	  args.keysDown = this.keysDown;
-	  var event = new SCEvent(this.gameConfig.globals.MSG_INPUT_CHANGED, this, args);
-      this.globalMediator.send(event);
+    	cc.log("SCInputHandler sendInputChangedEvent() current and last states are" + this.currentState + " " + this.lastState);
+    	
+    	if(this.currentState != this.lastState){
+	    	// broadcast input changed message globally
+	    	var args = new Object();
+	  		args.currentState = this.currentState;
+	  		args.keysDown = this.keysDown;
+	  		var event = new SCEvent(this.gameConfig.globals.MSG_INPUT_CHANGED, this, args);
+	  		this.globalMediator.send(event);
+	  		this.lastState = this.currentState;
+	  	}
     },
     
     setGlobalMediator:function(mediator){
@@ -131,8 +137,9 @@ var SCInputHandler = cc.Class.extend({
 	    }
 	    // key not in current array
 	    this.keysDown.push(keyDown);
-	    //this.logKeysDown();
+	    this.currentState = keyDown;
 	    this.sendInputChangedEvent();
+	    //this.logKeysDown();
 	    
     },
     

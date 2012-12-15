@@ -41,6 +41,7 @@
             'src/SCEvent.js',
             'src/SCListener.js',
             'src/SCMediator.js',
+            'src/SCLogicComponent.js',
             'src/SCInputHandler.js',
             'src/SCEntity.js',
             'src/SCPhysicsComponent.js',

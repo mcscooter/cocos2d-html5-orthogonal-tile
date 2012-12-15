@@ -6,7 +6,16 @@ var SCPhysicsComponent = cc.Class.extend({
     	this.velocity = new cc.p(0,0);
     	this.hitbox = null;
     	this.mass = 0;
+    	this.globalMediator = null;
     	
+    },
+     
+    setGlobalMediator:function(mediator){
+	  	cc.log("SCPhysicsComponent setGlobalMediator()");
+	  	
+	  	if(mediator){
+		  	this.globalmediator = mediator;
+	  	}  
     },
     
     setVelocity:function (velocity){

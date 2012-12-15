@@ -14,7 +14,10 @@ var SCGameConfig = cc.Class.extend({
    						"baseTextureRect":cc.rect(0, 0, 32, 64),
    						"startPosition":cc.p(384, 209),
    						"hitbox":cc.rect(2,2,28,28),
-   						"centerOffset":cc.p(16,16)
+   						"centerOffset":cc.p(16,16),
+   						"baseSpeed":.3,
+   						"baseAccelleration":.03,
+   						"startingDirection":"right"
    					};
    
    		this.maps = {

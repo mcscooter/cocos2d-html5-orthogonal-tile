@@ -2,6 +2,7 @@
 var SCCamera = cc.Sprite.extend({
 
 	ctor:function (filename) {
+		this._super(filename);
     	cc.log("SCCamera ctor()");
     	this.position = new cc.p(0,0);
     	this.targetPosition = new cc.p(0,0);

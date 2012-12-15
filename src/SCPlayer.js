@@ -32,7 +32,13 @@ var SCPlayer = SCEntity.extend({
    mapTouched:function(touchArgs){
 	   cc.log("SCPlayer mapTouched()");  
 	   cc.log("\t touchArgs.touch.x = " + touchArgs.mapTouchLocation.x);  
-	   this.move(touchArgs.mapTouchLocation);
+	  // this.move(touchArgs.mapTouchLocation);
+	   
+   },
+   
+   inputChanged:function(args){
+	   cc.log("SCPlayer inputChanged()");
+	   
 	   
    }
    

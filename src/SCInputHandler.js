@@ -4,9 +4,28 @@ var SCInputHandler = cc.Class.extend({
 
 	ctor:function () {
     	cc.log("SCInputHandler ctor()");
+    	this.gameConfig = new SCGameConfig();
     	this.keysDown = new Array();
     	this.currentState = null;
+    	this.globalMediator = null;    	
     },
+    
+    sendInputChangedEvent:function(){
+	    // broadcast input changed message globally
+	  var args = new Object();
+	  args.currentState = this.currentState;
+	  args.keysDown = this.keysDown;
+	  var event = new SCEvent(this.gameConfig.globals.MSG_INPUT_CHANGED, this, args);
+      this.globalMediator.send(event);
+    },
+    
+    setGlobalMediator:function(mediator){
+	    if(mediator){
+	    cc.log("SCInputHandler setGlobalMediator() mediator != null");
+		    this.globalMediator = mediator;
+	    }    
+    },
+    
     keyDown:function(e){
 	    
 	    switch(e)
@@ -87,6 +106,7 @@ var SCInputHandler = cc.Class.extend({
 		    }
 	    }
     	//this.logKeysDown();
+    	this.sendInputChangedEvent();
 	    
     },
     
@@ -105,12 +125,14 @@ var SCInputHandler = cc.Class.extend({
 			    //cc.log("SCInputHandler addKeyDown(), keys match, post splice and push, this.keysDown.length = " + this.keysDown.length);
 			    //cc.log("SCInputHandler addKeyDown(), this.currentState = " + this.currentState);
 			    //this.logKeysDown();
+			    this.sendInputChangedEvent();
 			    return;
 		    }
 	    }
 	    // key not in current array
 	    this.keysDown.push(keyDown);
 	    //this.logKeysDown();
+	    this.sendInputChangedEvent();
 	    
     },
     

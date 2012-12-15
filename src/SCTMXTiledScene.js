@@ -10,11 +10,10 @@ var TAG_CAMERA = 4;
 var MSG_LAYER_TOUCHED = 1;
 var MSG_PLAYER_MOVED = 2;
 var MSG_MAP_TOUCHED = 3;
+var MSG_INPUT_CHANGED = 4;
 
 // an array of the entities in the game
 var entities = new Array();
-
-var inputHandler = new SCInputHandler();
 
 
 var SCTileLayer = cc.Layer.extend({
@@ -42,6 +41,9 @@ var SCTileLayer = cc.Layer.extend({
        
         // set up the listener and messaging mediator
        	this.mediator = new SCMediator();
+       	
+       	// handles keyboard input, will move touch to this eventually
+       	this.inputHandler = new SCInputHandler();
        	
        	// add the physics engine
        	this.physics = new SCPhysics();
@@ -100,7 +102,7 @@ var SCTileLayer = cc.Layer.extend({
        	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.camera);
        	this.mediator.register(playerMovedCameraListener);
      	*/
-     	
+    
      	var mapTouchEventCallback = function(testArg){player.mapTouched(testArg);};
        	var mapTouchEvent = new SCEvent(MSG_MAP_TOUCHED, this.getChildByTag(TAG_TILE_MAP));
        	var mapTouchListener = new SCListener(mapTouchEvent, mapTouchEventCallback, this.getChildByTag(TAG_PLAYER));
@@ -111,12 +113,21 @@ var SCTileLayer = cc.Layer.extend({
        	var playerMovedCameraEvent = new SCEvent(MSG_PLAYER_MOVED, this.getChildByTag(TAG_CAMERA));
        	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.getChildByTag(TAG_CAMERA));
        	this.mediator.register(playerMovedCameraListener);
+       	
+       	var inputHandlerStateEventCallback = function(args){player.inputChanged(args);};
+       	var inputHandleStateEvent = new SCEvent(MSG_INPUT_CHANGED, this.getChildByTag(TAG_PLAYER));
+       	var inputHandlerStateEventListener = new SCListener(inputHandleStateEvent, inputHandlerStateEventCallback, this.getChildByTag(TAG_PLAYER));
+       	this.mediator.register(inputHandlerStateEventListener);
+       	
      	
      	// set all hitboxes to draw or not.
      	this.setEntityDrawHitboxes(gameConfig.debug.drawHitboxes);
      	
      	// set the global event message mediator object on entities
      	this.setEntityGlobalMediator(this.mediator);
+     	
+     	// set the mediator in components
+     	this.setComponentGlobalMediator(this.mediator);
      	
         // update each frame
        	this.scheduleUpdate();
@@ -132,6 +143,10 @@ var SCTileLayer = cc.Layer.extend({
 		    cc.log("SCTMXTiledScene setEntityGlobalMediator mediator is null");
 	    }
 	    
+    },
+    
+    setComponentGlobalMediator:function(mediator){
+	  this.inputHandler.setGlobalMediator(mediator);      
     },
    
     registerWithTouchDispatcher:function () {
@@ -215,12 +230,12 @@ var SCTileLayer = cc.Layer.extend({
     onKeyUp:function(e){
 	    cc.log("SCTMXTiledScene onKeyUp()");
 	    	
-	    inputHandler.keyUp(e);
+	    this.inputHandler.keyUp(e);
     },
     onKeyDown:function(e){
     	cc.log("SCTMXTiledScene onKeyDown()");
    
-    	inputHandler.keyDown(e);   
+    	this.inputHandler.keyDown(e);   
     },
     
     // make a player, initialize, add to layer

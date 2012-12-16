@@ -8,6 +8,7 @@ var SCEntity = cc.Sprite.extend({
    		this._super(filename);
    		cc.log("SCEntity.js ctor()");
    		this.physicsComponent = new SCPhysicsComponent();
+   		this.state = new Object();
    		this.globalMediator = null;
    		this.drawHitbox = false;
    		this.centerOffset = null;
@@ -46,9 +47,17 @@ var SCEntity = cc.Sprite.extend({
 	   
    },
    
-    update:function () {
+   updatePhysics:function(dt){
+	   
+   },
+   
+   updateRender:function(){
+	   
+   },
+   
+   update:function () {
 	    
-    }
+   }
     
 });
 

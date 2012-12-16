@@ -30,7 +30,7 @@ var SCCamera = cc.Sprite.extend({
     playerMoved:function (arguments){
 	    stageSize = cc.Director.getInstance().getWinSize();
 	    
-	   cc.log("SCCamera playerMoved() x/y = " + arguments.position.x + " " + arguments.position.y);
+	   //cc.log("SCCamera playerMoved() x/y = " + arguments.position.x + " " + arguments.position.y);
 	  // var newTarget = cc.pSub( arguments.position, cc.p(stageSize.x/2, stageSize.y/2) );
 	   
 	   this.targetPosition = arguments.position;
@@ -38,7 +38,7 @@ var SCCamera = cc.Sprite.extend({
 	   
 	       this.position = this.targetPosition;
 	    
-	    cc.log("SCCamera playerMoved() new position = " + this.position.x + " " + this.position.y);
+	   // cc.log("SCCamera playerMoved() new position = " + this.position.x + " " + this.position.y);
 	  //  cc.log("SCCamera update() cc.Director.getInstance().getWinSize() = " + stageSize.width + " " + stageSize.height);
 	    //this.view.setPosition(cc.pSub(cc.p(stageSize.x/2, stageSize.y/2), this.position));
 	   // var viewPos = this.view.getPosition();
@@ -46,7 +46,7 @@ var SCCamera = cc.Sprite.extend({
 	    //this.view.setPosition(cc.pSub( this.position, cc.p(stageSize.x/2, stageSize.y/2)));
 	    //this.view.setPosition(cc.p(50,50));
 	    this.view.setPosition(cc.pSub(cc.p(stageSize.width/2, stageSize.height/2), this.position));
-	    cc.log("SCCamera playerMoved() this.view.position = " + this.view.getPosition().x + " " + this.view.getPosition().y);
+	    //cc.log("SCCamera playerMoved() this.view.position = " + this.view.getPosition().x + " " + this.view.getPosition().y);
     },
     
     update:function(){

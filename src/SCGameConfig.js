@@ -12,10 +12,10 @@ var SCGameConfig = cc.Class.extend({
    		this.player = {
    						"baseTexture":cc.TextureCache.getInstance().addImage(s_TestPlayerBlock),
    						"baseTextureRect":cc.rect(0, 0, 32, 64),
-   						"startPosition":cc.p(384, 209),
+   						"startPosition":cc.p(256, 158),
    						"hitbox":cc.rect(2,2,28,28),
    						"centerOffset":cc.p(16,16),
-   						"baseSpeed":.3,
+   						"baseSpeed":1,
    						"baseAccelleration":.03,
    						"startingDirection":"right"
    					};

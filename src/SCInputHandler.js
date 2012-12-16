@@ -12,7 +12,7 @@ var SCInputHandler = cc.Class.extend({
     },
     
     sendInputChangedEvent:function(){
-    	cc.log("SCInputHandler sendInputChangedEvent() current and last states are" + this.currentState + " " + this.lastState);
+    	//cc.log("SCInputHandler sendInputChangedEvent() current and last states are" + this.currentState + " " + this.lastState);
     	
     	if(this.currentState != this.lastState){
 	    	// broadcast input changed message globally
@@ -54,7 +54,7 @@ var SCInputHandler = cc.Class.extend({
 	   		break;
 	
 	   		default:
-	   		cc.log("SCInputHandler keyDown() no case in switch statement");
+	   		//cc.log("SCInputHandler keyDown() no case in switch statement");
 	   		break;
 	   	}
 	     
@@ -82,7 +82,7 @@ var SCInputHandler = cc.Class.extend({
 	   		break;
 	
 	   		default:
-	   		cc.log("SCInputHandler keyUp() no case in switch statement");
+	   		//cc.log("SCInputHandler keyUp() no case in switch statement");
 	   		break;
 	   	}
 	     

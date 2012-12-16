@@ -7,9 +7,9 @@ var SCPlayerLogicComponent = SCLogicComponent.extend({
     	
     },
     
-    changeDirection:function(direction){
-	   	if(direction){
-		   	return direction;
+    changeDirection:function(state, direction){
+	   	if(direction || direction == null){
+		   	state.direction = direction;
 	   	} 
 	   
     },

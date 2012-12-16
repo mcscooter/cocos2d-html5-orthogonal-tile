@@ -22,6 +22,7 @@ var SCTileLayer = cc.Layer.extend({
 	ctor:function () {
         this.setTouchEnabled(true);
         this.setKeyboardEnabled(true);
+        this.gameConfig = new SCGameConfig();
     },
 
     // run when SCTileLayer is created
@@ -31,12 +32,10 @@ var SCTileLayer = cc.Layer.extend({
     	// get important info from the game configuration and Cocos2D engine
     	var s = cc.Director.getInstance().getWinSize();
     	
-    	var gameConfig = new SCGameConfig();
-    	
     	// Make a map from a Tiled map file. If there are problems here check the compression on the file from within Tiled.
     	var tileMap = new SCTileMap();
-        tileMap.initWithTMXFile(gameConfig.maps.level1.filename);
-        tileMap.setPosition(gameConfig.maps.level1.position);
+        tileMap.initWithTMXFile(this.gameConfig.maps.level1.filename);
+        tileMap.setPosition(this.gameConfig.maps.level1.position);
         this.addChild(tileMap, 0, TAG_TILE_MAP);
        
         // set up the listener and messaging mediator
@@ -56,11 +55,11 @@ var SCTileLayer = cc.Layer.extend({
     	// Make a player entity
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted
         //var thisTexture = cc.TextureCache.getInstance().addImage(s_playerBlock);
-        var player = new SCPlayer(gameConfig.player.baseTexture, gameConfig.player.baseTextureRect);     
-    	player.setPosition(gameConfig.player.startPosition);
-    	player.physicsComponent.setHitbox(gameConfig.player.hitbox);
+        var player = new SCPlayer(this.gameConfig.player.baseTexture, this.gameConfig.player.baseTextureRect);     
+    	player.setPosition(this.gameConfig.player.startPosition);
+    	player.physicsComponent.setHitbox(this.gameConfig.player.hitbox);
     	// cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
-    	player.centerOffset = gameConfig.player.centerOffset;
+    	player.centerOffset = this.gameConfig.player.centerOffset;
     	entities.push(player);
     	this.addChild(player, 99, TAG_PLAYER);
        	
@@ -121,7 +120,7 @@ var SCTileLayer = cc.Layer.extend({
        	
      	
      	// set all hitboxes to draw or not.
-     	this.setEntityDrawHitboxes(gameConfig.debug.drawHitboxes);
+     	this.setEntityDrawHitboxes(this.gameConfig.debug.drawHitboxes);
      	
      	// set the global event message mediator object on entities
      	this.setEntityGlobalMediator(this.mediator);
@@ -214,7 +213,7 @@ var SCTileLayer = cc.Layer.extend({
        	this.getChildByTag(TAG_PLAYER).runAction(actionTo);
        	*/
        	
-       	//this.getChildByTag(TAG_PLAYER).move(mapTouchLocation);
+       	this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).move(mapTouchLocation);
        	
        	
        	
@@ -264,6 +263,17 @@ var SCTileLayer = cc.Layer.extend({
 		}
     },
     
+    updatePhysics:function (dt){
+	    for( var i = 0; i < entities.length; i++ ){
+			entities[i].updatePhysics();
+		}
+    },
+    
+     updateRender:function (){
+	    for( var i = 0; i < entities.length; i++ ){
+			entities[i].updateRender();
+		}
+    },
 
     // update every frame of the game
     update:function (dt) {
@@ -271,6 +281,8 @@ var SCTileLayer = cc.Layer.extend({
 	    this.updateInputState();
 	    this.mediator.update();
 	    this.updateLogic();
+	    this.updatePhysics(dt);
+	    this.updateRender();
 	    //this.setPosition(cc.p((this.getPosition()).x+.05, this.getPosition().y);
 	    //this.setPosition(cc.pAdd(this.getPosition(),cc.p(1,1)));
 	    //this.camera.setPosition(cc.pAdd(this.getPosition(),cc.p(.1,.1)));

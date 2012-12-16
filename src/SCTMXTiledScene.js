@@ -55,7 +55,7 @@ var SCTileLayer = cc.Layer.extend({
     	// Make a player entity
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted
         //var thisTexture = cc.TextureCache.getInstance().addImage(s_playerBlock);
-        var player = new SCPlayer(this.gameConfig.player.baseTexture, this.gameConfig.player.baseTextureRect);     
+        var player = new SCPlayer(this.gameConfig.player.carRight, this.gameConfig.player.baseTextureRect);     
     	player.setPosition(this.gameConfig.player.startPosition);
     	player.physicsComponent.setHitbox(this.gameConfig.player.hitbox);
     	// cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
@@ -167,18 +167,25 @@ var SCTileLayer = cc.Layer.extend({
     	var mapSize = tileMap.getMapSize();
     	var mapLocation = tileMap.getPosition();
     	var mapTouchLocation = tileMap.convertTouchToNodeSpace(touch);
-    	cc.log("SCTMXTiledScene onTouchEnded() mapTouchLocation x/y = " + mapTouchLocation.x + " " + mapTouchLocation.y);
+    	/*
+    	//cc.log("SCTMXTiledScene onTouchEnded() mapTouchLocation x/y = " + mapTouchLocation.x + " " + mapTouchLocation.y);
     	var tileTouchedX = Math.floor(mapTouchLocation.x / tileSize.width);
     	var tileTouchedY = Math.floor(mapSize.height - mapTouchLocation.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
     	var tileCoord = cc.p(tileTouchedX, tileTouchedY);
-    	cc.log("SCTMXTiledScene onTouchEnded() tileTouchedX tileTouchedY = " + tileTouchedX + " " + tileTouchedY);
+    	//cc.log("SCTMXTiledScene onTouchEnded() tileTouchedX tileTouchedY = " + tileTouchedX + " " + tileTouchedY);
     	var tileTouchedGID = layer.tileGIDAt(tileCoord);
-    	cc.log("SCTMXTiledScene onTouchEnded() tileTouchedGID = " + tileTouchedGID);
+    	//cc.log("SCTMXTiledScene onTouchEnded() tileTouchedGID = " + tileTouchedGID);
     	var tileTouchedProperties = tileMap.propertiesForGID(tileTouchedGID);
     	
     	if(tileTouchedProperties){
-	    	cc.log("SCTMXTiledScene onTouchEnded() tileTouchProperties.name = " + tileTouchedProperties.name);
+	    	//cc.log("SCTMXTiledScene onTouchEnded() tileTouchProperties.name = " + tileTouchedProperties.name);
     	}
+    	*/
+    	
+    	cc.log("SCTMXTiledScene onTouchEnded() tileMap.getPointProperties() test = " + (tileMap.getPointSignProperties(mapTouchLocation)).name);
+    	
+    	tileMap.getPointGID(mapTouchLocation);
+    	tileMap.getPointSignProperties(mapTouchLocation);
     	
     	// send touch event
     	var touchArgs = new Object();
@@ -227,12 +234,12 @@ var SCTileLayer = cc.Layer.extend({
     
     // Keyboard handling
     onKeyUp:function(e){
-	    cc.log("SCTMXTiledScene onKeyUp()");
+	   // cc.log("SCTMXTiledScene onKeyUp()");
 	    	
 	    this.inputHandler.keyUp(e);
     },
     onKeyDown:function(e){
-    	cc.log("SCTMXTiledScene onKeyDown()");
+    	//cc.log("SCTMXTiledScene onKeyDown()");
    
     	this.inputHandler.keyDown(e);   
     },
@@ -265,7 +272,7 @@ var SCTileLayer = cc.Layer.extend({
     
     updatePhysics:function (dt){
 	    for( var i = 0; i < entities.length; i++ ){
-			entities[i].updatePhysics();
+			entities[i].updatePhysics(dt, this.getChildByTag(TAG_TILE_MAP));
 		}
     },
     

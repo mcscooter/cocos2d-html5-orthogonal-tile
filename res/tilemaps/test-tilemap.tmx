@@ -2,15 +2,176 @@
 <map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="foreground" tilewidth="32" tileheight="32" spacing="2" margin="2">
   <image source="test-tilemap-tilesheet.png" width="640" height="400"/>
+  <tile id="0">
+   <properties>
+    <property name="name" value="grass"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="name" value="grass"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="name" value="dirt"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="name" value="dirt"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="name" value="road"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="name" value="road"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
   <tile id="18">
    <properties>
-    <property name="name" value="orb"/>
+    <property name="name" value="house"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="name" value="house"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="name" value="house"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="name" value="house"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="200000"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="225000"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="250000"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="300000"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="325000"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="350000"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="375000"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="400000"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="425000"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="450000"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="475000"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="500000"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="550000"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="625000"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="700000"/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="name" value="sign"/>
+    <property name="price" value="1000000"/>
    </properties>
   </tile>
  </tileset>
+ <layer name="background" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3FsQ0AAAgDoNb/j9Y7DAOhSebUtm3btm2/fQGFgv+IABAAAA==
+  </data>
+ </layer>
  <layer name="foreground" width="32" height="32">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NkYGBgHMWjeBSP4lE8aDAzFI/aP2r/qP2j9g+U/aTg4Wj/QIc/iC2MRo+k9DcQ/qdVmiI33Onl/4GM81G7BwYDALANuqkAEAAA
+   H4sIAAAAAAAAA+3RQQoAEBAF0DHlBFyB+x+RBSULKZOJ+YuXSer7OCJyAAAAn/CNpXweVq3+/Q5W+2v/f3c7n6dZs7/U+4cqLmZenJHIT1WeZt7cP833Ql7NB7CgAFtiJDMAEAAA
+  </data>
+ </layer>
+ <layer name="signs" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3Qyw2AIAAEUbrBL4qK/ZfG0AIXopmXzH2zIUiSJEn6kjh6wA+1TyeaaaGVNtop0UEnZbropocKvQP2Sj0qVHbtCwAQAAA=
   </data>
  </layer>
 </map>

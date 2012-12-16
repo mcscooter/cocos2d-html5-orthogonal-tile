@@ -10,14 +10,18 @@ var SCGameConfig = cc.Class.extend({
    		//cc.log(mapSize.width + mapSize.height);
    		
    		this.player = {
-   						"baseTexture":cc.TextureCache.getInstance().addImage(s_TestPlayerBlock),
-   						"baseTextureRect":cc.rect(0, 0, 32, 64),
-   						"startPosition":cc.p(256, 158),
+   						
+   						"carRight":cc.TextureCache.getInstance().addImage(s_CarRight),
+   						"carLeft":cc.TextureCache.getInstance().addImage(s_CarLeft),
+   						"carUp":cc.TextureCache.getInstance().addImage(s_CarUp),
+   						"carDown":cc.TextureCache.getInstance().addImage(s_CarDown),
+   						"baseTextureRect":cc.rect(0, 0, 32, 32),
+   						"startPosition":cc.p(256, 191),
    						"hitbox":cc.rect(2,2,28,28),
    						"centerOffset":cc.p(16,16),
-   						"baseSpeed":1,
+   						"baseSpeed":7,
    						"baseAccelleration":.03,
-   						"startingDirection":"right"
+   						"startingDirection":null
    					};
    
    		this.maps = {

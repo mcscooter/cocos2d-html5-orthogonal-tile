@@ -12,6 +12,7 @@ var SCPlayer = SCEntity.extend({
    		this.baseAccelleration = this.gameConfig.player.baseAccelleration;
    		this.localMediator = new SCMediator();
    		this.state.direction = this.gameConfig.player.startingDirection;
+   		this.state.updateAnimation = false;
    },
    
    setPosition:function(newPosOrxValue, yValue){
@@ -58,10 +59,11 @@ var SCPlayer = SCEntity.extend({
    		this.logicComponent.update();
    },
    
-   updatePhysics:function(dt){
-   		//cc.log("SCPlayer updatePhyics()");
+   updatePhysics:function(dt, map){
+   		//cc.log("SCPlayer updatePhyics());
+   		//cc.log("SCPlayer updatePhyics() dt = " + dt);
    		this._super(dt);
-   		this.physicsComponent.update(dt, this.state);  
+   		this.physicsComponent.update(dt, this, map);  
 	 	//cc.log("SCPlayer updatePhyics() this.physicsComponent.position.x/y = " + this.physicsComponent.position.x + " " + this.physicsComponent.position.y );
    },
    
@@ -70,13 +72,49 @@ var SCPlayer = SCEntity.extend({
    		//cc.log("SCPlayer updateRender()");
 	   this._super();
 	   this.move(this.physicsComponent.position);
+	   if(this.state.updateAnimaiton == true){
+		   this.updateAnimation();
+		}
+   },
+   
+   updateAnimation:function(){
+	 	//cc.log("SCPlayer updateAnimation() direction = " + this.state.direction);
+	 	
+	 	// move this to an event with callback on logic
+	 	this.state.updateAnimation = false;
+	 	switch(this.state.direction){
+		 	
+		 	case "right":
+		 	this.setTexture(this.gameConfig.player.carRight);
+		 	break;
+		 	
+		 	case "left":
+		 	this.setTexture(this.gameConfig.player.carLeft);
+		 	break;
+		 	
+		 	case "up":
+		 	this.setTexture(this.gameConfig.player.carUp);
+		 	break;
+		 	
+		 	case "down":
+		 	this.setTexture(this.gameConfig.player.carDown);
+		 	break;
+		 	
+		 	default:
+		 	//cc.log("SCPlayer updateAnimation() no matching value in switch");
+	 	}
+	 	
+	 	
+	 	
+	 	  
+	   
    },
    
    inputChanged:function(args){
    		// comes from SCInputHandler. args.currentState (key), args.lastState (last key) 
-	   	cc.log("SCPlayer inputChanged(), args.currentState = " + args.currentState);
+	   	//cc.log("SCPlayer inputChanged(), args.currentState = " + args.currentState);
 	   	this.logicComponent.changeDirection(this.state, args.currentState);
-	   	cc.log("SCPlayer inputChanged(), post logicComponent.changeDireciton() direction = " + this.state.direction);
+	   	//cc.log("SCPlayer inputChanged(), post logicComponent.changeDireciton() direction = " + this.state.direction);
 	   
    }
    

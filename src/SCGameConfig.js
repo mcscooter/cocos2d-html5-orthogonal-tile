@@ -37,14 +37,39 @@ var SCGameConfig = cc.Class.extend({
 						"MSG_PLAYER_MOVED":2,
 						"MSG_MAP_TOUCHED":3,
 						"MSG_INPUT_CHANGED":4,
+						"MSG_TIME_OVER":5,
 						"TAG_TILE_MAP":1,
 						"TAG_MEDIATOR":2,
 						"TAG_PLAYER":3,
-						"TAG_CAMERA":4	
+						"TAG_CAMERA":4,
+						"TAG_TIMER":5,
+						"TAG_TIMER_TEXT":6,
+						"TAG_HUDLAYER":7,
+						"TAG_SCORE":8,
+						"TAG_CUSTOMER":9,
+						"TAG_SIGN":10
    		};
+   		
+   		this.timer = {	
+	   					"timeLimit":130,
+	   					"offset":cc.p(320,200),
+	   					"fontSize":18	
+   					};
+   					
+   		this.score = {	
+	   					"offset":cc.p(320,180)
+   					};
+   					
+   		this.customer = {	
+	   					"offset":cc.p(320,-200)
+   					};
+   		this.sign = {	
+	   					"offset":cc.p(-320,-200)
+   					};
+
    					
    		this.debug = {	
-	   					"drawHitboxes":true	
+	   					"drawHitboxes":false	
    					};
    					
    					

@@ -29,7 +29,7 @@
     var c = {
         COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
         box2d:false,
-        showFPS:true,
+        showFPS:false,
         frameRate:60,
         loadExtension:false,
         tag:'gameCanvas', //the dom element to run cocos2d on
@@ -41,9 +41,14 @@
             'src/SCEvent.js',
             'src/SCListener.js',
             'src/SCMediator.js',
+            'src/SCHUDLayer.js',
             'src/SCLogicComponent.js',
             'src/SCInputHandler.js',
             'src/SCEntity.js',
+            'src/SCTimer.js',
+            'src/SCScore.js',
+            'src/SCCustomer.js',
+            'src/SCSign.js',
             'src/SCPhysicsComponent.js',
             'src/SCPhysics.js',
             'src/SCTileMap.js',
@@ -53,6 +58,7 @@
             'src/SCTMXTiledScene.js',
             'src/SCSceneManager.js',
             'src/SCGameMenu.js',
+            'src/SCEndScene.js',
             'src/SCGameInit.js'//add  JS files in order here
         ]
     };

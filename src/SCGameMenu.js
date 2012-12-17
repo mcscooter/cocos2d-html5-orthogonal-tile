@@ -26,6 +26,9 @@ var SCGameMenu = cc.Layer.extend({
       //  this.addChild(testSprite, 3);
        // var actionTo1 = cc.MoveTo.create(2, cc.p(300, 300));
     
+    
+     var director = cc.Director.getInstance();
+        director.replaceScene(new Level1);
         return true;
     },
     

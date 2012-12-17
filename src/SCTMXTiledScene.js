@@ -32,6 +32,7 @@ var SCTileLayer = cc.Layer.extend({
     	// get important info from the game configuration and Cocos2D engine
     	var s = cc.Director.getInstance().getWinSize();
     	
+    	
     	// Make a map from a Tiled map file. If there are problems here check the compression on the file from within Tiled.
     	var tileMap = new SCTileMap();
         tileMap.initWithTMXFile(this.gameConfig.maps.level1.filename);
@@ -64,7 +65,26 @@ var SCTileLayer = cc.Layer.extend({
     	this.addChild(player, 99, TAG_PLAYER);
        	
        	
+    	this.HUDLayer = new SCHUDLayer();
+    	this.HUDLayer.setPosition(cc.p(player.getPosition().x + this.gameConfig.timer.offset.x, player.getPosition().y + this.gameConfig.timer.offset.y));
+    	this.addChild(this.HUDLayer, 999, this.gameConfig.globals.TAG_HUDLAYER);
        	
+       	this.timer = new SCTimer();
+       	entities.push(this.timer);
+       	this.addChild(this.timer, 95, this.gameConfig.globals.TAG_TIMER);
+       	
+       	this.score = new SCScore();
+        entities.push(this.score);
+       	this.addChild(this.score, 96, this.gameConfig.globals.TAG_SCORE);
+       	
+       	this.customer = new SCCustomer();
+        entities.push(this.customer);
+       	this.addChild(this.customer, 96, this.gameConfig.globals.TAG_CUSTOMER);
+       	
+       	
+       	this.sign = new SCSign();
+        entities.push(this.sign);
+       	this.addChild(this.sign, 96, this.gameConfig.globals.TAG_PRICE);
        	
        	// test scrolling the map
        	//var actionTo = cc.MoveTo.create(5, cc.p(-128, 0));
@@ -117,6 +137,11 @@ var SCTileLayer = cc.Layer.extend({
        	var inputHandleStateEvent = new SCEvent(MSG_INPUT_CHANGED, this.getChildByTag(TAG_PLAYER));
        	var inputHandlerStateEventListener = new SCListener(inputHandleStateEvent, inputHandlerStateEventCallback, this.getChildByTag(TAG_PLAYER));
        	this.mediator.register(inputHandlerStateEventListener);
+       	
+       //	var timeOverEventCallback = function(args){this.timeOver(args);};
+       //	var timeOverEvent = new SCEvent(this.gameConfig.globals.MSG_TIME_OVER, this.getChildByTag(this.gameConfig.globals.TAG_TIMER));
+       //	var timeOverEventListener = new SCListener(timeOverEvent, timeOverEventCallback, this.getChildByTag(this.gameConfig.globals.TAG_TIMER));
+       //	this.mediator.register(timeOverEventListener);
        	
      	
      	// set all hitboxes to draw or not.
@@ -182,10 +207,39 @@ var SCTileLayer = cc.Layer.extend({
     	}
     	*/
     	
-    	cc.log("SCTMXTiledScene onTouchEnded() tileMap.getPointProperties() test = " + (tileMap.getPointSignProperties(mapTouchLocation)).name);
+    	//cc.log("SCTMXTiledScene onTouchEnded() tileMap.getPointProperties() test = " + (tileMap.getPointSignProperties(mapTouchLocation)).name);
+    	
+    	var tileTouchedX = Math.floor(mapTouchLocation.x / tileSize.width);
+    	var tileTouchedY = Math.floor(mapSize.height - mapTouchLocation.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
+    	var tileCoord = cc.p(tileTouchedX, tileTouchedY);
     	
     	tileMap.getPointGID(mapTouchLocation);
-    	tileMap.getPointSignProperties(mapTouchLocation);
+    	var signProperties = tileMap.getPointSignProperties(mapTouchLocation);
+    	var customerProperties = tileMap.getPointCustomerProperties(mapTouchLocation);
+    	
+    	if(customerProperties){
+	    	cc.log(customerProperties.loan);
+	    	this.customer.setLoan(customerProperties.loan);
+	    	tileMap.removeCustomer(tileCoord);
+    	}
+    	
+    	if(signProperties){
+	    	cc.log(signProperties.price);
+	    	this.sign.setPrice(signProperties.price);
+	    	cc.log(this.customer.loan);
+	    	cc.log(this.sign.price)
+	    	if(parseInt(this.customer.loan) >= parseInt(this.sign.price)){
+	    		this.score.score += parseInt(this.sign.getPrice());
+		    	tileMap.removeSign(tileCoord);
+		    	this.customer.loan = 0;
+	    	}
+	    	//tileMap.removeCustomer(tileCoord);
+	    	
+    	}
+    	
+    	
+    	
+    	
     	
     	// send touch event
     	var touchArgs = new Object();
@@ -281,6 +335,26 @@ var SCTileLayer = cc.Layer.extend({
 			entities[i].updateRender();
 		}
     },
+    
+    updateHUD:function(){
+	    
+	  //this.HUDLayer.setPosition(cc.p(this.getPosition().x + this.gameConfig.timer.offset.x, this.getPosition().y + this.gameConfig.timer.offset.y)); 
+	  this.timer.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.timer.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.timer.offset.y));  
+	  
+	  this.score.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.score.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.score.offset.y));  
+	  
+	  	  this.customer.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.customer.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.customer.offset.y));  
+	  	  
+	  	   this.sign.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.sign.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.sign.offset.y)); 
+    },
+    
+    //callback for the time being over
+    timeOver:function(args){
+	  	cc.log("SCTMXTiledScene timeOver()");  
+	    
+    },
+    
+
 
     // update every frame of the game
     update:function (dt) {
@@ -290,10 +364,15 @@ var SCTileLayer = cc.Layer.extend({
 	    this.updateLogic();
 	    this.updatePhysics(dt);
 	    this.updateRender();
+	    this.updateHUD();
 	    //this.setPosition(cc.p((this.getPosition()).x+.05, this.getPosition().y);
 	    //this.setPosition(cc.pAdd(this.getPosition(),cc.p(1,1)));
 	    //this.camera.setPosition(cc.pAdd(this.getPosition(),cc.p(.1,.1)));
 	    this.getChildByTag(TAG_CAMERA).update();
+	    this.timer.update(dt);
+	    this.score.update();
+	    this.customer.update();
+	    this.sign.update();
 	   
 	    
       },

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="60" height="60" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="foreground" tilewidth="32" tileheight="32" spacing="2" margin="2">
   <image source="test-tilemap-tilesheet.png" width="640" height="400"/>
   <tile id="0">
@@ -64,114 +64,133 @@
   </tile>
   <tile id="38">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="200000"/>
    </properties>
   </tile>
   <tile id="39">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="225000"/>
    </properties>
   </tile>
   <tile id="40">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="250000"/>
    </properties>
   </tile>
   <tile id="41">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="300000"/>
    </properties>
   </tile>
   <tile id="42">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="325000"/>
    </properties>
   </tile>
   <tile id="43">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="350000"/>
    </properties>
   </tile>
   <tile id="44">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="375000"/>
    </properties>
   </tile>
   <tile id="45">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="400000"/>
    </properties>
   </tile>
   <tile id="46">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="425000"/>
    </properties>
   </tile>
   <tile id="47">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="450000"/>
    </properties>
   </tile>
   <tile id="48">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="475000"/>
    </properties>
   </tile>
   <tile id="49">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="500000"/>
    </properties>
   </tile>
   <tile id="50">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="550000"/>
    </properties>
   </tile>
   <tile id="51">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="625000"/>
    </properties>
   </tile>
   <tile id="52">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="700000"/>
    </properties>
   </tile>
   <tile id="53">
    <properties>
-    <property name="name" value="sign"/>
     <property name="price" value="1000000"/>
    </properties>
   </tile>
+  <tile id="56">
+   <properties>
+    <property name="loan" value="350000"/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="loan" value="400000"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="loan" value="450000"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="loan" value="800000"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="loan" value="1000000"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="loan" value="300000"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="background" width="32" height="32">
+ <layer name="background" width="60" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3FsQ0AAAgDoNb/j9Y7DAOhSebUtm3btm2/fQGFgv+IABAAAA==
+   H4sIAAAAAAAAA+3FsQ0AAAgDoNb/j9Y7DAOhSebUtm3btm3btm3btm3btm3btm3btm2/eQEP0jqdQDgAAA==
   </data>
  </layer>
- <layer name="foreground" width="32" height="32">
+ <layer name="foreground" width="60" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3RQQoAEBAF0DHlBFyB+x+RBSULKZOJ+YuXSer7OCJyAAAAn/CNpXweVq3+/Q5W+2v/f3c7n6dZs7/U+4cqLmZenJHIT1WeZt7cP833Ql7NB7CgAFtiJDMAEAAA
+   H4sIAAAAAAAAA+1ZW27DMAxrArQX2K6w3f+Iy4AGEAjJepi2N8AfhOKkccyIorzseDwe54Vjxx133HHHHXdcGp8XXu/oIfq7kXi90cM3yvHVwNOIPXgax718f+//uPApruH4EOdwPHIOnOv+XS/frwvf4hqOD3EOxyPnwLlYfBkeMGMOFl+pI0tzqFHUGIPvCj1bmkONosYYfGfpmdEnrNxoflV9BoNvpN9E+oaVG82vvB5m9UKmX3n9xBpX9Iz3RLTB9Cv57q1+Yo0zfK13FNHGaH/2vBrXEMlRr8eN9GfPq3EN0RxpevYisx8xIP1E85+KB87oR9azNS/1fL33Hc6uX6tmcXzzqzw/y2lk/Vo1i+M7l9GeEuXb8kZGP2K+Mwbfljcy+GZ1zPx7YbaeKzpGz8zsn2fxRWh+W+1HET1rGtU4eb2sh29kfq9XWnpGzWvA+6yeJp/Vm1+5ttaxNtb0fENq3tqjVOqPwdfbUyIHnAPPa9BqcQXfSG6tPMt1e4jwbX3XZPGN5NbKc0vPFb6a71X3zy2/muHPjOeM9mf0Rq2HeXWIesTnWWNrbbP8ufU9tqVnb2+S/XY0y5+144w/W9qPjpl8q8jMUelBI/aTVS1bc0T5ZnW9qh/J44qeszpm8p0N9PYK/grf6t8cWfTyzXoUekjGB07j97Pqt8JXzin5evWO/y9bVb+s/Hr3YR+NrJndj6r5xTkiPUlqQtOzFZn7q2p+b1h61oDrRr1akbm/yvI94Ximnlf6s+ZXWT3Lc73fLjN8zyKQL+rZ+yYir9/3avzZ9Vvl6+kZ+aOeW/Ur+bPr97/hL/CN7Iutbxna/dq1Xr+ajYwXM+JqbL6b7+a7+UbiDwrnSadAOAAA
   </data>
  </layer>
- <layer name="signs" width="32" height="32">
+ <layer name="signs" width="60" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3Qyw2AIAAEUbrBL4qK/ZfG0AIXopmXzH2zIUiSJEn6kjh6wA+1TyeaaaGVNtop0UEnZbropocKvQP2Sj0qVHbtCwAQAAA=
+   H4sIAAAAAAAAA+3XSQ6DMAwFUG7TeR7uf7Qu2kUHFSXU1Grz3hIF86UQbLoOAAC+Z/bhmnnl9T6nAffQtpL3l7ZNsgMQKnI/D4G1eDUNqLEIqMHVMTsAP6Xm/Oqz0CZz1H85ZwcoNGS+XIanIMq7/cyYLfYJz4TWrUas7UxT474f+b8F1gVrtqOnyLXJDgBw43v06LlH9fWj3ZhBAIBwF3TjNVBAOAAA
+  </data>
+ </layer>
+ <layer name="customers" width="60" height="60">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3VQQrDIBAF0FyrSdv7H6uziCAytm66GHkPPgRx4fAxHgcAAAAAAAAAAADA3CNyRq7IM/KKvO/1Wdr+ivrzZ7OPM+4wb9bdt96rz9vO33Im333f1edduatZ1xVl/c7u8bivol8djj33+ypafY92+j+v9LvL+wsA/McHmvNr3UA4AAA=
   </data>
  </layer>
 </map>

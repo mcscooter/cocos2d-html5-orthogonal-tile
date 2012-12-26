@@ -48,18 +48,16 @@ var SCTileLayer = cc.Layer.extend({
        	// add the physics engine
        	this.physics = new SCPhysics();
        	
-       	// determines what we see
+       	// determines what we see on the stage
        	camera = new SCCamera();
        	camera.setView(this);
        	this.addChild(camera, -1000, TAG_CAMERA);
        
     	// Make a player entity
-    	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if we wanted
-        //var thisTexture = cc.TextureCache.getInstance().addImage(s_playerBlock);
+    	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if an ivisible sprite is needed.
         var player = new SCPlayer(this.gameConfig.player.carRight, this.gameConfig.player.baseTextureRect);     
     	player.setPosition(this.gameConfig.player.startPosition);
     	player.physicsComponent.setHitbox(this.gameConfig.player.hitbox);
-    	// cc.log(cc.Rect.CCRectGetMaxY(cc.rect(0,0,32,32)));
     	player.centerOffset = this.gameConfig.player.centerOffset;
     	entities.push(player);
     	this.addChild(player, 99, TAG_PLAYER);
@@ -86,41 +84,6 @@ var SCTileLayer = cc.Layer.extend({
         entities.push(this.sign);
        	this.addChild(this.sign, 96, this.gameConfig.globals.TAG_PRICE);
        	
-       	// test scrolling the map
-       	//var actionTo = cc.MoveTo.create(5, cc.p(-128, 0));
-       	//this.getChildByTag(TAG_TILE_MAP).runAction(actionTo);
-       	
-       	
-       	
-       	////////////////////////////////////////////
-       	//
-       	// Set Up Listeners
-       	
-       	
-       	/*// TEST CASES
-       	// test the mediator, look at onTouchEnded for next step
-       	// testArg is necessary so the resulting call doesn't get undefined arguments
-       	var callback = function(testArg){player.layerTouched(testArg);};
-       	var layerTouchedEvent = new SCEvent(MSG_LAYER_TOUCHED, this.getChildByTag(TAG_PLAYER));
-       	var testListener = new SCListener(layerTouchedEvent, callback, this.getChildByTag(TAG_PLAYER));
-       	this.mediator.register(testListener);
-      
-       	var mapCallback = function(testArg){tileMap.testCallback(testArg);};
-       	var mapTouchedEvent = new SCEvent(MSG_MAP_TOUCHED, tileMap);
-       	var testMapListener = new SCListener(mapTouchedEvent, mapCallback, tileMap);
-       	this.mediator.register(testMapListener);
-       	// add more listeners to test removing things from the queue
-       	this.mediator.register(testListener);
-       	this.mediator.register(testMapListener);
-     	*/
-     	
-     	// When the player moves, broadcast a message with the player position
-     	/*
-       	var playerMovedCameraCallback = function(args){this.camera.playerMoved(args);};
-       	var playerMovedCameraEvent = new SCEvent(MSG_PLAYER_MOVED, this.camera);
-       	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.camera);
-       	this.mediator.register(playerMovedCameraListener);
-     	*/
     
      	var mapTouchEventCallback = function(testArg){player.mapTouched(testArg);};
        	var mapTouchEvent = new SCEvent(MSG_MAP_TOUCHED, this.getChildByTag(TAG_TILE_MAP));
@@ -137,12 +100,6 @@ var SCTileLayer = cc.Layer.extend({
        	var inputHandleStateEvent = new SCEvent(MSG_INPUT_CHANGED, this.getChildByTag(TAG_PLAYER));
        	var inputHandlerStateEventListener = new SCListener(inputHandleStateEvent, inputHandlerStateEventCallback, this.getChildByTag(TAG_PLAYER));
        	this.mediator.register(inputHandlerStateEventListener);
-       	
-       //	var timeOverEventCallback = function(args){this.timeOver(args);};
-       //	var timeOverEvent = new SCEvent(this.gameConfig.globals.MSG_TIME_OVER, this.getChildByTag(this.gameConfig.globals.TAG_TIMER));
-       //	var timeOverEventListener = new SCListener(timeOverEvent, timeOverEventCallback, this.getChildByTag(this.gameConfig.globals.TAG_TIMER));
-       //	this.mediator.register(timeOverEventListener);
-       	
      	
      	// set all hitboxes to draw or not.
      	this.setEntityDrawHitboxes(this.gameConfig.debug.drawHitboxes);
@@ -192,23 +149,6 @@ var SCTileLayer = cc.Layer.extend({
     	var mapSize = tileMap.getMapSize();
     	var mapLocation = tileMap.getPosition();
     	var mapTouchLocation = tileMap.convertTouchToNodeSpace(touch);
-    	/*
-    	//cc.log("SCTMXTiledScene onTouchEnded() mapTouchLocation x/y = " + mapTouchLocation.x + " " + mapTouchLocation.y);
-    	var tileTouchedX = Math.floor(mapTouchLocation.x / tileSize.width);
-    	var tileTouchedY = Math.floor(mapSize.height - mapTouchLocation.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
-    	var tileCoord = cc.p(tileTouchedX, tileTouchedY);
-    	//cc.log("SCTMXTiledScene onTouchEnded() tileTouchedX tileTouchedY = " + tileTouchedX + " " + tileTouchedY);
-    	var tileTouchedGID = layer.tileGIDAt(tileCoord);
-    	//cc.log("SCTMXTiledScene onTouchEnded() tileTouchedGID = " + tileTouchedGID);
-    	var tileTouchedProperties = tileMap.propertiesForGID(tileTouchedGID);
-    	
-    	if(tileTouchedProperties){
-	    	//cc.log("SCTMXTiledScene onTouchEnded() tileTouchProperties.name = " + tileTouchedProperties.name);
-    	}
-    	*/
-    	
-    	//cc.log("SCTMXTiledScene onTouchEnded() tileMap.getPointProperties() test = " + (tileMap.getPointSignProperties(mapTouchLocation)).name);
-    	
     	var tileTouchedX = Math.floor(mapTouchLocation.x / tileSize.width);
     	var tileTouchedY = Math.floor(mapSize.height - mapTouchLocation.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
     	var tileCoord = cc.p(tileTouchedX, tileTouchedY);
@@ -237,10 +177,6 @@ var SCTileLayer = cc.Layer.extend({
 	    	
     	}
     	
-    	
-    	
-    	
-    	
     	// send touch event
     	var touchArgs = new Object();
     	//touchArgs.touch = new Object(); 
@@ -249,8 +185,6 @@ var SCTileLayer = cc.Layer.extend({
     	//touchArgs.event = event;
     	var touchEvent = new SCEvent(MSG_MAP_TOUCHED, this, touchArgs);
        	this.mediator.send(touchEvent);
-    	
-    	
     	
     	// send touch event to mediator
     	// test sending an arbitrary object to the mediator to be sent to the callback
@@ -262,22 +196,8 @@ var SCTileLayer = cc.Layer.extend({
        	var event2 = new SCEvent(MSG_MAP_TOUCHED, this, args);
        	this.mediator.send(event2);
        	
-       	// test the mediator unregister functionality
-       	//
-       	// this.mediator.unregisterObject(tileMap); // might use this when getting rid of an object. This must complete before object is erased, so objects to be erased should be added to a clean up queue that happens either at the very end of a frame or at the beginning of the next to be safe.
-       	//this.mediator.unregisterListenerForObject(MSG_MAP_TOUCHED, tileMap);
-       	
-       	
-       	/*
-       	// test moving the player
-       	var actionTo = cc.MoveTo.create(.5, mapTouchLocation);
-       	this.getChildByTag(TAG_PLAYER).runAction(actionTo);
-       	*/
-       	
        	this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).move(mapTouchLocation);
-       	
-       	
-       	
+
     },
     onTouchCancelled:function (touch, event) {
     },
@@ -287,14 +207,10 @@ var SCTileLayer = cc.Layer.extend({
     },
     
     // Keyboard handling
-    onKeyUp:function(e){
-	   // cc.log("SCTMXTiledScene onKeyUp()");
-	    	
+    onKeyUp:function(e){ 	
 	    this.inputHandler.keyUp(e);
     },
     onKeyDown:function(e){
-    	//cc.log("SCTMXTiledScene onKeyDown()");
-   
     	this.inputHandler.keyDown(e);   
     },
     
@@ -308,14 +224,7 @@ var SCTileLayer = cc.Layer.extend({
     },
     
     updateInputState:function (){
-	    
-		//cc.log("SCTMXTiledScene updateInputState()");
-		
-		
-	    	
-		    
-		
-	    
+       
     },
     
     updateLogic:function(){

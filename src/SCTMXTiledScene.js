@@ -214,8 +214,8 @@ var SCTileLayer = cc.Layer.extend({
     	var tileCoord = cc.p(tileTouchedX, tileTouchedY);
     	
     	tileMap.getPointGID(mapTouchLocation);
-    	var signProperties = tileMap.getPointSignProperties(mapTouchLocation);
-    	var customerProperties = tileMap.getPointCustomerProperties(mapTouchLocation);
+    	var signProperties = tileMap.getPointProperties("signs", mapTouchLocation);
+    	var customerProperties = tileMap.getPointProperties("customers", mapTouchLocation);
     	
     	if(customerProperties){
 	    	cc.log(customerProperties.loan);

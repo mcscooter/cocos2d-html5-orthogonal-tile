@@ -145,6 +145,8 @@
   <tile id="56">
    <properties>
     <property name="loan" value="350000"/>
+    <property name="name" value="steve"/>
+    <property name="preferredColor" value="red"/>
    </properties>
   </tile>
   <tile id="57">
@@ -190,7 +192,7 @@
  </layer>
  <layer name="customers" width="60" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VQQrDIBAF0FyrSdv7H6uziCAytm66GHkPPgRx4fAxHgcAAAAAAAAAAADA3CNyRq7IM/KKvO/1Wdr+ivrzZ7OPM+4wb9bdt96rz9vO33Im333f1edduatZ1xVl/c7u8bivol8djj33+ypafY92+j+v9LvL+wsA/McHmvNr3UA4AAA=
+   H4sIAAAAAAAAA+3VQQqEMAwFUK81zuj9j2UWUygl1W4j78EHkSwaPtVtAwAAAAAAAAAAAJj7RPbIN/KLHJHz/36WNl9Rf/5s93HHN+ybdXfXe/V92/lb9uS577v6vit3Neu6oqzf2T0e5yp66nDsuZ+raPV/9Kbv80q/WQAAmgtZ1exzQDgAAA==
   </data>
  </layer>
 </map>

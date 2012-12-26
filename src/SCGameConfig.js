@@ -38,7 +38,7 @@ var SCGameConfig = cc.Class.extend({
 						"MSG_MAP_TOUCHED":3,
 						"MSG_INPUT_CHANGED":4,
 						"MSG_TIME_OVER":5,
-						"TAG_TILE_MAP":1,
+						"TAG_TILE_MAP":1, 
 						"TAG_MEDIATOR":2,
 						"TAG_PLAYER":3,
 						"TAG_CAMERA":4,

@@ -26,8 +26,8 @@ var SCTileMap = cc.TMXTiledMap.extend({
   
    },
    
-   getPointForegroundProperties:function(point){
-	   	var layer = this.layerNamed("foreground");
+   getPointProperties:function(layerName, point){
+	   	var layer = this.layerNamed(layerName);
     	var tileSize = this.getTileSize();
     	var mapSize = this.getMapSize();
     	var mapLocation = this.getPosition();
@@ -40,58 +40,8 @@ var SCTileMap = cc.TMXTiledMap.extend({
     	var tilePointProperties = new Object();
     	tilePointProperties = this.propertiesForGID(tileGID);
     	
-    	
     	if(tilePointProperties){
-	    	//cc.log("SCTileMap getPointProperties() tilePointProperties.name = " + tilePointProperties.solid);
-	    	//cc.log(JSON.stringify(tilePointProperties));
-    	}
-    	
-    	return(tilePointProperties);
-
-	   
-   },
-   
-    getPointSignProperties:function(point){
-	   	var layer = this.layerNamed("signs");
-    	var tileSize = this.getTileSize();
-    	var mapSize = this.getMapSize();
-    	var mapLocation = this.getPosition();
-    	var tileX = Math.floor(point.x / tileSize.width);
-    	var tileY = Math.floor(mapSize.height - point.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
-    	var tileCoord = cc.p(tileX, tileY);
-    	//cc.log("SCTileMap getPointProperties tileTouchedX tileTouchedY = " + tileX + " " + tileY);
-    	var tileGID = layer.tileGIDAt(tileCoord);
-    	//cc.log("SCTileMap getPointProperties () tileGID = " + tileGID);
-    	var tilePointProperties = this.propertiesForGID(tileGID);
-    	
-    	
-    	if(tilePointProperties){
-	    	//cc.log("SCTileMap getPointProperties() tilePointProperties.name = " + tilePointProperties.name);
-    	}
-    	
-    	return(tilePointProperties);
-
-	   
-   },
-   
-      getPointCustomerProperties:function(point){
-	   	var layer = this.layerNamed("customers");
-    	var tileSize = this.getTileSize();
-    	var mapSize = this.getMapSize();
-    	var mapLocation = this.getPosition();
-    	var tileX = Math.floor(point.x / tileSize.width);
-    	var tileY = Math.floor(mapSize.height - point.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
-    	var tileCoord = cc.p(tileX, tileY);
-    	//cc.log("SCTileMap getPointProperties tileTouchedX tileTouchedY = " + tileX + " " + tileY);
-    	var tileGID = layer.tileGIDAt(tileCoord);
-    	//cc.log("SCTileMap getPointProperties () tileGID = " + tileGID);
-    	var tilePointProperties = new Object();
-    	tilePointProperties = this.propertiesForGID(tileGID);
-    	
-    	
-    	if(tilePointProperties){
-	    	//cc.log("SCTileMap getPointProperties() tilePointProperties.name = " + tilePointProperties.solid);
-	    	//cc.log(JSON.stringify(tilePointProperties));
+    		//cc.log("SCTileMap getPointProperties() layer = " + layerName + ", name = " + tilePointProperties.name);
     	}
     	
     	return(tilePointProperties);

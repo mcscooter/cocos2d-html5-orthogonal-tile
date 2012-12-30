@@ -3,13 +3,15 @@ NEXT STEPS:
 
 - do next:
 
-Make a map touch started, moved and ended event.
+Move HUD to hud layer
 
-Make player listen to map touch started, moved and ended.
+Take LD48 specific code out of the engine
 
-Make player move. Go in a constant speed towards touch.
+Make touch friendly movement and UI
 
-Physics Working (CHECK HOPPY) If movinf diagonally and blocked in one direction, still go in other direction (slide)
+Make load and end scene
+
+Make non-tile entities with physics (Hoppy physics can help) If movinf diagonally and blocked in one direction, still go in other direction (slide)
 
 give each entity a Mediator to broadcast events only to itself???
 

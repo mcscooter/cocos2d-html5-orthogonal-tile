@@ -47,7 +47,8 @@ var SCGameConfig = cc.Class.extend({
 						"TAG_HUDLAYER":7,
 						"TAG_SCORE":8,
 						"TAG_CUSTOMER":9,
-						"TAG_SIGN":10
+						"TAG_SIGN":10,
+						"TAG_GAME_LAYER":11
    		};
    		
    		this.timer = {	

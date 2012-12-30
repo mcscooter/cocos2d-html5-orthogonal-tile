@@ -1,5 +1,5 @@
-// HUD Container
-var SCHUDLayer = cc.Layer.extend({
+// Game Container
+var SCGameLayer = cc.Layer.extend({
 	
 	
 	ctor:function () {
@@ -19,4 +19,3 @@ var SCHUDLayer = cc.Layer.extend({
     
 
 });
-

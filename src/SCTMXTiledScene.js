@@ -32,6 +32,11 @@ var SCTileLayer = cc.Layer.extend({
     	// get important info from the game configuration and Cocos2D engine
     	var s = cc.Director.getInstance().getWinSize();
     	
+    	// A layer for the moving graphics that is seperate from the HUD
+    	this.gameLayer = new SCGameLayer();
+    	this.gameLayer.setPosition(cc.p(0,0));
+    	this.addChild(this.gameLayer, 1, this.gameConfig.globals.TAG_GAME_LAYER);
+    	
     	
     	// Make a map from a Tiled map file. If there are problems here check the compression on the file from within Tiled.
     	var tileMap = new SCTileMap();
@@ -69,7 +74,7 @@ var SCTileLayer = cc.Layer.extend({
        	
        	this.timer = new SCTimer();
        	entities.push(this.timer);
-       	this.addChild(this.timer, 95, this.gameConfig.globals.TAG_TIMER);
+       	this.HUDLayer.addChild(this.timer, 95, this.gameConfig.globals.TAG_TIMER);
        	
        	this.score = new SCScore();
         entities.push(this.score);
@@ -245,9 +250,15 @@ var SCTileLayer = cc.Layer.extend({
 		}
     },
     
-    updateHUD:function(){
+    updateHUD:function(dt){
+    
+      	this.timer.update(dt);
+	    this.score.update();
+	    this.customer.update();
+	    this.sign.update();
 	    
 	  //this.HUDLayer.setPosition(cc.p(this.getPosition().x + this.gameConfig.timer.offset.x, this.getPosition().y + this.gameConfig.timer.offset.y)); 
+	 // cc.log("SCTMXTiledScene updateHUD() HUDLayer.position = " + this.HUDLayer.getPosition().x + " " + this.HUDLayer.getPosition().y);
 	  this.timer.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.timer.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.timer.offset.y));  
 	  
 	  this.score.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.score.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.score.offset.y));  
@@ -273,15 +284,11 @@ var SCTileLayer = cc.Layer.extend({
 	    this.updateLogic();
 	    this.updatePhysics(dt);
 	    this.updateRender();
-	    this.updateHUD();
+	    this.updateHUD(dt);
 	    //this.setPosition(cc.p((this.getPosition()).x+.05, this.getPosition().y);
 	    //this.setPosition(cc.pAdd(this.getPosition(),cc.p(1,1)));
 	    //this.camera.setPosition(cc.pAdd(this.getPosition(),cc.p(.1,.1)));
 	    this.getChildByTag(TAG_CAMERA).update();
-	    this.timer.update(dt);
-	    this.score.update();
-	    this.customer.update();
-	    this.sign.update();
 	   
 	    
       },

@@ -12,22 +12,18 @@ var SCCustomer= SCEntity.extend({
         this.loanText.visible = true;
         this.loanText.setPosition(cc.p(0, 0));
         this.addChild(this.loanText, 99);
-       	
-    	
     },
     
     setLoan:function(loan){
-	    
 	  this.loan = loan;  
     },
 
-    
     update:function(dt){
-    	    	if(this.loan > 0){
-	    	    	this.loanText.setString("LOAN $" + (Math.ceil(this.loan)));
-    	    	}else{
-    	    		this.loanText.setString("No Customer");
-    	    		}
+	    if(this.loan > 0){
+		    this.loanText.setString("LOAN $" + (Math.ceil(this.loan)));
+    	}else{
+    	    	this.loanText.setString("No Customer");
+    	    }
     }
 
 });

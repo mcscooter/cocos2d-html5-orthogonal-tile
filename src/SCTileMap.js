@@ -19,9 +19,7 @@ var SCTileMap = cc.TMXTiledMap.extend({
     	var tileX = Math.floor(point.x / tileSize.width);
     	var tileY = Math.floor(mapSize.height - point.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
     	var tileCoord = cc.p(tileX, tileY);
-    	//cc.log("SCTileMap getTileGID tileX tileY = " + tileX + " " + tileY);
     	var tileGID = layer.tileGIDAt(tileCoord);
-    	//cc.log("SCTileMap getTileGID () tileTouchedGID = " + tileGID);
     	return(tileGID);
   
    },
@@ -34,39 +32,23 @@ var SCTileMap = cc.TMXTiledMap.extend({
     	var tileX = Math.floor(point.x / tileSize.width);
     	var tileY = Math.floor(mapSize.height - point.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
     	var tileCoord = cc.p(tileX, tileY);
-    	//cc.log("SCTileMap getPointProperties tileTouchedX tileTouchedY = " + tileX + " " + tileY);
     	var tileGID = layer.tileGIDAt(tileCoord);
-    	//cc.log("SCTileMap getPointProperties () tileGID = " + tileGID);
     	var tilePointProperties = new Object();
+    	
     	tilePointProperties = this.propertiesForGID(tileGID);
     	
-    	if(tilePointProperties){
-    		//cc.log("SCTileMap getPointProperties() layer = " + layerName + ", name = " + tilePointProperties.name);
-    	}
-    	
-    	return(tilePointProperties);
-
-	   
+    	return(tilePointProperties);   
    },
    
    removeCustomer:function(point){
-   		cc.log("SCTileMap removeCustomer()");
 	   var layer = this.layerNamed("customers");
-	   //layer.removeTileAt(point);
-	   layer.setTileGID(100, point);
-	   
+	   layer.setTileGID(100, point); // will need to update this to make sure it's not a proper tile or o ver the limit of the sprite sheet
    },
    
       removeSign:function(point){
-   		cc.log("SCTileMap removeSign()");
 	   var layer = this.layerNamed("signs");
-	   //layer.removeTileAt(point);
 	   layer.setTileGID(100, point);
 	   
-   },
-   
-   testCallback:function(args){
-	   cc.log("SCTileMap testCallback()");
    }
     
 });

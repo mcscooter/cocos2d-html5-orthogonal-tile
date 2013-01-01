@@ -7,10 +7,8 @@ var SCHUDLayer = cc.Layer.extend({
         this.gameConfig = new SCGameConfig();
     },
 
-    // 
     onEnter:function () {
-
-       		
+ 		
     },
     
     update:function(){

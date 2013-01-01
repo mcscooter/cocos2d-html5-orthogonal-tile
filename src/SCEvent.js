@@ -3,7 +3,6 @@
 var SCEvent = cc.Class.extend({
 
 	ctor:function (messageID, messageObj, args) {
-    	//cc.log("SCEvent ctor()");
     	this.messageID = messageID;
     	this.messageObj = messageObj;
     	this.args = args;

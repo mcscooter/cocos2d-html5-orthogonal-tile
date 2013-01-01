@@ -3,11 +3,14 @@ NEXT STEPS:
 
 - do next:
 
-Take LD48 specific code out of the engine
+Take LD48 specific code out of the engine - start cleanup with SCSceneManager
+
+Make load and end scene
+
+Make the scene manager work properly
 
 Make touch friendly movement and UI
 
-Make load and end scene
 
 Make non-tile entities with physics (Hoppy physics can help) If movinf diagonally and blocked in one direction, still go in other direction (slide)
 

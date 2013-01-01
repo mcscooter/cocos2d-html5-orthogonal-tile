@@ -3,7 +3,6 @@ var SCPhysics = cc.Class.extend({
 
 	ctor:function () {
     	cc.log("SCPhysics ctor()");
-    	
     }
 
 });

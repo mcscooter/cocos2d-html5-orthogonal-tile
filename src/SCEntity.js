@@ -6,13 +6,12 @@ var SCEntity = cc.Sprite.extend({
    
    ctor:function (filename) {	
    		this._super(filename);
-   		cc.log("SCEntity.js ctor()");
    		this.physicsComponent = new SCPhysicsComponent();
    		this.state = new Object();
    		this.globalMediator = null;
    		this.drawHitbox = false;
    		this.centerOffset = null;
-   		// needed for JS-Bindings compatibility
+   		// needed for JS-Bindings compatibility?
    		cc.associateWithNative( this, cc.Sprite );
    },
    
@@ -29,12 +28,10 @@ var SCEntity = cc.Sprite.extend({
 	   		// Unfortunately you cannot access the parameters of a cc.rect directly, so you have to use the minimum and maximum x and y values
 	   		var vertices = [cc.p(cc.Rect.CCRectGetMinX(this.physicsComponent.hitbox), cc.Rect.CCRectGetMinY(this.physicsComponent.hitbox)), cc.p(cc.Rect.CCRectGetMaxX(this.physicsComponent.hitbox), cc.Rect.CCRectGetMinY(this.physicsComponent.hitbox)), cc.p(cc.Rect.CCRectGetMaxX(this.physicsComponent.hitbox), cc.Rect.CCRectGetMaxY(this.physicsComponent.hitbox)), cc.p(cc.Rect.CCRectGetMinX(this.physicsComponent.hitbox), cc.Rect.CCRectGetMaxY(this.physicsComponent.hitbox)),cc.p(cc.Rect.CCRectGetMinX(this.physicsComponent.hitbox), cc.Rect.CCRectGetMinY(this.physicsComponent.hitbox)) ];
 	   		cc.drawingUtil.drawPoly(vertices, 5, false);
-	   		//cc.log("\t this.physicsComponent.hitbox.x1,y1,width1,height1 = " + cc.Rect.CCRectGetMinX(this.physicsComponent.hitbox) + ", " + cc.Rect.CCRectGetMinY(this.physicsComponent.hitbox) + ", " + cc.Rect.CCRectGetMaxX(this.physicsComponent.hitbox) + ", " + cc.Rect.CCRectGetMaxY(this.physicsComponent.hitbox));
    		} 
    },
    
    setGlobalMediator:function(mediator){
-   		cc.log("SCEntity setGlobalMediator");
 	   if(mediator){
 		   this.globalMediator = mediator;
 	   }else{

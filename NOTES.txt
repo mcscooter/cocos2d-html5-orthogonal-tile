@@ -3,8 +3,6 @@ NEXT STEPS:
 
 - do next:
 
-Move HUD to hud layer
-
 Take LD48 specific code out of the engine
 
 Make touch friendly movement and UI

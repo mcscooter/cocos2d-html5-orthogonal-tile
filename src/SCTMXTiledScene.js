@@ -37,12 +37,17 @@ var SCTileLayer = cc.Layer.extend({
     	this.gameLayer.setPosition(cc.p(0,0));
     	this.addChild(this.gameLayer, 1, this.gameConfig.globals.TAG_GAME_LAYER);
     	
+    	// A layer for the HUD
+    	this.HUDLayer = new SCHUDLayer();
+    	this.HUDLayer.setPosition(cc.p(0,0));
+    	this.addChild(this.HUDLayer, 999, this.gameConfig.globals.TAG_HUDLAYER);
+    	
     	
     	// Make a map from a Tiled map file. If there are problems here check the compression on the file from within Tiled.
     	var tileMap = new SCTileMap();
         tileMap.initWithTMXFile(this.gameConfig.maps.level1.filename);
         tileMap.setPosition(this.gameConfig.maps.level1.position);
-        this.addChild(tileMap, 0, TAG_TILE_MAP);
+        this.gameLayer.addChild(tileMap, 0, TAG_TILE_MAP);
        
         // set up the listener and messaging mediator
        	this.mediator = new SCMediator();
@@ -55,8 +60,8 @@ var SCTileLayer = cc.Layer.extend({
        	
        	// determines what we see on the stage
        	camera = new SCCamera();
-       	camera.setView(this);
-       	this.addChild(camera, -1000, TAG_CAMERA);
+       	camera.setView(this.gameLayer);
+       	this.gameLayer.addChild(camera, -1000, TAG_CAMERA);
        
     	// Make a player entity
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if an ivisible sprite is needed.
@@ -65,45 +70,47 @@ var SCTileLayer = cc.Layer.extend({
     	player.physicsComponent.setHitbox(this.gameConfig.player.hitbox);
     	player.centerOffset = this.gameConfig.player.centerOffset;
     	entities.push(player);
-    	this.addChild(player, 99, TAG_PLAYER);
+    	this.gameLayer.addChild(player, 99, TAG_PLAYER);
        	
-       	
-    	this.HUDLayer = new SCHUDLayer();
-    	this.HUDLayer.setPosition(cc.p(player.getPosition().x + this.gameConfig.timer.offset.x, player.getPosition().y + this.gameConfig.timer.offset.y));
-    	this.addChild(this.HUDLayer, 999, this.gameConfig.globals.TAG_HUDLAYER);
        	
        	this.timer = new SCTimer();
+       	this.timer.setPosition(this.gameConfig.timer.position);
        	entities.push(this.timer);
        	this.HUDLayer.addChild(this.timer, 95, this.gameConfig.globals.TAG_TIMER);
        	
        	this.score = new SCScore();
+       	this.score.setPosition(this.gameConfig.score.position);
         entities.push(this.score);
-       	this.addChild(this.score, 96, this.gameConfig.globals.TAG_SCORE);
+       	this.HUDLayer.addChild(this.score, 96, this.gameConfig.globals.TAG_SCORE);
        	
        	this.customer = new SCCustomer();
+       	this.customer.setPosition(this.gameConfig.customer.position);
         entities.push(this.customer);
-       	this.addChild(this.customer, 96, this.gameConfig.globals.TAG_CUSTOMER);
+       	this.HUDLayer.addChild(this.customer, 96, this.gameConfig.globals.TAG_CUSTOMER);
        	
        	
        	this.sign = new SCSign();
+       	this.sign.setPosition(this.gameConfig.sign.position);
         entities.push(this.sign);
-       	this.addChild(this.sign, 96, this.gameConfig.globals.TAG_PRICE);
+       	this.HUDLayer.addChild(this.sign, 96, this.gameConfig.globals.TAG_PRICE);
        	
     
+    
+       	// Register callbacks
      	var mapTouchEventCallback = function(testArg){player.mapTouched(testArg);};
-       	var mapTouchEvent = new SCEvent(MSG_MAP_TOUCHED, this.getChildByTag(TAG_TILE_MAP));
-       	var mapTouchListener = new SCListener(mapTouchEvent, mapTouchEventCallback, this.getChildByTag(TAG_PLAYER));
+       	var mapTouchEvent = new SCEvent(MSG_MAP_TOUCHED, this.gameLayer.getChildByTag(TAG_TILE_MAP));
+       	var mapTouchListener = new SCListener(mapTouchEvent, mapTouchEventCallback, this.gameLayer.getChildByTag(TAG_PLAYER));
        	this.mediator.register(mapTouchListener);
      	
      	
      	var playerMovedCameraCallback = function(testArg){camera.playerMoved(testArg);};
-       	var playerMovedCameraEvent = new SCEvent(MSG_PLAYER_MOVED, this.getChildByTag(TAG_CAMERA));
-       	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.getChildByTag(TAG_CAMERA));
+       	var playerMovedCameraEvent = new SCEvent(MSG_PLAYER_MOVED, this.gameLayer.getChildByTag(TAG_CAMERA));
+       	var playerMovedCameraListener = new SCListener(playerMovedCameraEvent, playerMovedCameraCallback, this.gameLayer.getChildByTag(TAG_CAMERA));
        	this.mediator.register(playerMovedCameraListener);
        	
        	var inputHandlerStateEventCallback = function(args){player.inputChanged(args);};
-       	var inputHandleStateEvent = new SCEvent(MSG_INPUT_CHANGED, this.getChildByTag(TAG_PLAYER));
-       	var inputHandlerStateEventListener = new SCListener(inputHandleStateEvent, inputHandlerStateEventCallback, this.getChildByTag(TAG_PLAYER));
+       	var inputHandleStateEvent = new SCEvent(MSG_INPUT_CHANGED, this.gameLayer.getChildByTag(TAG_PLAYER));
+       	var inputHandlerStateEventListener = new SCListener(inputHandleStateEvent, inputHandlerStateEventCallback, this.gameLayer.getChildByTag(TAG_PLAYER));
        	this.mediator.register(inputHandlerStateEventListener);
      	
      	// set all hitboxes to draw or not.
@@ -148,7 +155,7 @@ var SCTileLayer = cc.Layer.extend({
     	
     	// Get touch info and map info
     	var touchLocation = touch.getLocation();
-    	var tileMap = this.getChildByTag(TAG_TILE_MAP);
+    	var tileMap = this.gameLayer.getChildByTag(TAG_TILE_MAP);
     	var layer = tileMap.layerNamed("foreground");
     	var tileSize = tileMap.getTileSize();
     	var mapSize = tileMap.getMapSize();
@@ -196,12 +203,12 @@ var SCTileLayer = cc.Layer.extend({
     	var args = new Object();
     	args.touchLocation = touchLocation;
     	args.mapTouchLocation = mapTouchLocation;
-    	var event = new SCEvent(MSG_MAP_TOUCHED, this, args);
+    	var event = new SCEvent(MSG_MAP_TOUCHED, this.gameLayer, args);
        	this.mediator.send(event);
-       	var event2 = new SCEvent(MSG_MAP_TOUCHED, this, args);
+       	var event2 = new SCEvent(MSG_MAP_TOUCHED, this.gameLayer, args);
        	this.mediator.send(event2);
        	
-       	this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).move(mapTouchLocation);
+       	this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).move(mapTouchLocation);
 
     },
     onTouchCancelled:function (touch, event) {
@@ -240,7 +247,8 @@ var SCTileLayer = cc.Layer.extend({
     
     updatePhysics:function (dt){
 	    for( var i = 0; i < entities.length; i++ ){
-			entities[i].updatePhysics(dt, this.getChildByTag(TAG_TILE_MAP));
+			entities[i].updatePhysics(dt, this.gameLayer.getChildByTag(TAG_TILE_MAP));
+			//entities[i].updatePhysics(dt, this.tileMap);
 		}
     },
     
@@ -256,16 +264,17 @@ var SCTileLayer = cc.Layer.extend({
 	    this.score.update();
 	    this.customer.update();
 	    this.sign.update();
-	    
+	    /*
 	  //this.HUDLayer.setPosition(cc.p(this.getPosition().x + this.gameConfig.timer.offset.x, this.getPosition().y + this.gameConfig.timer.offset.y)); 
 	 // cc.log("SCTMXTiledScene updateHUD() HUDLayer.position = " + this.HUDLayer.getPosition().x + " " + this.HUDLayer.getPosition().y);
-	  this.timer.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.timer.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.timer.offset.y));  
+	  this.timer.setPosition(cc.p(this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.timer.offset.x, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.timer.offset.y));  
 	  
-	  this.score.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.score.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.score.offset.y));  
+	  this.score.setPosition(cc.p(this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.score.offset.x, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.score.offset.y));  
 	  
-	  	  this.customer.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.customer.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.customer.offset.y));  
+	  	  this.customer.setPosition(cc.p(this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.customer.offset.x, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.customer.offset.y));  
 	  	  
-	  	   this.sign.setPosition(cc.p(this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.sign.offset.x, this.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.sign.offset.y)); 
+	  	   this.sign.setPosition(cc.p(this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().x + this.gameConfig.sign.offset.x, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).getPosition().y + this.gameConfig.sign.offset.y)); 
+	  	   */
     },
     
     //callback for the time being over
@@ -288,7 +297,7 @@ var SCTileLayer = cc.Layer.extend({
 	    //this.setPosition(cc.p((this.getPosition()).x+.05, this.getPosition().y);
 	    //this.setPosition(cc.pAdd(this.getPosition(),cc.p(1,1)));
 	    //this.camera.setPosition(cc.pAdd(this.getPosition(),cc.p(.1,.1)));
-	    this.getChildByTag(TAG_CAMERA).update();
+	    this.gameLayer.getChildByTag(TAG_CAMERA).update();
 	   
 	    
       },

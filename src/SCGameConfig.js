@@ -53,19 +53,20 @@ var SCGameConfig = cc.Class.extend({
    		
    		this.timer = {	
 	   					"timeLimit":130,
-	   					"offset":cc.p(320,200),
+	   					"position":cc.p(740,440),
 	   					"fontSize":18	
    					};
    					
    		this.score = {	
-	   					"offset":cc.p(320,180)
+	   					"position":cc.p(200,440),
+	   					"alignment":cc.TEXT_ALIGNMENT_LEFT
    					};
    					
    		this.customer = {	
-	   					"offset":cc.p(320,-200)
+	   					"position":cc.p(740,10)
    					};
    		this.sign = {	
-	   					"offset":cc.p(-320,-200)
+	   					"position":cc.p(20,10)
    					};
 
    					

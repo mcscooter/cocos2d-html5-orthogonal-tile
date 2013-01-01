@@ -2,7 +2,6 @@
 var SCPhysicsComponent = cc.Class.extend({
 
 	ctor:function () {
-    	cc.log("SCPhysicsComponent ctor()");
     	this.velocity = new cc.p(0,0);
     	this.position = new cc.p(0,0);
     	this.hitbox = null;
@@ -13,8 +12,6 @@ var SCPhysicsComponent = cc.Class.extend({
     },
      
     setGlobalMediator:function(mediator){
-	  	cc.log("SCPhysicsComponent setGlobalMediator()");
-	  	
 	  	if(mediator){
 		  	this.globalmediator = mediator;
 	  	}  
@@ -33,24 +30,17 @@ var SCPhysicsComponent = cc.Class.extend({
 	  if(position){
 		  this.position.x = position.x;
 		  this.position.y = position.y;
-		  //cc.log("SCPhysicsComponent setPosition() position.x/y = " + this.position.x + " " + this.position.y);
-		  
 	  }  
-	    
     },
     
     
     setHitbox:function (hitbox){
-    	cc.log("SCPhysicsComponent setHitbox()");
-    	cc.log("\t hitbox.x1,y1,width1,height1 = " + cc.Rect.CCRectGetMinX(hitbox) + ", " + cc.Rect.CCRectGetMinY(hitbox) + ", " + cc.Rect.CCRectGetMaxX(hitbox) + ", " + cc.Rect.CCRectGetMaxY(hitbox));
 	    if(hitbox){
 		    this.hitbox = hitbox;
 	    }else{
 		    cc.log("SCPhyicsComponent setHitbox() velocity is null");		    
 	    }
     },
-    
-    
     // returns the corners of the hitbox in order: BL, BR, TR, TL. 
     getHitboxVertices:function(){
 	    
@@ -69,37 +59,25 @@ var SCPhysicsComponent = cc.Class.extend({
 	    
 	    var bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
 	    var topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
-	    //cc.log("SCPhysicsCompnent checkForegroundLeft() bottomLeft.x/y = " + bottomLeft.x + " " + bottomLeft.y);
-	    
 	    var blForegroundProperties = map.getPointProperties("foreground", bottomLeft);
 	    if(blForegroundProperties){
-	    	 //cc.log("SCPhysicsCompnent checkForegroundLeft() blForegroundProperties.name = " + blForegroundProperties.name);
 		    if(blForegroundProperties.name == "grass" || blForegroundProperties.name == "house"){
-			     //cc.log("SCPhysicsCompnent checkForegroundLeft() BL COLLISION");
 			     while(map.getPointProperties("foreground", bottomLeft).name == "grass" || map.getPointProperties("foreground", bottomLeft).name == "house"){
 				     position.x += 1;
 				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
 			     }
-			     
 		    }
-		    
 	    }
 	    
 	    var tlForegroundProperties = map.getPointProperties("foreground", topLeft);
 	    if(tlForegroundProperties){
-	    	//cc.log("SCPhysicsCompnent checkForegroundLeft() tlForegroundProperties.name = " + tlForegroundProperties.name);
 		    if(tlForegroundProperties.name == "grass" || tlForegroundProperties.name == "house"){
-			     //cc.log("SCPhysicsCompnent checkForegroundLeft() TL COLLISION");
 			     while(map.getPointProperties("foreground", topLeft).name == "grass" || map.getPointProperties("foreground", topLeft).name == "house"){
 				     position.x += 1;
 				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
 			     }
-			     
 		    }
-		    
 	    }
-	    
-	    
 	    return position.x;
     },
     
@@ -107,13 +85,10 @@ var SCPhysicsComponent = cc.Class.extend({
 	    
 	    var bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
 	    var topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
-	    //cc.log("SCPhysicsCompnent checkForegroundRight() bottomRight.x/y = " + bottomRight.x + " " + bottomRight.y);
 	    
 	    var brForegroundProperties = map.getPointProperties("foreground", bottomRight);
 	    if(brForegroundProperties){
-	    	 //cc.log("SCPhysicsCompnent checkForegroundRight() brForegroundProperties.name = " + brForegroundProperties.name);
 		    if(brForegroundProperties.name == "grass" || brForegroundProperties.name == "house"){
-			     //cc.log("SCPhysicsCompnent checkForegroundRight() BR COLLISION");
 			     while(map.getPointProperties("foreground", bottomRight).name == "grass" || map.getPointProperties("foreground", bottomRight).name == "house"){
 				     position.x -= 1;
 				     bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
@@ -125,19 +100,13 @@ var SCPhysicsComponent = cc.Class.extend({
 	    
 	    var trForegroundProperties = map.getPointProperties("foreground", topRight);
 	    if(trForegroundProperties){
-	    	//cc.log("SCPhysicsCompnent checkForegroundRight() trForegroundProperties.name = " + trForegroundProperties.name);
 		    if(trForegroundProperties.name == "grass" || trForegroundProperties.name == "house"){
-			     //cc.log("SCPhysicsCompnent checkForegroundRight() TR COLLISION");
 			     while(map.getPointProperties("foreground", topRight).name == "grass" || map.getPointProperties("foreground", topRight).name == "house"){
 				     position.x -= 1;
 				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
 			     }
-			     
 		    }
-		    
 	    }
-	    
-	    
 	    return position.x;
     },
     
@@ -145,38 +114,25 @@ var SCPhysicsComponent = cc.Class.extend({
 	    
 	    var topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
 	    var topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
-	    //cc.log("SCPhysicsCompnent checkForegroundTop() topRight.x/y = " + topRight.x + " " + topRight.y);
-	    
 	    var trForegroundProperties = map.getPointProperties("foreground", topRight);
 	    if(trForegroundProperties){
-	    	 //cc.log("SCPhysicsCompnent checkForegroundTop() trForegroundProperties.name = " + trForegroundProperties.name);
 		    if(trForegroundProperties.name == "grass" || trForegroundProperties.name == "house"){
-			     //cc.log("SCPhysicsCompnent checkForegroundTop() TR COLLISION");
 			     while(map.getPointProperties("foreground", topRight).name == "grass" || map.getPointProperties("foreground", topRight).name == "house"){
 				     position.y -= 1;
 				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
 			     }
-			     
 		    }
-		    
 	    }
 	    
 	    var tlForegroundProperties = map.getPointProperties("foreground", topLeft);
 	    if(tlForegroundProperties){
-	    	 //cc.log("SCPhysicsCompnent checkForegroundTop() tlForegroundProperties.name = " + tlForegroundProperties.name);
 		    if(tlForegroundProperties.name == "grass" || tlForegroundProperties.name == "house"){
-			     //cc.log("SCPhysicsCompnent checkForegroundTop() TL COLLISION");
 			     while(map.getPointProperties("foreground", topLeft).name == "grass" || map.getPointProperties("foreground", topLeft).name == "house"){
 				     position.y -= 1;
 				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
 			     }
-			     
 		    }
-		    
 	    }
-
-	    
-	    
 	    return position.y;
     },
     
@@ -184,11 +140,9 @@ var SCPhysicsComponent = cc.Class.extend({
 	    
 	    var bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
 	    var bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
-	    //cc.log("SCPhysicsCompnent checkForegroundBottom() bottomRight.x/y = " + bottomRight.x + " " + bottomRight.y);
 	    
 	   var brForegroundProperties = map.getPointProperties("foreground", bottomRight);
 	    if(brForegroundProperties){
-	    	 //cc.log("SCPhysicsCompnent checkForegroundBottom() brForegroundProperties.name = " + brForegroundProperties.name);
 		    if(brForegroundProperties.name == "grass" || brForegroundProperties.name == "house"){
 			     //cc.log("SCPhysicsCompnent checkForegroundBottom() BR COLLISION");
 			     while(map.getPointProperties("foreground", bottomRight).name == "grass" || map.getPointProperties("foreground", bottomRight).name == "house"){
@@ -202,27 +156,17 @@ var SCPhysicsComponent = cc.Class.extend({
 	    
 	    var blForegroundProperties = map.getPointProperties("foreground", bottomLeft);
 	    if(blForegroundProperties){
-	    	 //cc.log("SCPhysicsCompnent checkForegroundBottom() blForegroundProperties.name = " + blForegroundProperties.name);
 		    if(blForegroundProperties.name == "grass" || blForegroundProperties.name == "house"){
-			     //cc.log("SCPhysicsCompnent checkForegroundBottom() BL COLLISION");
 			     while(map.getPointProperties("foreground", bottomLeft).name == "grass" || map.getPointProperties("foreground", bottomLeft).name == "house"){
 				     position.y += 1;
 				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
 			     }
-			     
 		    }
-		    
 	    }
-
-	    
-	    
 	    return position.y;
     },
     
     update:function(dt, caller, map){
-	    //cc.log("SCPhysicsComponent update()");
-	   //cc.log("SCPhysicsComponent update() dt*this.gameConfig.player.baseSpeed = " + (Math.round(dt*this.gameConfig.player.baseSpeed)));
-	   
 	   	var nextPosition = cc.p(this.position.x, this.position.y);
 	   	
 	   	// returns array of cc.p objects in order BL, BR, TR, TL
@@ -251,19 +195,13 @@ var SCPhysicsComponent = cc.Class.extend({
 			    break;
 			    
 			    default:
-			    //cc.log("SCPhysicsComponent update() no state.direction switch match");
-			    
+			    break;
 		    }
 	    }else{
-	    	//return this.position;
 	    }
-	    
-	    
-	    
 	    
 	    if((map.getPointProperties("signs", this.position)))
 	    {
-	    	//cc.log("SCPhysicsComponent update() map.getPointSignProperties.name = " + (map.getPointSignProperties(this.position)).name);
 	    }
 	    
 	    

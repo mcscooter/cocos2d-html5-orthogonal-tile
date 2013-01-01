@@ -12,13 +12,10 @@ var SCPlayerLogicComponent = SCLogicComponent.extend({
 		   	state.direction = direction;
 		   	state.updateAnimaiton = true;
 	   	} 
-	   
     },
     
     update:function (){
 	    this._super();
-	    
-	    
     }
 
 });

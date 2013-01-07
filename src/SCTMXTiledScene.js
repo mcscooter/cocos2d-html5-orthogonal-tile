@@ -18,7 +18,7 @@ var SCTileLayer = cc.Layer.extend({
     	this._super();
     	// gets the size of the game. In points, not pixels.
     	var s = cc.Director.getInstance().getWinSize();
-    	
+    	    	
     	// A layer for the moving graphics that is seperate from the HUD
     	this.gameLayer = new SCGameLayer();
     	this.gameLayer.setPosition(cc.p(0,0));

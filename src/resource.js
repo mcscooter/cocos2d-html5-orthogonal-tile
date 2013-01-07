@@ -10,6 +10,12 @@ var s_CarLeft = "res/images/car-left.png";
 var s_CarUp = "res/images/car-up.png";
 var s_CarDown = "res/images/car-down.png";
 
+var s_MenuBG = "res/images/menu/bg.png";
+var s_MenuPlay = "res/images/menu/play.png";
+var s_MenuInstructions = "res/images/menu/instructions.png";
+var s_MenuAbout = "res/images/menu/about.png";
+var s_MenuSite = "res/images/menu/site.png";
+var s_MenuTitle = "res/images/menu/title.png";
 
 var s_TestTilesheet = "res/tilemaps/test-tilemap-tilesheet.png";
 var s_TestTilesheet2 = "res/tilemaps/fixed-ortho-test2.png";
@@ -28,6 +34,13 @@ var g_ressources = [
     {type:"image", src:s_CarDown},
     {type:"image", src:s_TestTilesheet},
     {type:"image", src:s_TestTilesheet2},
+    {type:"image", src:s_MenuBG},
+    {type:"image", src:s_MenuPlay},
+    {type:"image", src:s_MenuInstructions},
+    {type:"image", src:s_MenuAbout},
+    {type:"image", src:s_MenuSite},
+    {type:"image", src:s_MenuTitle},
+    
 
     //plist
 

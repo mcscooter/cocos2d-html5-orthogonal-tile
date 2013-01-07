@@ -1,20 +1,16 @@
 var SCGameMenu = cc.Layer.extend({
     isMouseDown:false,
-    helloImg:null,
-    helloLabel:null,
-    circle:null,
-    sprite:null,
 
     onEnter:function () {
 
         this._super();
-
-        var selfPointer = this;
-
+        
         var size = cc.Director.getInstance().getWinSize();
         
         // This layer will get touch events
         this.setTouchEnabled(true);
+        
+        cc.log("SCGameMenu");
         
         var director = cc.Director.getInstance();
         director.replaceScene(new Level1);

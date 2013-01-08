@@ -48,7 +48,9 @@ var SCGameConfig = cc.Class.extend({
 						"TAG_SCORE":8,
 						"TAG_CUSTOMER":9,
 						"TAG_SIGN":10,
-						"TAG_GAME_LAYER":11
+						"TAG_GAME_LAYER":11,
+						"TAG_MENU_BACKGROUND":12,
+						"TAG_MENU_TITLE":13
    		};
    		
    		this.timer = {	
@@ -67,6 +69,14 @@ var SCGameConfig = cc.Class.extend({
    					};
    		this.sign = {	
 	   					"position":cc.p(20,10)
+   					};
+   					
+   		this.gameMenuScene = {	
+	   					"backgroundTexture":cc.TextureCache.getInstance().addImage(s_MenuBG),
+	   					"backgroundTextureRect":cc.rect(0, 0, 800, 450),
+	   					"backgroundPosition":cc.p(0,0),
+	   					"titleTexture":cc.TextureCache.getInstance().addImage(s_MenuTitle),
+	   					"titlePosition":cc.p(250,250)
    					};
 
    					

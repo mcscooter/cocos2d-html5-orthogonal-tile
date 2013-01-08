@@ -13,7 +13,23 @@ var SCGameMenu = cc.Layer.extend({
         cc.log("SCGameMenu");
         
         var director = cc.Director.getInstance();
-        director.replaceScene(new Level1);
+        
+        this.gameConfig  = new SCGameConfig();
+        
+        
+        var background = new cc.Sprite(this.gameConfig.gameMenuScene.backgroundTexture);     
+    	background.setPosition(this.gameConfig.gameMenuScene.backgroundPosition);
+    	this.addChild(background, -999, this.gameConfig.globals.TAG_MENU_BACKGROUND);
+        
+        var title = new cc.Sprite(this.gameConfig.gameMenuScene.titleTexture);     
+    	title.setPosition(this.gameConfig.gameMenuScene.titlePosition);
+    	this.addChild(title, 1, this.gameConfig.globals.TAG_MENU_TITLE);
+    	
+    	
+        
+        
+        
+        //director.replaceScene(new Level1);
         return true;
     },
     

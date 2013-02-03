@@ -16,7 +16,16 @@ var SCPlayer = SCEntity.extend({
    
    setPosition:function(newPosOrxValue, yValue){
 	   this._super(newPosOrxValue, yValue);
-	   this.physicsComponent.setPosition(newPosOrxValue);
+	   if(newPosOrxValue.x && newPosOrxValue.x){
+	   		this.physicsComponent.setPosition(newPosOrxValue);
+	   	}else{
+		   	if(newPosOrxValue && yValue){
+			   	this.physicsComponent.setPosition(cc.p(newPosOrxValue, yValue));
+		   	}else{
+			   	cc.log("Error in SCPlayer setPosition(), no valid arguments");
+		   	}
+	   	}
+	   		
    },
    
    setGlobalMediator:function(mediator){
@@ -60,6 +69,7 @@ var SCPlayer = SCEntity.extend({
 	   if(this.state.updateAnimation == true){
 		   this.updateAnimation();
 		}
+		cc.log("SCPlayer updateRender() player.x, y = " + this.getPosition().x + ", " + this.getPosition().y);
    },
    
    updateAnimation:function(){

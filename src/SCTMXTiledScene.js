@@ -249,7 +249,7 @@ var SCTileLayer = cc.Layer.extend({
     
     // update every frame of the game
     update:function (dt) {
-    	cc.log("this.gameLayer.position = " + this.gameLayer.getPosition().x + " " + this.gameLayer.getPosition().y);
+    	//cc.log("this.gameLayer.position = " + this.gameLayer.getPosition().x + " " + this.gameLayer.getPosition().y);
 	    this.updateInputState();
 	    this.mediator.update();
 	    this.updateLogic();

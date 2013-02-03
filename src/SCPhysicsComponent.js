@@ -199,11 +199,11 @@ var SCPhysicsComponent = cc.Class.extend({
 		    }
 	    }else{
 	    }
-	    
+	    /* causing error, not used ever that I know of
 	    if((map.getPointProperties("signs", this.position)))
 	    {
 	    }
-	    
+	    */
 	    
 	   
 	    

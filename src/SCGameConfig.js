@@ -16,7 +16,7 @@ var SCGameConfig = cc.Class.extend({
    						"carUp":cc.TextureCache.getInstance().addImage(s_CarUp),
    						"carDown":cc.TextureCache.getInstance().addImage(s_CarDown),
    						"baseTextureRect":cc.rect(0, 0, 32, 32),
-   						"startPosition":cc.p(256, 191),
+   						"startPosition":cc.p(192, 224),
    						"hitbox":cc.rect(2,2,28,28),
    						"centerOffset":cc.p(16,16),
    						"baseSpeed":7,
@@ -74,7 +74,7 @@ var SCGameConfig = cc.Class.extend({
    		this.gameMenuScene = {	
 	   					"backgroundTexture":cc.TextureCache.getInstance().addImage(s_MenuBG),
 	   					"backgroundTextureRect":cc.rect(0, 0, 800, 450),
-	   					"backgroundPosition":cc.p(0,0),
+	   					"backgroundPosition":cc.p(300,300),
 	   					"titleTexture":cc.TextureCache.getInstance().addImage(s_MenuTitle),
 	   					"titlePosition":cc.p(250,250)
    					};

@@ -33,7 +33,7 @@
         frameRate:60,
         loadExtension:false,
         tag:'gameCanvas', //the dom element to run cocos2d on
-        engineDir:'../cocos2d/',
+        engineDir:'../cocos2d-html5/cocos2d/',
         //SingleEngineFile:'',
         appFiles:[
             'src/resource.js',
@@ -63,7 +63,7 @@
             'src/SCGameInit.js'//add  JS files in order here
         ]
     };
-    window.addEventListener('DOMContentLoaded', function () {
+        window.addEventListener('DOMContentLoaded', function () {
         //first load engine file if specified
         var s = d.createElement('script');
         /*********Delete this section if you have packed all files into one*******/
@@ -80,7 +80,7 @@
 
             //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
 
-        s.c = c;
+        document.ccConfig = c;
         s.id = 'cocos2d-html5';
         d.body.appendChild(s);
         //else if single file specified, load singlefile

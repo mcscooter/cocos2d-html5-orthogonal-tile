@@ -30,7 +30,7 @@ var SCPlayer = SCEntity.extend({
    },
    
    move:function(location){
-	  this.setPosition(this.physicsComponent.position);
+	  this.setPosition(this.physicsComponent.position.x, this.physicsComponent.position.y);
 	  var args = new Object();
 	  args.position = this.getPosition();
 	  var event = new SCEvent(this.gameConfig.globals.MSG_PLAYER_MOVED, this, args);
@@ -40,7 +40,7 @@ var SCPlayer = SCEntity.extend({
    
    mapTouched:function(touchArgs){
 	   cc.log("SCPlayer mapTouched()");  
-	   cc.log("\t touchArgs.touch.x = " + touchArgs.mapTouchLocation.x);
+	   cc.log("\t touchArgs.touch.x, y = " + touchArgs.mapTouchLocation.x + ", " + touchArgs.mapTouchLocation.y);
    },
    
    updateLogic:function(){
@@ -57,7 +57,7 @@ var SCPlayer = SCEntity.extend({
    updateRender:function(){
 	   this._super();
 	   this.move(this.physicsComponent.position);
-	   if(this.state.updateAnimaiton == true){
+	   if(this.state.updateAnimation == true){
 		   this.updateAnimation();
 		}
    },

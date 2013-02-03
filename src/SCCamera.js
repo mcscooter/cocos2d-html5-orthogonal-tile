@@ -28,9 +28,12 @@ var SCCamera = cc.Sprite.extend({
     
     playerMoved:function (arguments){
 	    var stageSize = cc.Director.getInstance().getWinSize();
-	   	this.targetPosition = arguments.position;	   
-	    this.position = this.targetPosition;
-	    this.view.setPosition(cc.pSub(cc.p(stageSize.width/2, stageSize.height/2), this.position));
+	   	this.targetPosition = arguments.position;
+	   	//this.position = this.targetPosition;	   
+	    this.setPosition(this.targetPosition);
+	   // cc.log("SCCamera playerMoved() , targetPosition.x , y = " + this.targetPosition.x + ", " + this.targetPosition.y);
+	    //this.view.setPosition(cc.pSub(cc.p(stageSize.width/2, stageSize.height/2), this.position));
+	    
     },
     
     update:function(){

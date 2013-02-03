@@ -54,10 +54,12 @@ var SCTileLayer = cc.Layer.extend({
     	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if an ivisible sprite is needed.
         var player = new SCPlayer(this.gameConfig.player.carRight, this.gameConfig.player.baseTextureRect);     
     	player.setPosition(this.gameConfig.player.startPosition);
+    	//player.setPosition(cc.p(100,100));
     	player.physicsComponent.setHitbox(this.gameConfig.player.hitbox);
     	player.centerOffset = this.gameConfig.player.centerOffset;
     	entities.push(player);
     	this.gameLayer.addChild(player, 99, this.gameConfig.globals.TAG_PLAYER);
+       	//this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).setPosition(this.gameConfig.player.startPosition);
        	
        	
        	this.timer = new SCTimer();
@@ -142,7 +144,7 @@ var SCTileLayer = cc.Layer.extend({
     	// Get touch info and map info
     	var touchLocation = touch.getLocation();
     	var tileMap = this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_TILE_MAP);
-    	var layer = tileMap.layerNamed("foreground");
+    	var layer = tileMap.getLayer("foreground");
     	var tileSize = tileMap.getTileSize();
     	var mapSize = tileMap.getMapSize();
     	var mapLocation = tileMap.getPosition();
@@ -230,6 +232,7 @@ var SCTileLayer = cc.Layer.extend({
 	    for( var i = 0; i < entities.length; i++ ){
 			entities[i].updateRender();
 		}
+		this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_CAMERA).update(); // probably should change to gameLayer.update()
     },
     
     updateHUD:function(dt){  
@@ -246,13 +249,13 @@ var SCTileLayer = cc.Layer.extend({
     
     // update every frame of the game
     update:function (dt) {
+    	cc.log("this.gameLayer.position = " + this.gameLayer.getPosition().x + " " + this.gameLayer.getPosition().y);
 	    this.updateInputState();
 	    this.mediator.update();
 	    this.updateLogic();
 	    this.updatePhysics(dt);
 	    this.updateRender();
 	    this.updateHUD(dt);
-	    this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_CAMERA).update(); 
       },
     
     setEntityDrawHitboxes:function(drawHitboxes){

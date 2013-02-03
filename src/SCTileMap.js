@@ -13,26 +13,26 @@ var SCTileMap = cc.TMXTiledMap.extend({
    },
    
    getPointGID:function(point){
-	 	var layer = this.layerNamed("foreground");
+	 	var layer = this.getLayer("foreground");
     	var tileSize = this.getTileSize();
     	var mapSize = this.getMapSize();
     	var tileX = Math.floor(point.x / tileSize.width);
     	var tileY = Math.floor(mapSize.height - point.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
     	var tileCoord = cc.p(tileX, tileY);
-    	var tileGID = layer.tileGIDAt(tileCoord);
+    	var tileGID = layer.getTileGIDAt(tileCoord);
     	return(tileGID);
   
    },
    
    getPointProperties:function(layerName, point){
-	   	var layer = this.layerNamed(layerName);
+	   	var layer = this.getLayer(layerName);
     	var tileSize = this.getTileSize();
     	var mapSize = this.getMapSize();
     	var mapLocation = this.getPosition();
     	var tileX = Math.floor(point.x / tileSize.width);
     	var tileY = Math.floor(mapSize.height - point.y / tileSize.height); // Because Tiled maps register in the top left corner rather than bottom left
     	var tileCoord = cc.p(tileX, tileY);
-    	var tileGID = layer.tileGIDAt(tileCoord);
+    	var tileGID = layer.getTileGIDAt(tileCoord);
     	var tilePointProperties = new Object();
     	
     	tilePointProperties = this.propertiesForGID(tileGID);

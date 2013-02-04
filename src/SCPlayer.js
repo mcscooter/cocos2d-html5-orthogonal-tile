@@ -69,7 +69,7 @@ var SCPlayer = SCEntity.extend({
 	   if(this.state.updateAnimation == true){
 		   this.updateAnimation();
 		}
-		cc.log("SCPlayer updateRender() player.x, y = " + this.getPosition().x + ", " + this.getPosition().y);
+		//cc.log("SCPlayer updateRender() player.x, y = " + this.getPosition().x + ", " + this.getPosition().y);
    },
    
    updateAnimation:function(){

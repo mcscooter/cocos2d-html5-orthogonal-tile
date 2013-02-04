@@ -32,7 +32,7 @@ var SCCamera = cc.Sprite.extend({
 	   	//this.position = this.targetPosition;	   
 	    this.setPosition(this.targetPosition);
 	   // cc.log("SCCamera playerMoved() , targetPosition.x , y = " + this.targetPosition.x + ", " + this.targetPosition.y);
-	    //this.view.setPosition(cc.pSub(cc.p(stageSize.width/2, stageSize.height/2), this.position));
+	    this.view.setPosition(cc.pSub(cc.p(stageSize.width/2, stageSize.height/2), this.position));
 	    
     },
     

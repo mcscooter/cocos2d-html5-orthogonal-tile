@@ -17,7 +17,7 @@ var SCGameConfig = cc.Class.extend({
    						"carDown":cc.TextureCache.getInstance().addImage(s_CarDown),
    						"baseTextureRect":cc.rect(0, 0, 32, 32),
    						"startPosition":cc.p(192, 224),
-   						"hitbox":cc.rect(2,2,28,28),
+   						"hitbox":cc.rect(-14,-14,28,28),
    						"centerOffset":cc.p(16,16),
    						"baseSpeed":7,
    						"baseAccelleration":.03,
@@ -81,7 +81,7 @@ var SCGameConfig = cc.Class.extend({
 
    					
    		this.debug = {	
-	   					"drawHitboxes":false	
+	   					"drawHitboxes":true	
    					};
    					
    					

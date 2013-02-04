@@ -41,12 +41,12 @@ var SCTileMap = cc.TMXTiledMap.extend({
    },
    
    removeCustomer:function(point){
-	   var layer = this.layerNamed("customers");
+	   var layer = this.getLayer("customers");
 	   layer.setTileGID(100, point); // will need to update this to make sure it's not a proper tile or o ver the limit of the sprite sheet
    },
    
       removeSign:function(point){
-	   var layer = this.layerNamed("signs");
+	   var layer = this.getLayer("signs");
 	   layer.setTileGID(100, point);
 	   
    }

@@ -25,7 +25,14 @@ var SCGameMenu = cc.Layer.extend({
     	title.setPosition(this.gameConfig.gameMenuScene.titlePosition);
     	this.addChild(title, 1, this.gameConfig.globals.TAG_MENU_TITLE);
     	
-    	
+    	//var playButton = new cc.MenuItemFont.create("Play",this,this.playGame());
+    	//var playButton = new cc.MenuItemImage.create(s_MenuPlay,this,this.playGame());
+       // var instructionsButton = new cc.MenuItemImage.create(s_MenuInstructions,this,this.playGame());
+       // var menu = cc.Menu.create(playButton);
+       // menu.alignItemsHorizontally();
+       // menu.setPosition(new cc.p(425,100));
+
+       //this.addChild(menu);
         
         
         
@@ -43,7 +50,14 @@ var SCGameMenu = cc.Layer.extend({
     },
     onTouchesEnded:function (touches, event) {
         this.isMouseDown = false;
-        delete this;
+       // this.playGame();
+    },
+    onTouchesCancelled:function (touches, event) {
+        console.log("onTouchesCancelled");
+    },
+    
+    playGame:function(){
+	    delete this;
         var director = cc.Director.getInstance();
         cc.log("Director.isCleanupToScene = " + director.isSendCleanupToScene());
         cc.AnimationCache.purgeSharedAnimationCache();
@@ -52,9 +66,7 @@ var SCGameMenu = cc.Layer.extend({
         //director.purgeDirector();
         director.replaceScene(new Level1);
         cc.log("Director.isCleanupToScene = " + director.isSendCleanupToScene());
-    },
-    onTouchesCancelled:function (touches, event) {
-        console.log("onTouchesCancelled");
+	    
     }
 });
 

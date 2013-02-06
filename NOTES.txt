@@ -3,7 +3,7 @@ NEXT STEPS:
 
 - do next:
 
-Make load and end scene
+Make load and end scene - NOTE: Commented out game menu code in SCGameMenu calls the playGame method on load for some reason.
 
 Make the scene manager work properly
 

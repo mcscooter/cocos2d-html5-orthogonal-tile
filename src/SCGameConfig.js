@@ -74,9 +74,10 @@ var SCGameConfig = cc.Class.extend({
    		this.gameMenuScene = {	
 	   					"backgroundTexture":cc.TextureCache.getInstance().addImage(s_MenuBG),
 	   					"backgroundTextureRect":cc.rect(0, 0, 800, 450),
-	   					"backgroundPosition":cc.p(300,300),
+	   					"backgroundPosition":cc.p(400,225),
 	   					"titleTexture":cc.TextureCache.getInstance().addImage(s_MenuTitle),
-	   					"titlePosition":cc.p(250,250)
+	   					"titlePosition":cc.p(400,250),
+	   					"menuPosition":cc.p(400,100)
    					};
 
    					

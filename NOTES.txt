@@ -3,7 +3,34 @@ NEXT STEPS:
 
 - do next:
 
-Make custom loader scene for beginning and make a layer loader overlay for between scenes.
+Make non-tile entities with physics (Hoppy physics can help) If moving diagonally and blocked in one direction, still go in other direction (slide)
+- Collision with player causes message and cc.log from callback
+- Player push at full speed
+- Entity slows player with force
+- Entity collides with map
+- Entity collides with all entities
+- Resolve complex collisions
+- Diagonal Movement
+- Give Entities collision states (including player)
+
+
+O--------O
+|        |
+|     O--|--O
+|     |  |  |
+|     O--|--O
+|        |
+O--------O
+
+
+ADD ENTITY LOGIC:
+- Drive in a direction.
+- If hit wall, turn
+
+
+
+Make custom loading scene or overlay for in between levels
+
 
 Make load and end scene - NOTE: Commented out game menu code in SCGameMenu calls the playGame method on load for some reason.
 
@@ -12,7 +39,17 @@ Make the scene manager work properly
 Make touch friendly movement and UI
 
 
-Make non-tile entities with physics (Hoppy physics can help) If moving diagonally and blocked in one direction, still go in other direction (slide)
+Make custom loader scene for beginning.
+- http://www.freeformatter.com/base64-encoder.html
+- https://github.com/cocos2d/cocos2d-html5/blob/master/cocos2d/CCLoader.js
+look for this._logoTexture
+Put into config file
+Extend cc.Loader?????
+
+
+
+
+
 
 give each entity a Mediator to broadcast events only to itself???
 

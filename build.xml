@@ -132,6 +132,8 @@
                 <file name="src/SCGameLayer.js"/>
                 <file name="src/SCHUDLayer.js"/>
                 <file name="src/SCLogicComponent.js"/>
+                <file name="src/SCPlayerComponent.js"/>
+                <file name="src/SCCarLogicComponent.js"/>
                 <file name="src/SCInputHandler.js"/>
                 <file name="src/SCEntity.js"/>
                 <file name="src/SCTimer.js"/>
@@ -144,6 +146,7 @@
                 <file name="src/SCCamera.js"/>
                 <file name="src/SCPlayerPhysicsComponent.js"/>
                 <file name="src/SCPlayer.js"/>
+                <file name="src/SCCar.js"/>
                 <file name="src/SCTMXTiledScene.js"/>
                 <file name="src/SCGameInit.js"/>
                 <file name="src/SCGameMenu.js"/>

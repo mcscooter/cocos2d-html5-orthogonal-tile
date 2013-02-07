@@ -8,6 +8,7 @@ var SCPhysicsComponent = cc.Class.extend({
     	this.mass = 0;
     	this.globalMediator = null;
     	this.gameConfig = new SCGameConfig();
+    	this.baseSpeed = 0;
     	
     },
      
@@ -41,6 +42,15 @@ var SCPhysicsComponent = cc.Class.extend({
 		    cc.log("SCPhyicsComponent setHitbox() velocity is null");		    
 	    }
     },
+    
+     setBaseSpeed:function (baseSpeed){
+	    if(baseSpeed){
+		    this.baseSpeed = baseSpeed;
+	    }else{
+		    cc.log("SCPhyicsComponent setBaseSpeed() baseSpeed is null");		    
+	    }
+    },
+    
     // returns the corners of the hitbox in order: BL, BR, TR, TL. 
     getHitboxVertices:function(){
 	    
@@ -166,7 +176,7 @@ var SCPhysicsComponent = cc.Class.extend({
 	    return position.y;
     },
     
-    update:function(dt, caller, map){
+    update:function(dt, caller, map, entities){
 	   	var nextPosition = cc.p(this.position.x, this.position.y);
 	   	
 	   	// returns array of cc.p objects in order BL, BR, TR, TL
@@ -175,22 +185,22 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(caller.state.direction){
 		    switch(caller.state.direction){
 			    case "left":
-			    this.position.x = this.position.x - this.gameConfig.player.baseSpeed;
+			    this.position.x = this.position.x - this.baseSpeed;
 			    this.position.x = this.checkForegroundLeft(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "right":
-			    this.position.x = this.position.x + this.gameConfig.player.baseSpeed;
+			    this.position.x = this.position.x + this.baseSpeed;
 			    this.position.x = this.checkForegroundRight(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "up":
-			    this.position.y = this.position.y + this.gameConfig.player.baseSpeed;
+			    this.position.y = this.position.y + this.baseSpeed;
 			    this.position.y = this.checkForegroundTop(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "down":
-			    this.position.y = this.position.y - this.gameConfig.player.baseSpeed;
+			    this.position.y = this.position.y - this.baseSpeed;
 			    this.position.y = this.checkForegroundBottom(this.position, caller, map, hitboxVertices);
 			    break;
 			    
@@ -204,6 +214,14 @@ var SCPhysicsComponent = cc.Class.extend({
 	    {
 	    }
 	    */
+	 
+	 // do check on other entities
+	 for(var i = 0; i<entities.length; i++){
+		 if(entities[i] != this){
+		 	cc.log("SCPhysicsComponent update() entities loop, entity that is != this found!");	 
+		 }
+	 }
+	 
 	    
 	   
 	    

@@ -43,7 +43,7 @@ var SCTileLayer = cc.Layer.extend({
        	this.inputHandler = new SCInputHandler();
        	
        	// add the physics engine
-       	this.physics = new SCPhysics();
+       	// this.physics = new SCPhysics();
        	
        	// determines what we see on the stage
        	camera = new SCCamera();
@@ -51,16 +51,20 @@ var SCTileLayer = cc.Layer.extend({
        	this.gameLayer.addChild(camera, -1000, this.gameConfig.globals.TAG_CAMERA);
        
     	// Make a player entity
-    	// Since SCPlayer extends a CCSprite, we start with a texture. Could be a 1px transparent image if an ivisible sprite is needed.
+    	// Since SCPlayer extends a CCSprite (SCEntity), we start with a texture. Could be a 1px transparent image if an invisible sprite is needed.
         var player = new SCPlayer(this.gameConfig.player.carRight, this.gameConfig.player.baseTextureRect);     
     	player.setPosition(this.gameConfig.player.startPosition);
-    	//player.setPosition(cc.p(100,100));
-    	player.physicsComponent.setHitbox(this.gameConfig.player.hitbox);
-    	player.centerOffset = this.gameConfig.player.centerOffset;
     	entities.push(player);
     	this.gameLayer.addChild(player, 99, this.gameConfig.globals.TAG_PLAYER);
        	//this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).setPosition(this.gameConfig.player.startPosition);
        	
+       	// Make a car entity
+    	// Since SCCar extends a CCSprite (SCEntity), we start with a texture. Could be a 1px transparent image if an invisible sprite is needed.
+        var carEntity = new SCCar(this.gameConfig.greenCar.greenCarRight, this.gameConfig.greenCar.baseTextureRect);     
+    	carEntity.setPosition(this.gameConfig.greenCar.startPosition);
+    	entities.push(carEntity);
+    	this.gameLayer.addChild(carEntity, 100, this.gameConfig.globals.TAG_CAR_ENTITY);
+       
        	
        	this.timer = new SCTimer();
        	this.timer.setPosition(this.gameConfig.timer.position);
@@ -224,7 +228,7 @@ var SCTileLayer = cc.Layer.extend({
     
     updatePhysics:function (dt){
 	    for( var i = 0; i < entities.length; i++ ){
-			entities[i].updatePhysics(dt, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_TILE_MAP));
+			entities[i].updatePhysics(dt, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_TILE_MAP), entities);
 		}
     },
     

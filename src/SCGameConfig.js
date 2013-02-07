@@ -23,6 +23,22 @@ var SCGameConfig = cc.Class.extend({
    						"baseAccelleration":.03,
    						"startingDirection":null
    					};
+   					
+   		this.greenCar = {
+   						
+   						"greenCarRight":cc.TextureCache.getInstance().addImage(s_GreenCarRight),
+   						"greenCarLeft":cc.TextureCache.getInstance().addImage(s_GreenCarLeft),
+   						"greenCarUp":cc.TextureCache.getInstance().addImage(s_GreenCarUp),
+   						"greenCarDown":cc.TextureCache.getInstance().addImage(s_GreenCarDown),
+   						"baseTextureRect":cc.rect(0, 0, 32, 32),
+   						"startPosition":cc.p(272, 224),
+   						"hitbox":cc.rect(-14,-14,28,28),
+   						"centerOffset":cc.p(16,16),
+   						"baseSpeed":5,
+   						"baseAccelleration":.03,
+   						"startingDirection":null
+   					};
+   
    
    		this.maps = {
 	   					level1:{ 	
@@ -50,7 +66,8 @@ var SCGameConfig = cc.Class.extend({
 						"TAG_SIGN":10,
 						"TAG_GAME_LAYER":11,
 						"TAG_MENU_BACKGROUND":12,
-						"TAG_MENU_TITLE":13
+						"TAG_MENU_TITLE":13,
+						"TAG_CAR_ENTITY":14
    		};
    		
    		this.timer = {	

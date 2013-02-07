@@ -1,11 +1,12 @@
 //	Scott Cummings 2012
 // 
-var SCPlayer = SCEntity.extend({
+var SCCar = SCEntity.extend({
    
    ctor:function (filename) {
    		this._super(filename);
+   		cc.log("SCCar ctor()");
    		this.gameConfig = new SCGameConfig();
-   		this.logicComponent = new SCPlayerLogicComponent();
+   		this.logicComponent = new SCCarLogicComponent();
    		this.physicsCompnent = new SCPhysicsComponent();
    		this.baseSpeed = this.gameConfig.player.baseSpeed;
    		this.baseAccelleration = this.gameConfig.player.baseAccelleration;
@@ -46,16 +47,11 @@ var SCPlayer = SCEntity.extend({
    
    move:function(location){
 	  this.setPosition(this.physicsComponent.position.x, this.physicsComponent.position.y);
-	  var args = new Object();
-	  args.position = this.getPosition();
-	  var event = new SCEvent(this.gameConfig.globals.MSG_PLAYER_MOVED, this, args);
-      this.globalMediator.send(event);
+	  //var args = new Object();
+	  //args.position = this.getPosition();
+	  //var event = new SCEvent(this.gameConfig.globals.MSG_PLAYER_MOVED, this, args);
+      //this.globalMediator.send(event);
    
-   },
-   
-   mapTouched:function(touchArgs){
-	   cc.log("SCPlayer mapTouched()");  
-	   cc.log("\t touchArgs.touch.x, y = " + touchArgs.mapTouchLocation.x + ", " + touchArgs.mapTouchLocation.y);
    },
    
    updateLogic:function(){
@@ -63,7 +59,7 @@ var SCPlayer = SCEntity.extend({
    		this.logicComponent.update();
    },
    
-   updatePhysics:function(dt, map, entities){
+   updatePhysics:function(dt, map, entitiee){
    		this._super(dt);
    		this.physicsComponent.update(dt, this, map, entities);  
    },

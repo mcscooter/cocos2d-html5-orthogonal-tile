@@ -25,14 +25,15 @@ var SCGameMenu = cc.Layer.extend({
     	title.setPosition(this.gameConfig.gameMenuScene.titlePosition);
     	this.addChild(title, 1, this.gameConfig.globals.TAG_MENU_TITLE);
     	
-    	//var playButton = new cc.MenuItemFont.create("Play",this,this.playGame());
-    	//var playButton = new cc.MenuItemImage.create(s_MenuPlay,this,this.playGame());
-       // var instructionsButton = new cc.MenuItemImage.create(s_MenuInstructions,this,this.playGame());
-       // var menu = cc.Menu.create(playButton);
-       // menu.alignItemsHorizontally();
-       // menu.setPosition(new cc.p(425,100));
+    	// cc.MenuItemImage.create(normal image, selected image, selector, target)
+    	var playButton = new cc.MenuItemImage.create(s_MenuPlay, s_MenuPlay, this.playGame,this);
+    	var instructionsButton = new cc.MenuItemImage.create(s_MenuInstructions,s_MenuInstructions,this.playGame,this);
+    	var aboutButton = new cc.MenuItemImage.create(s_MenuAbout,s_MenuAbout,this.playGame,this);
+        var menu = cc.Menu.create(playButton, instructionsButton, aboutButton);
+        menu.alignItemsHorizontally();
+        menu.setPosition(new cc.p(425,100));
 
-       //this.addChild(menu);
+       this.addChild(menu);
         
         
         

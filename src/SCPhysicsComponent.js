@@ -176,7 +176,9 @@ var SCPhysicsComponent = cc.Class.extend({
 	    return position.y;
     },
     
-    update:function(dt, caller, map, entities){
+    update:function(dt, caller, map, physEntities){
+    	cc.log("SCPhysicsComponent update(), entity ID = " + caller.getID());
+    
 	   	var nextPosition = cc.p(this.position.x, this.position.y);
 	   	
 	   	// returns array of cc.p objects in order BL, BR, TR, TL
@@ -215,12 +217,15 @@ var SCPhysicsComponent = cc.Class.extend({
 	    }
 	    */
 	 
+	 
 	 // do check on other entities
-	 for(var i = 0; i<entities.length; i++){
-		 if(entities[i] != this){
-		 	cc.log("SCPhysicsComponent update() entities loop, entity that is != this found!");	 
+	 for(var i = 0; i<physEntities.length; i++){
+		 if(physEntities[i].getID() != caller.getID()){
+		 	cc.log("SCPhysicsComponent update() entities loop, entity that is != this found! ID = " + physEntities[i].getID());	 
 		 }
 	 }
+	 
+	 
 	 
 	    
 	   

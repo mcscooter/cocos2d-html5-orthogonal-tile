@@ -3,6 +3,14 @@ NEXT STEPS:
 
 - do next:
 
+Give all entities an ID (tag)
+Make array of entities to loop through
+Remove each entity as you go through loop
+
+
+
+
+
 Make non-tile entities with physics (Hoppy physics can help) If moving diagonally and blocked in one direction, still go in other direction (slide)
 - Collision with player causes message and cc.log from callback
 - Player push at full speed

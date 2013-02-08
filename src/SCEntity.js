@@ -11,6 +11,7 @@ var SCEntity = cc.Sprite.extend({
    		this.globalMediator = null;
    		this.drawHitbox = false;
    		this.centerOffset = null;
+   		this.ID = null;
    		// needed for JS-Bindings compatibility?
    		cc.associateWithNative( this, cc.Sprite );
    },
@@ -38,6 +39,19 @@ var SCEntity = cc.Sprite.extend({
 		   cc.log("SCEntity setGlobalMediator(), mediator is null");
 	   }
 	   
+   },
+   
+   setID:function(ID){
+	 if(ID){
+		 this.ID = ID;
+	 }else{
+		 cc.log("SCEntity setID, ID is null.");
+	 }  
+	   
+   },
+   
+   getID:function(){
+	 return this.ID;  
    },
    
    updateLogic:function(){

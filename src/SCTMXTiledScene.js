@@ -1,7 +1,7 @@
 
 // an array of the entities in the game
 var entities = new Array();
-
+var physicsEntities = new Array();
 
 var SCTileLayer = cc.Layer.extend({
 	
@@ -54,7 +54,9 @@ var SCTileLayer = cc.Layer.extend({
     	// Since SCPlayer extends a CCSprite (SCEntity), we start with a texture. Could be a 1px transparent image if an invisible sprite is needed.
         var player = new SCPlayer(this.gameConfig.player.carRight, this.gameConfig.player.baseTextureRect);     
     	player.setPosition(this.gameConfig.player.startPosition);
+    	player.setID(this.gameConfig.globals.TAG_PLAYER);
     	entities.push(player);
+    	physicsEntities.push(player);
     	this.gameLayer.addChild(player, 99, this.gameConfig.globals.TAG_PLAYER);
        	//this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_PLAYER).setPosition(this.gameConfig.player.startPosition);
        	
@@ -62,7 +64,9 @@ var SCTileLayer = cc.Layer.extend({
     	// Since SCCar extends a CCSprite (SCEntity), we start with a texture. Could be a 1px transparent image if an invisible sprite is needed.
         var carEntity = new SCCar(this.gameConfig.greenCar.greenCarRight, this.gameConfig.greenCar.baseTextureRect);     
     	carEntity.setPosition(this.gameConfig.greenCar.startPosition);
+    	carEntity.setID(this.gameConfig.globals.TAG_CAR_ENTITY);
     	entities.push(carEntity);
+    	physicsEntities.push(carEntity);
     	this.gameLayer.addChild(carEntity, 100, this.gameConfig.globals.TAG_CAR_ENTITY);
        
        	
@@ -227,8 +231,10 @@ var SCTileLayer = cc.Layer.extend({
     },
     
     updatePhysics:function (dt){
-	    for( var i = 0; i < entities.length; i++ ){
-			entities[i].updatePhysics(dt, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_TILE_MAP), entities);
+	    for( var i = 0; i < physicsEntities.length; i++ ){
+	    	if(physicsEntities[i].physicsComponent){
+				physicsEntities[i].updatePhysics(dt, this.gameLayer.getChildByTag(this.gameConfig.globals.TAG_TILE_MAP), physicsEntities);
+			}else{cc.log("SCTMXTiledScene updatePhysics entity with ------ NO ------ physics component.");}
 		}
     },
     

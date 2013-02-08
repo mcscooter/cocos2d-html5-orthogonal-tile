@@ -7,13 +7,14 @@ var SCPlayer = SCEntity.extend({
    		this.gameConfig = new SCGameConfig();
    		this.logicComponent = new SCPlayerLogicComponent();
    		this.physicsCompnent = new SCPhysicsComponent();
-   		this.baseSpeed = this.gameConfig.player.baseSpeed;
-   		this.baseAccelleration = this.gameConfig.player.baseAccelleration;
    		this.localMediator = new SCMediator();
-   		this.state.direction = this.gameConfig.player.startingDirection;
+   		this.state.movementDirection = this.gameConfig.player.startingMovementDirection;
+   		this.state.renderDirection = this.gameConfig.player.startingRenderDirection;
    		this.state.updateAnimation = false;
    		this.physicsComponent.setHitbox(this.gameConfig.player.hitbox);
    		this.physicsComponent.setBaseSpeed(this.gameConfig.player.baseSpeed);
+   		this.physicsComponent.setBaseAccelleration(this.gameConfig.player.baseAccelleration);
+   		this.physicsComponent.setMaxVelocity(this.gameConfig.player.maxVelocity);
     	this.centerOffset = this.gameConfig.player.centerOffset;
     	
     	
@@ -80,7 +81,8 @@ var SCPlayer = SCEntity.extend({
    
    updateAnimation:function(){
 	 	this.state.updateAnimation = false;
-	 	switch(this.state.direction){
+	 	//cc.log("SCPlayer updateAnimation movementDirection = " + this.state.movementDirection);
+	 	switch(this.state.movementDirection){
 		 	
 		 	case "right":
 		 	this.setTexture(this.gameConfig.player.carRight);
@@ -102,7 +104,7 @@ var SCPlayer = SCEntity.extend({
 		 	//cc.log("SCPlayer updateAnimation() no matching value in switch");
 	 	}
    },
-   
+   // args holds info from input controller, including current state (key down)
    inputChanged:function(args){
    		// comes from SCInputHandler. args.currentState (key), args.lastState (last key) 
 	   	this.logicComponent.changeDirection(this.state, args.currentState);

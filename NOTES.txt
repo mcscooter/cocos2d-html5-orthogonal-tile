@@ -3,6 +3,10 @@ NEXT STEPS:
 
 - do next:
 
+Get back to doing movement in physics Component. Did right/left, next to up down.
+
+Check collisions based on velocity
+Turn movement into velocity and max speed
 Give all entities an ID (tag)
 Make array of entities to loop through
 Remove each entity as you go through loop

@@ -19,9 +19,11 @@ var SCGameConfig = cc.Class.extend({
    						"startPosition":cc.p(192, 224),
    						"hitbox":cc.rect(-14,-14,28,28),
    						"centerOffset":cc.p(16,16),
-   						"baseSpeed":7,
-   						"baseAccelleration":.03,
-   						"startingDirection":null
+   						"baseSpeed":1,
+   						"maxVelocity":7,
+   						"baseAccelleration":.2,
+   						"startingMovementDirection":null,
+   						"startingRenderDirection":"right"
    					};
    					
    		this.greenCar = {
@@ -35,7 +37,8 @@ var SCGameConfig = cc.Class.extend({
    						"hitbox":cc.rect(-14,-14,28,28),
    						"centerOffset":cc.p(16,16),
    						"baseSpeed":5,
-   						"baseAccelleration":.03,
+   						"maxVelocity":6,
+   						"baseAccelleration":.1,
    						"startingDirection":null
    					};
    

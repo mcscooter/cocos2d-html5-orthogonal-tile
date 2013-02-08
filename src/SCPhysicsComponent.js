@@ -51,6 +51,24 @@ var SCPhysicsComponent = cc.Class.extend({
 	    }
     },
     
+    setBaseAccelleration:function (baseAccelleration){
+	  	if(baseAccelleration){
+		  	this.baseAccelleration = baseAccelleration;
+	  	}  else{
+		  	cc.log("SCPhysicsComponent setBaseAccelleration() baseAccellleration == null.");
+	  	}
+	    
+    },
+    
+    setMaxVelocity:function (maxVelocity){
+	  	if(maxVelocity){
+		  	this.maxVelocity = maxVelocity;
+	  	}  else{
+		  	cc.log("SCPhysicsComponent setMaxVelocity() maxVelocity == null.");
+	  	}
+	    
+    },
+    
     // returns the corners of the hitbox in order: BL, BR, TR, TL. 
     getHitboxVertices:function(){
 	    
@@ -73,9 +91,11 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(blForegroundProperties){
 		    if(blForegroundProperties.name == "grass" || blForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", bottomLeft).name == "grass" || map.getPointProperties("foreground", bottomLeft).name == "house"){
-				     position.x += 1;
+				     position.x += .2;
 				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
 			     }
+			     position.x = Math.floor(position.x);
+			     this.velocity.x = 0;
 		    }
 	    }
 	    
@@ -83,9 +103,11 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(tlForegroundProperties){
 		    if(tlForegroundProperties.name == "grass" || tlForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topLeft).name == "grass" || map.getPointProperties("foreground", topLeft).name == "house"){
-				     position.x += 1;
+				     position.x += .2;
 				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
 			     }
+			     position.x = Math.floor(position.x);
+			     this.velocity.x = 0;
 		    }
 	    }
 	    return position.x;
@@ -100,10 +122,11 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(brForegroundProperties){
 		    if(brForegroundProperties.name == "grass" || brForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", bottomRight).name == "grass" || map.getPointProperties("foreground", bottomRight).name == "house"){
-				     position.x -= 1;
+				     position.x -= .2;
 				     bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
 			     }
-			     
+			     position.x = Math.ceil(position.x);
+			     this.velocity.x = 0;
 		    }
 		    
 	    }
@@ -112,9 +135,11 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(trForegroundProperties){
 		    if(trForegroundProperties.name == "grass" || trForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topRight).name == "grass" || map.getPointProperties("foreground", topRight).name == "house"){
-				     position.x -= 1;
+				     position.x -= .2;
 				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
 			     }
+			     position.x = Math.ceil(position.x);
+			     this.velocity.x = 0;
 		    }
 	    }
 	    return position.x;
@@ -177,33 +202,33 @@ var SCPhysicsComponent = cc.Class.extend({
     },
     
     update:function(dt, caller, map, physEntities){
-    	cc.log("SCPhysicsComponent update(), entity ID = " + caller.getID());
+    	//cc.log("SCPhysicsComponent update(), entity ID = " + caller.getID());
     
 	   	var nextPosition = cc.p(this.position.x, this.position.y);
 	   	
 	   	// returns array of cc.p objects in order BL, BR, TR, TL
 	    var hitboxVertices = this.getHitboxVertices();
 	    
-	    if(caller.state.direction){
-		    switch(caller.state.direction){
+	    if(caller.state.movementDirection){
+		    switch(caller.state.movementDirection){
 			    case "left":
-			    this.position.x = this.position.x - this.baseSpeed;
-			    this.position.x = this.checkForegroundLeft(this.position, caller, map, hitboxVertices);
+			    this.position.x += (this.velocity.x -= this.baseAccelleration);
+			    //this.position.x = this.checkForegroundLeft(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "right":
-			    this.position.x = this.position.x + this.baseSpeed;
-			    this.position.x = this.checkForegroundRight(this.position, caller, map, hitboxVertices);
+			    this.position.x += (this.velocity.x += this.baseAccelleration);
+			    //this.position.x = this.checkForegroundRight(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "up":
-			    this.position.y = this.position.y + this.baseSpeed;
-			    this.position.y = this.checkForegroundTop(this.position, caller, map, hitboxVertices);
+			    this.position.y += (this.velocity.y += this.baseAccelleration);
+			    //this.position.y = this.checkForegroundTop(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "down":
-			    this.position.y = this.position.y - this.baseSpeed;
-			    this.position.y = this.checkForegroundBottom(this.position, caller, map, hitboxVertices);
+			    this.position.y += (this.velocity.y -= this.baseAccelleration);
+			    //this.position.y = this.checkForegroundBottom(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    default:
@@ -211,6 +236,20 @@ var SCPhysicsComponent = cc.Class.extend({
 		    }
 	    }else{
 	    }
+	    
+	    if(this.velocity.x<0){
+		    this.position.x = this.checkForegroundLeft(this.position, caller, map, hitboxVertices);
+	    }
+	    if(this.velocity.x>0){
+		    this.position.x = this.checkForegroundRight(this.position, caller, map, hitboxVertices);
+	    }
+	    if(this.velocity.y<0){
+		    
+	    }
+	    if(this.velocity.y>0){
+		    
+	    }
+	    
 	    /* causing error, not used ever that I know of
 	    if((map.getPointProperties("signs", this.position)))
 	    {
@@ -221,7 +260,7 @@ var SCPhysicsComponent = cc.Class.extend({
 	 // do check on other entities
 	 for(var i = 0; i<physEntities.length; i++){
 		 if(physEntities[i].getID() != caller.getID()){
-		 	cc.log("SCPhysicsComponent update() entities loop, entity that is != this found! ID = " + physEntities[i].getID());	 
+		 	//cc.log("SCPhysicsComponent update() entities loop, entity that is != this found! ID = " + physEntities[i].getID());	 
 		 }
 	 }
 	 

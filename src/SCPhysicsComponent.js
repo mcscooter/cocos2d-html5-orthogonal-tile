@@ -9,6 +9,7 @@ var SCPhysicsComponent = cc.Class.extend({
     	this.globalMediator = null;
     	this.gameConfig = new SCGameConfig();
     	this.baseSpeed = 0;
+    	this.maxVelocity = 0;
     	
     },
      
@@ -91,7 +92,7 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(blForegroundProperties){
 		    if(blForegroundProperties.name == "grass" || blForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", bottomLeft).name == "grass" || map.getPointProperties("foreground", bottomLeft).name == "house"){
-				     position.x += .2;
+				     position.x += 1;
 				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
 			     }
 			     position.x = Math.floor(position.x);
@@ -103,7 +104,7 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(tlForegroundProperties){
 		    if(tlForegroundProperties.name == "grass" || tlForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topLeft).name == "grass" || map.getPointProperties("foreground", topLeft).name == "house"){
-				     position.x += .2;
+				     position.x += 1;
 				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
 			     }
 			     position.x = Math.floor(position.x);
@@ -122,7 +123,7 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(brForegroundProperties){
 		    if(brForegroundProperties.name == "grass" || brForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", bottomRight).name == "grass" || map.getPointProperties("foreground", bottomRight).name == "house"){
-				     position.x -= .2;
+				     position.x -= 1;
 				     bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
 			     }
 			     position.x = Math.ceil(position.x);
@@ -135,7 +136,7 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(trForegroundProperties){
 		    if(trForegroundProperties.name == "grass" || trForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topRight).name == "grass" || map.getPointProperties("foreground", topRight).name == "house"){
-				     position.x -= .2;
+				     position.x -= 1;
 				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
 			     }
 			     position.x = Math.ceil(position.x);
@@ -156,6 +157,8 @@ var SCPhysicsComponent = cc.Class.extend({
 				     position.y -= 1;
 				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
 			     }
+			     position.y = Math.ceil(position.y);
+			     this.velocity.y = 0;
 		    }
 	    }
 	    
@@ -166,6 +169,8 @@ var SCPhysicsComponent = cc.Class.extend({
 				     position.y -= 1;
 				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
 			     }
+			     position.y = Math.ceil(position.y);
+			     this.velocity.y = 0;
 		    }
 	    }
 	    return position.y;
@@ -184,7 +189,8 @@ var SCPhysicsComponent = cc.Class.extend({
 				     position.y += 1;
 				     bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
 			     }
-			     
+			     position.y = Math.floor(position.y);
+			     this.velocity.y = 0;
 		    }
 		    
 	    }
@@ -196,6 +202,8 @@ var SCPhysicsComponent = cc.Class.extend({
 				     position.y += 1;
 				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
 			     }
+			     position.y = Math.floor(position.y);
+			     this.velocity.y = 0;
 		    }
 	    }
 	    return position.y;
@@ -213,21 +221,25 @@ var SCPhysicsComponent = cc.Class.extend({
 		    switch(caller.state.movementDirection){
 			    case "left":
 			    this.position.x += (this.velocity.x -= this.baseAccelleration);
+			    this.velocity.y=0;
 			    //this.position.x = this.checkForegroundLeft(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "right":
 			    this.position.x += (this.velocity.x += this.baseAccelleration);
+			    this.velocity.y=0;
 			    //this.position.x = this.checkForegroundRight(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "up":
 			    this.position.y += (this.velocity.y += this.baseAccelleration);
+			    this.velocity.x=0;
 			    //this.position.y = this.checkForegroundTop(this.position, caller, map, hitboxVertices);
 			    break;
 			    
 			    case "down":
 			    this.position.y += (this.velocity.y -= this.baseAccelleration);
+			    this.velocity.x=0;
 			    //this.position.y = this.checkForegroundBottom(this.position, caller, map, hitboxVertices);
 			    break;
 			    
@@ -243,11 +255,25 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(this.velocity.x>0){
 		    this.position.x = this.checkForegroundRight(this.position, caller, map, hitboxVertices);
 	    }
-	    if(this.velocity.y<0){
-		    
-	    }
 	    if(this.velocity.y>0){
-		    
+		    this.position.y = this.checkForegroundTop(this.position, caller, map, hitboxVertices);
+	    }
+	    if(this.velocity.y<0){
+		    this.position.y = this.checkForegroundBottom(this.position, caller, map, hitboxVertices);
+	    }
+	    
+	    // keep velocity within bounds
+	    if(this.velocity.x > this.maxVelocity){
+		    this.velocity.x = this.maxVelocity;
+	    }
+	    if(this.velocity.x < -this.maxVelocity){
+		    this.velocity.x = -this.maxVelocity;
+	    }
+	    if(this.velocity.y > this.maxVelocity){
+		    this.velocity.y = this.maxVelocity;
+	    }
+	    if(this.velocity.y < -this.maxVelocity){
+		    this.velocity.y = -this.maxVelocity;
 	    }
 	    
 	    /* causing error, not used ever that I know of

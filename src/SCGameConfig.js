@@ -21,7 +21,7 @@ var SCGameConfig = cc.Class.extend({
    						"centerOffset":cc.p(16,16),
    						"baseSpeed":1,
    						"maxVelocity":7,
-   						"baseAccelleration":.2,
+   						"baseAccelleration":1,
    						"startingMovementDirection":null,
    						"startingRenderDirection":"right"
    					};

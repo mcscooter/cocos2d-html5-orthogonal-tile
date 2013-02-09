@@ -3,7 +3,7 @@ NEXT STEPS:
 
 - do next:
 
-Get back to doing movement in physics Component. Did right/left, next to up down.
+Got basic physics working for 1 directional movement. Made max speed work. Need to fix collision correction jimmy.
 
 Check collisions based on velocity
 Turn movement into velocity and max speed

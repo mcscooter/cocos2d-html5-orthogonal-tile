@@ -86,14 +86,14 @@ var SCPhysicsComponent = cc.Class.extend({
     
     checkForegroundLeft:function(position, caller, map, hitboxVertices){
 	    
-	    var bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
-	    var topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
+	    var bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y + 1);
+	    var topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y - 1);
 	    var blForegroundProperties = map.getPointProperties("foreground", bottomLeft);
 	    if(blForegroundProperties){
 		    if(blForegroundProperties.name == "grass" || blForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", bottomLeft).name == "grass" || map.getPointProperties("foreground", bottomLeft).name == "house"){
-				     position.x += 1;
-				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
+				     position.x += .1;
+				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y + 1);
 			     }
 			     position.x = Math.floor(position.x);
 			     this.velocity.x = 0;
@@ -104,8 +104,8 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(tlForegroundProperties){
 		    if(tlForegroundProperties.name == "grass" || tlForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topLeft).name == "grass" || map.getPointProperties("foreground", topLeft).name == "house"){
-				     position.x += 1;
-				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
+				     position.x += .1;
+				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y - 1);
 			     }
 			     position.x = Math.floor(position.x);
 			     this.velocity.x = 0;
@@ -116,15 +116,15 @@ var SCPhysicsComponent = cc.Class.extend({
     
     checkForegroundRight:function(position, caller, map, hitboxVertices){
 	    
-	    var bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
-	    var topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
+	    var bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y + 1);
+	    var topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y - 1);
 	    
 	    var brForegroundProperties = map.getPointProperties("foreground", bottomRight);
 	    if(brForegroundProperties){
 		    if(brForegroundProperties.name == "grass" || brForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", bottomRight).name == "grass" || map.getPointProperties("foreground", bottomRight).name == "house"){
-				     position.x -= 1;
-				     bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
+				     position.x -= .1;
+				     bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y + 1);
 			     }
 			     position.x = Math.ceil(position.x);
 			     this.velocity.x = 0;
@@ -136,8 +136,8 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(trForegroundProperties){
 		    if(trForegroundProperties.name == "grass" || trForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topRight).name == "grass" || map.getPointProperties("foreground", topRight).name == "house"){
-				     position.x -= 1;
-				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
+				     position.x -= .1;
+				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y - 1);
 			     }
 			     position.x = Math.ceil(position.x);
 			     this.velocity.x = 0;
@@ -148,14 +148,14 @@ var SCPhysicsComponent = cc.Class.extend({
     
     checkForegroundTop:function(position, caller, map, hitboxVertices){
 	    
-	    var topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
-	    var topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
+	    var topRight = cc.p(position.x + hitboxVertices[2].x - 1, position.y + hitboxVertices[2].y);
+	    var topLeft = cc.p(position.x + hitboxVertices[3].x + 1, position.y + hitboxVertices[3].y);
 	    var trForegroundProperties = map.getPointProperties("foreground", topRight);
 	    if(trForegroundProperties){
 		    if(trForegroundProperties.name == "grass" || trForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topRight).name == "grass" || map.getPointProperties("foreground", topRight).name == "house"){
-				     position.y -= 1;
-				     topRight = cc.p(position.x + hitboxVertices[2].x, position.y + hitboxVertices[2].y);
+				     position.y -= .1;
+				     topRight = cc.p(position.x + hitboxVertices[2].x - 1, position.y + hitboxVertices[2].y);
 			     }
 			     position.y = Math.ceil(position.y);
 			     this.velocity.y = 0;
@@ -166,8 +166,8 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(tlForegroundProperties){
 		    if(tlForegroundProperties.name == "grass" || tlForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", topLeft).name == "grass" || map.getPointProperties("foreground", topLeft).name == "house"){
-				     position.y -= 1;
-				     topLeft = cc.p(position.x + hitboxVertices[3].x, position.y + hitboxVertices[3].y);
+				     position.y -= .1;
+				     topLeft = cc.p(position.x + hitboxVertices[3].x + 1, position.y + hitboxVertices[3].y);
 			     }
 			     position.y = Math.ceil(position.y);
 			     this.velocity.y = 0;
@@ -178,16 +178,16 @@ var SCPhysicsComponent = cc.Class.extend({
     
     checkForegroundBottom:function(position, caller, map, hitboxVertices){
 	    
-	    var bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
-	    var bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
+	    var bottomRight = cc.p(position.x + hitboxVertices[1].x - 1, position.y + hitboxVertices[1].y);
+	    var bottomLeft = cc.p(position.x + hitboxVertices[0].x + 1, position.y + hitboxVertices[0].y);
 	    
 	   var brForegroundProperties = map.getPointProperties("foreground", bottomRight);
 	    if(brForegroundProperties){
 		    if(brForegroundProperties.name == "grass" || brForegroundProperties.name == "house"){
 			     //cc.log("SCPhysicsCompnent checkForegroundBottom() BR COLLISION");
 			     while(map.getPointProperties("foreground", bottomRight).name == "grass" || map.getPointProperties("foreground", bottomRight).name == "house"){
-				     position.y += 1;
-				     bottomRight = cc.p(position.x + hitboxVertices[1].x, position.y + hitboxVertices[1].y);
+				     position.y += .1;
+				     bottomRight = cc.p(position.x + hitboxVertices[1].x - 1, position.y + hitboxVertices[1].y);
 			     }
 			     position.y = Math.floor(position.y);
 			     this.velocity.y = 0;
@@ -199,8 +199,8 @@ var SCPhysicsComponent = cc.Class.extend({
 	    if(blForegroundProperties){
 		    if(blForegroundProperties.name == "grass" || blForegroundProperties.name == "house"){
 			     while(map.getPointProperties("foreground", bottomLeft).name == "grass" || map.getPointProperties("foreground", bottomLeft).name == "house"){
-				     position.y += 1;
-				     bottomLeft = cc.p(position.x + hitboxVertices[0].x, position.y + hitboxVertices[0].y);
+				     position.y += .1;
+				     bottomLeft = cc.p(position.x + hitboxVertices[0].x + 1, position.y + hitboxVertices[0].y);
 			     }
 			     position.y = Math.floor(position.y);
 			     this.velocity.y = 0;

@@ -3,10 +3,7 @@ NEXT STEPS:
 
 - do next:
 
-Got basic physics working for 1 directional movement. Made max speed work. Need to fix collision correction jimmy.
-
-Check collisions based on velocity
-Turn movement into velocity and max speed
+Make collision correction dependant on previous location and velocity
 Give all entities an ID (tag)
 Make array of entities to loop through
 Remove each entity as you go through loop
